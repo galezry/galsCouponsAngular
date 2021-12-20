@@ -1,0 +1,298 @@
+
+<div *ngIf="isErrMsgShown" class="alert alert-warning" role="alert">
+  <h4 > {{errMsg|titlecase}} </h4>
+</div>
+
+<div *ngIf="isLoggedIn() && isUserTypeAdmin()">
+
+<div *ngIf="isCustomersArrEmpty()">
+
+  <h4 *ngIf="customersToShow.length > 0" class="alert alert-success" role="alert">
+    {{customerMsg.firstName}}</h4>
+   <br>
+
+  <app-empty-view message="There are no customers yet to view"></app-empty-view>
+  <a id="add-customer-btn" (click)= add() routerLink="add-customer" routerLinkActive="active-link"
+      class="btn btn-success" title="Add New Customer"><i class="fas fa-plus"></i>
+      &nbsp;&nbsp; Add a Customer</a>
+</div>
+
+
+<!-- change it to !isCustomersArrEmpty() -->
+<div *ngIf="customersToShow.length > 0 && !isErrMsgShown && !isVPWidthSmall()" class="form-check">
+  <input [(ngModel)]="isEditModePossible" (click)='editModeCheckBox()'
+  class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+  <label class="form-check-label" for="flexCheckDefault">Add & Update Customers On This Page</label>
+</div>
+
+<div *ngIf="isVPWidthSmall() && !isCustomersArrEmpty()" class='filter'>
+
+  <button type="button" class="btn btn-outline-success" (click)='toggleFilterSec()'
+  [disabled]='isUpdateMode'>Filter by &nbsp;<i class="fas fa-caret-down"></i>
+  </button>
+  <i *ngIf='isFiltering()'  class="fas fa-filter"></i>
+
+  <div *ngIf="isFilterSecShown()">
+    <input (keyup)="searchById($event)" class="form-control form-item" [(ngModel)]='idSearched'
+    type="text" placeholder="ID  🔍" [disabled]='isUpdateMode'>
+    <input (keyup)="searchByFirstName($event)" class="form-control form-item" type="text"
+    [(ngModel)]='firstNameSearched' placeholder="First Name  🔍" [disabled]='isUpdateMode'>
+    <input (keyup)="searchByLastName($event)" class="form-control form-item" type="text"
+    [(ngModel)]='lastNameSearched' placeholder="Last Name  🔍" [disabled]='isUpdateMode'>
+    <input (keyup)="searchByEmail($event)" class="form-control form-item"
+    [(ngModel)]='emailSearched' type="text" placeholder="Email  🔍" [disabled]='isUpdateMode'>
+  </div>
+  <!-- <br> -->
+</div>
+
+
+<table class="table table-hover" *ngIf="!isCustomersArrEmpty()">
+    <!-- <caption>Company Details</caption> -->
+  <thead>
+    <tr *ngIf="!isVPWidthSmall()">
+      <th style="width: 8%; padding-left: 15px;">
+        <input (keyup)="searchById($event)" class="form-control form-item" [(ngModel)]='idSearched'
+        type="text" placeholder="ID  🔍" [disabled]='isUpdateMode'>
+      </th>
+      <th style="width: 12%">
+        <input (keyup)="searchByFirstName($event)" class="form-control form-item" type="text"
+        [(ngModel)]='firstNameSearched' placeholder="F. Name  🔍" [disabled]='isUpdateMode'>
+      </th>
+
+      <th style="width: 15%">
+        <input (keyup)="searchByLastName($event)" class="form-control form-item" type="text"
+        [(ngModel)]='lastNameSearched' placeholder="L. Name  🔍" [disabled]='isUpdateMode'>
+      </th>
+
+      <th style="width: 18%">
+        <input (keyup)="searchByEmail($event)" class="form-control form-item"
+        [(ngModel)]='emailSearched' type="text" placeholder="Email  🔍" [disabled]='isUpdateMode'>
+      </th>
+      <th style="width: 15%"></th>
+      <th style="width: 17%"></th>
+      <th style="width: 15%"></th>
+    </tr>
+
+    <tr>
+      <th [class]="getClass('id')" (click)="shouldSortBy('id')" scope="col">ID</th>
+      <th [class]="getClass('firstName')" (click)="shouldSortBy('firstName')" scope="col">
+        First Name</th>
+      <th [class]="getClass('lastName')" (click)="shouldSortBy('lastName')" scope="col">
+        Last Name</th>
+      <th [class]="getClass('email')" (click)="shouldSortBy('email')" scope="col">Email</th>
+
+      <th *ngIf='!this.areAllPasswordsShown' scope="col">
+        <i class='fas fa-eye-slash' (click)='showAllPasswords()'></i>&nbsp; Password</th>
+      <th *ngIf='this.areAllPasswordsShown' scope="col">
+        <i class='fas fa-eye' (click)='hideAllPasswords()'></i>&nbsp; Password</th>
+
+      <th scope="col">Coupons</th>
+      <th *ngIf="!isUpdateMode" scope="col">Delete / Update</th>
+      <th *ngIf="isUpdateMode" scope="col">Cancel / Save</th>
+    </tr>
+  </thead>
+
+  <tbody *ngIf="!isEditModePossible || isVPWidthSmall()">
+    <tr *ngFor="let c of customersToShow" >
+      <td *ngIf='c.id > 0' scope="row" class="align-middle">{{ c.id }}</td>
+      <td *ngIf='c.id > 0' class="align-middle">{{ c.firstName }}</td>
+
+      <td *ngIf='c.id === 0 && c.email === ""' class="align-middle" [class]='customerMsgClass'
+      colspan="7">{{ c.firstName }}</td>
+
+      <td *ngIf='c.id === 0 && c.email === "delete"' class="align-middle" [class]='customerMsgClass'
+        colspan="7"> {{ c.firstName }}
+        <div class='del-line'>
+          <button (click)='cancelDelete()' type="button" class="del btn btn-primary">
+            <i class="fas fa-arrow-alt-circle-left"></i> &nbsp; Cancel</button>
+
+          <button (click)='deleteCustomer()' type="button" class="del btn btn-danger">
+            <i class="fas fa-trash"></i> &nbsp; Delete Customer</button>
+        </div>
+      </td>
+
+      <td *ngIf='c.id > 0' class="align-middle">{{ c.lastName }}</td>
+      <td *ngIf='c.id > 0' class="align-middle">{{ c.email }}</td>
+
+      <td *ngIf='c.id > 0 && customerIdVsPw[c.id]' class="align-middle">
+        <i class="fas fa-eye" (click)='toggleOwnPassword(c.id)'></i>
+        &nbsp;&nbsp; {{ c.password }}
+      </td>
+      <td *ngIf='c.id > 0 && !customerIdVsPw[c.id]' class="align-middle circle">
+        <i class="fas fa-eye-slash" (click)='toggleOwnPassword(c.id)'></i>
+        &nbsp;&nbsp;{{ getHiddenPassword(c.password) }}</td>
+
+      <td *ngIf='c.id > 0' class="align-middle">
+          <li *ngFor="let co of getFutureCoupons(c.coupons); let i = index"> {{ co.id }}
+            <span *ngIf="i < getFutureCoupons(c.coupons).length - 1">, </span>
+          </li>
+      </td>
+
+      <td *ngIf='c.id > 0'>
+        <button class="btn btn-light icon" (click)=delete(c) title='Delete Customer'
+        [disabled]='isUpdateMode'>🗑️
+        </button>  &nbsp;
+          <button class="btn btn-light icon" (click)=update(c) routerLink="update-customer"
+          routerLinkActive="active-link" title='Update Customer' [disabled]='isUpdateMode'>
+           ✏️</button>
+      </td>
+    </tr>
+  </tbody>
+
+
+
+  <tbody *ngIf="isEditModePossible && !isVPWidthSmall()">
+
+    <tr *ngFor="let c of customersToShow" >
+
+      <td *ngIf='(!isUpdateMode || customerIdToUpdate !== c.id) && c.id > 0' scope="row"
+        class="align-middle">{{ c.id }}</td>
+
+      <td *ngIf='isUpdateMode && customerIdToUpdate === c.id' scope="row"
+        class="align-middle" [title]='cannotChangeIdMsg'>{{ c.id }}</td>
+
+      <td *ngIf='c.id === -5' scope="row" class="align-middle" [title]='idAutoIncMsg'></td>
+
+
+      <td *ngIf='(!isUpdateMode || customerIdToUpdate !== c.id) && c.id > 0'
+        class="align-middle">{{ c.firstName }}</td>
+
+      <td *ngIf='c.id === 0 && c.email === ""' class="align-middle" [class]='customerMsgClass'
+      colspan="7">{{ c.firstName }}</td>
+
+      <td *ngIf='c.id === 0 && c.email === "delete"' class="align-middle" [class]='customerMsgClass'
+      colspan="7"> {{ c.firstName }}
+        <button (click)='cancelDelete()' type="button" class="del btn btn-primary">
+          <i class="fas fa-arrow-alt-circle-left"></i> &nbsp; Cancel</button>
+
+        <button (click)='deleteCustomer()' type="button" class="del btn btn-danger">
+          <i class="fas fa-trash"></i> &nbsp; Delete Customer</button>
+      </td>
+
+      <td *ngIf='isUpdateMode && (customerIdToUpdate === c.id || c.id === -5)' class="align-middle">
+        <input #fNameInfo=ngModel class="form-control form-item"
+        [(ngModel)]='updatedFirstName' type="text" placeholder="First Name" required
+        [pattern]=firstNamePattern [title]=firstNameTitle maxlength="255">
+        <div class="alert alert-danger" *ngIf="fNameInfo.errors?.required && fNameInfo.touched"
+        [title]=firstNameTitle>
+            <i class="fa fa-info-circle"></i> Please Enter First Name</div>
+        <div class="alert alert-danger" *ngIf="fNameInfo.errors?.pattern && fNameInfo.touched"
+        [title]=firstNameTitle>
+            <i class="fa fa-info-circle"></i> {{explainName|titlecase}}</div>
+      </td>
+
+
+      <td *ngIf='(!isUpdateMode || customerIdToUpdate !== c.id) && c.id > 0'
+        class="align-middle">{{ c.lastName }}</td>
+
+      <td *ngIf='isUpdateMode && (customerIdToUpdate === c.id || c.id === -5)' class="align-middle">
+          <input #lNameInfo=ngModel class="form-control form-item" type="text" required
+          [(ngModel)]='updatedLastName' placeholder="Last Name" [pattern]=lastNamePattern
+          [title]=lastNameTitle maxlength="255">
+          <div class="alert alert-danger" *ngIf="lNameInfo.errors?.required && lNameInfo.touched"
+          [title]=lastNameTitle><i class="fa fa-info-circle"></i> Please Enter Last Name</div>
+          <div class="alert alert-danger" *ngIf="lNameInfo.errors?.pattern && lNameInfo.touched"
+          [title]=lastNameTitle><i class="fa fa-info-circle"></i> {{explainName|titlecase}}</div>
+      </td>
+
+
+      <td *ngIf="(!isUpdateMode || customerIdToUpdate !== c.id) && c.id > 0"
+      class="align-middle">{{ c.email }}</td>
+
+      <td *ngIf="isUpdateMode && (customerIdToUpdate === c.id || c.id === -5)" class="align-middle">
+        <input #emailInfo=ngModel class="form-control form-item" type="text" [title]=emailTitle
+        [(ngModel)]="updatedEmail" [pattern]=emailPattern placeholder="Email Address" required
+        (keydown)="deleteCustomerMsg()" maxlength="255">
+          <div class="alert alert-danger" *ngIf="emailInfo.errors?.required && emailInfo.touched"
+          [title]=emailTitle><i class="fa fa-info-circle"></i> Please Enter Email</div>
+          <div class="alert alert-danger" *ngIf="emailInfo.errors?.pattern && emailInfo.touched"
+          [title]=emailTitle><i class="fa fa-info-circle"></i> {{explainEmail}}</div>
+          <div class="alert alert-danger" [title]=emailTitle
+          *ngIf="!emailInfo.errors?.pattern && doesUpdatedEmailEqualsExistedEmail()">
+            <i class="fa fa-info-circle"></i> Email is taken. Please use another</div>
+      </td>
+
+      <td *ngIf='c.id > 0 && customerIdVsPw[c.id] && (!isUpdateMode || customerIdToUpdate!==c.id)'
+        class="align-middle"><i class="fas fa-eye" (click)='toggleOwnPassword(c.id)'></i>
+        &nbsp;&nbsp; {{ c.password }}</td>
+      <td *ngIf='c.id > 0 && !customerIdVsPw[c.id] && (!isUpdateMode || customerIdToUpdate!==c.id)'
+        class="align-middle circle"><i class="fas fa-eye-slash" (click)='toggleOwnPassword(c.id)'></i>
+        &nbsp;&nbsp;{{ getHiddenPassword(c.password) }}</td>
+
+      <td *ngIf="isUpdateMode && (customerIdToUpdate === c.id || c.id === -5)" class="align-middle">
+        <div class='password-line'>
+          <div class="input-group-addon eye-input">
+            <i [class]="getEyeClass(c.id)" (click)='toggleOwnPassword(c.id)'></i>
+          </div>
+          <input #passwordInfo=ngModel class="form-control form-item" [type]="getPasswordType(c.id)"
+          [(ngModel)]="updatedPassword" required [pattern]= passwordPattern
+          [title]='passwordTitle|titlecase' placeholder="Password" maxlength="255">
+        </div>
+        <div class="alert alert-danger" [title]='passwordTitle|titlecase'
+        *ngIf="passwordInfo.errors?.required && passwordInfo.touched">
+          <i class="fa fa-info-circle"></i> Please Enter Password</div>
+        <div class="alert alert-danger" [title]='passwordTitle|titlecase'
+        *ngIf="passwordInfo.errors?.pattern && passwordInfo.touched">
+          <i class="fas fa-info-circle"></i> {{explainPassword|titlecase}}</div>
+      </td>
+
+      <td *ngIf='(!isUpdateMode || customerIdToUpdate !== c.id) && c.id > 0' class="align-middle">
+          <li *ngFor="let co of getFutureCoupons(c.coupons); let i = index"> {{ co.id }}
+            <span *ngIf="i < getFutureCoupons(c.coupons).length - 1">, </span>
+          </li>
+      </td>
+
+      <td *ngIf="isUpdateMode && customerIdToUpdate === c.id" class="align-middle"
+      [title]='cannotAddCouponsMsg'>
+          <li *ngFor="let co of getFutureCoupons(c.coupons); let i = index"> {{ co.id }}
+            <span *ngIf="i < getFutureCoupons(c.coupons).length - 1">, </span>
+          </li>
+      </td>
+
+      <td *ngIf='c.id === -5' class="align-middle" [title]='cannotAddCouponsMsg'></td>
+
+      <td *ngIf="(!isUpdateMode || customerIdToUpdate!==c.id) && c.id > 0">
+        <button  class="btn btn-light icon" (click)=delete(c) title='Delete Customer'
+        [disabled]='isUpdateMode && customerIdToUpdate!==c.id '>
+        🗑️</button> &nbsp;
+        <button  class="btn btn-light icon" (click)=update(c) title='Update Customer'
+        [disabled]='isUpdateMode && customerIdToUpdate!==c.id '>
+         ✏️</button>
+      </td>
+
+      <td *ngIf="isUpdateMode && (customerIdToUpdate === c.id || c.id === -5)" class="align-middle">
+        <button  class="btn btn-light" title='Cancel Changes'
+        (click)=cancelUpdate()>⬅️</button>  &nbsp;
+
+        <button *ngIf='customerIdToUpdate === c.id' [disabled]='!isUpdatePossible()'
+        class='btn btn-light' (click)=updateCustomer(c) [title]='saveBtnTitle'> 💾</button>
+
+        <button *ngIf='c.id === -5' class="btn btn-light" [disabled]='!isAddCustomerPossible()'
+        (click)=addCustomer() [title]='saveBtnTitle'> 💾</button>
+    </td>
+
+  </tr>
+  </tbody>
+
+  <button *ngIf="!isEditModePossible || isVPWidthSmall()" [disabled]='isUpdateMode'
+  routerLink="add-customer" routerLinkActive="active-link"
+  (click)=add() class="btn btn-success add-btn" title="Add New Customer">
+  <i class="fas fa-plus white"></i></button>
+
+  <button *ngIf="isEditModePossible && !isVPWidthSmall()" [disabled]='isUpdateMode'
+  (click)=add() class="btn btn-success add-btn" title="Add New Customer">
+  <i class="fas fa-plus white"></i></button>
+
+
+</table>
+
+
+<div *ngIf=isDevMode() >
+  <h3>Development mode</h3>
+
+  <p>{{customersToShow| json}}</p>
+
+  </div>
+
+
+</div>

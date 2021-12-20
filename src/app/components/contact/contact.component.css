@@ -1,0 +1,130 @@
+.entire-page {
+  background-image: url('../../../assets/images/logo-no-pic.jpeg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  background-color: rgba(255,255,255,0.9);
+  background-blend-mode: lighten;
+}
+
+.headline {
+  text-align: center;
+  padding-top: 2%;
+  color: green;
+  font-family: 'Apple Chancery', arial, helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 2.5em;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 7% auto 5% auto;
+  align-items: center;
+}
+
+/* .logo {
+  margin: 7% 0 0 10%;
+} */
+
+.contact-info {
+  margin: 0 0 0 5%;
+  line-height: 1.45;
+  display: flex;
+  flex-direction: column;
+  /* color: green; */
+  /* font-size: 120%; */
+  /* font-weight: 500; */
+}
+
+/* .email-sms-line {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-decoration: none;
+  color: green;
+} */
+
+/* .email-icon {
+  font-size: 1.9em;
+} */
+
+.contact-line {
+  /* width: 5%; */
+  /* align-items: center; */
+  text-decoration: none;
+  color: green;
+  font-size: 1.145em;
+  margin: 3.7% 0;
+}
+
+.value {
+  /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+  font-style: italic;
+  color: rgb(58, 91, 25);
+}
+
+/* .phone {
+  width: 5%;
+  align-items: center;
+  text-decoration: none;
+  color: green;
+}
+
+.in {
+  color: green;
+  text-decoration: none;
+}
+
+.sms-icon {
+  font-size: 1.8em;
+} */
+
+
+
+.bottom-headline {
+  text-align: center;
+  color: green;
+  font-family: 'Brush Script MT', 'Brush Script Std', cursive;
+  font-size: 2.3em;
+}
+
+
+@media screen and (max-width: 1024px) {
+  .headline {
+    padding-top: 5%;
+    /* font-size: 2.5em; */
+  }
+
+  .container {
+    flex-direction: column;
+  }
+
+  .contact-info {
+    margin: 6% 0 3% 0;
+  }
+
+  .contact-line {
+    font-size: 1.15em;
+  }
+
+}
+
+
+@media screen and (max-width: 480px) {
+  .headline {
+    font-size: 1.8em;
+  }
+
+  .contact-line {
+    font-size: 1em;
+  }
+
+  .bottom-headline {
+    font-size: 1.65em;
+  }
+
+
+
+}

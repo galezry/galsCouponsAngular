@@ -1,0 +1,225 @@
+<div *ngIf="isLoggedIn() && isUserTypeCompany()">
+  <h1 *ngIf="formAction==='ADD'" class="alert alert-primary" role="alert">Add New Coupon</h1>
+  <h1 *ngIf="formAction==='UPDATE'" class="alert alert-primary" role="alert">Update Coupon</h1>
+
+  <div *ngIf="formAction==='ADD_MSG' || formAction==='UPDATE_MSG'">
+     <br>
+     <h4 [class]=msgClass role="alert">{{msg}}</h4>
+
+
+     <span class="add-msg">
+        <button class="btn btn-info" routerLink="../../company" routerLinkActive="active-link">
+           <i class="fa fa-step-backward"></i>&nbsp; Back To Company Page</button>
+
+        <button *ngIf="formAction==='UPDATE_MSG'"
+        class='btn btn-info' (click)="continueUpdate()">
+         ✏️&nbsp; Continue Updating</button>
+
+        <button *ngIf="formAction==='ADD_MSG'" (click)=addAnotherCoupon()
+        class="btn btn-success">Add Another Coupon</button>
+     </span>
+  </div>
+
+  <div>
+    <form *ngIf="formAction =='ADD' || formAction =='UPDATE'  || formAction ==='UPDATE_MSG'"
+     #formInfo=ngForm>
+
+      <div *ngIf="formAction =='UPDATE' || formAction ==='UPDATE_MSG'">
+        <label >Coupon ID</label>
+          <input disabled #idInfo=ngModel class="form-control form-item" [(ngModel)]='coupon.id'
+                type="number" name="id" required [title]="cannotChangeIdMsg">
+        <br>
+      </div>
+
+      <div *ngIf="formAction ==='UPDATE' || formAction ==='UPDATE_MSG'">
+        <label >Company ID</label>
+          <input disabled #idInfo=ngModel class="form-control form-item" type="number"
+          [(ngModel)]='coupon.companyId' name="company-id" required
+          [title]="cannotChangeIdMsg">
+        <br>
+      </div>
+
+      <div>
+        <label >Category</label>
+          <select #ctgrInfo=ngModel class="form-control custom-select form-item" name="category"
+            [(ngModel)]='coupon.categoryId' required [disabled]="formAction === 'UPDATE_MSG'">
+                <option selected disabled>Select Category</option>
+                <option *ngFor="let c of keysOfCtgr()"> {{ c }} </option>
+          </select>
+          <div class="alert alert-danger form-err"
+            *ngIf="isCategoryIdNone() && ctgrInfo.touched">
+           <i class="fa fa-info-circle"></i> Please select a Category</div>
+      </div>
+      <br>
+
+      <div>
+        <label>Title</label>
+          <input #titleInfo=ngModel class="form-control form-item" type="text" name='coupon-title'
+            [(ngModel)]='coupon.title' placeholder="Title" [pattern]=strPattern required
+            (keydown)="hideErrMsg()" [title]='strTitle' [disabled]="formAction === 'UPDATE_MSG'"
+            maxlength="255">
+          <div class="alert alert-danger form-err" [title]='strTitle'
+              *ngIf="titleInfo.errors?.required && titleInfo.touched && coupon.title === ''">
+                <i class="fa fa-info-circle"></i> Please Enter a Title</div>
+          <div class="alert alert-danger form-err" [title]='strTitle'
+              *ngIf="titleInfo.errors?.pattern && titleInfo.touched">
+                <i class="fa fa-info-circle"></i> {{ explainStr|titlecase }}</div>
+          <div class="alert alert-danger form-err" [title]='strTitle'
+              *ngIf="!titleInfo.errors?.pattern && doesEnteredTitleEqualExistedTitle()">
+                <i class="fa fa-info-circle"></i> This title is taken. Please use another</div>
+      </div>
+      <br>
+
+      <div>
+        <label>Description</label>
+          <textarea #descInfo=ngModel class="form-control form-item" [pattern]='strPattern' type='text'
+            [(ngModel)]='coupon.description' placeholder="Description" name='description' required
+            [disabled]="formAction === 'UPDATE_MSG'" maxlength="255"></textarea>
+            <div class="alert alert-danger form-err"
+            *ngIf="descInfo.errors?.required && descInfo.touched && coupon.description=== ''">
+              <i class="fa fa-info-circle"></i> Please Enter Description</div>
+          <div class="alert alert-danger form-err"
+            *ngIf="descInfo.errors?.pattern && descInfo.touched">
+              <i class="fa fa-info-circle"></i> {{ explainStr|titlecase }}</div>
+      </div>
+      <br>
+
+      <div>
+        <label >Start Date</label>
+        <input #sDateInfo=ngModel class="form-control form-item" type="date" required
+          [(ngModel)]='coupon.startDate' placeholder="Start Date" name='start-date'
+          [disabled]="formAction === 'UPDATE_MSG'">
+        <div class="alert alert-danger form-err"
+          *ngIf="!isStartDateValid() && sDateInfo.touched">
+          <i class="fa fa-info-circle"></i> {{ inValidDateMsg }}</div>
+      </div>
+      <br>
+
+      <div>
+        <label >End Date</label>
+        <input #eDateInfo=ngModel class="form-control form-item" type="date" required
+          [(ngModel)]='coupon.endDate' placeholder="End Date" name='end-date'
+          [title]='endDateTitle' [disabled]="formAction === 'UPDATE_MSG'">
+        <div class="alert alert-danger form-err" [title]='endDateTitle'
+          *ngIf="!isEndDateLegal() && eDateInfo.touched">
+            <i class="fa fa-info-circle"></i> {{ inValidDateMsg }}</div>
+        <div class="alert alert-danger form-err" [title]='endDateTitle'
+          *ngIf="isEndDateLegal()  && !isEndDateFutureDate()">
+            <i class="fa fa-info-circle"></i> {{ noPastEndDateMsg }}</div>
+        <div class="alert alert-danger form-err" [title]='endDateTitle'
+          *ngIf="isEndDateLegal() && isEndDateFutureDate() && isEndDateSmaller()">
+            <i class="fa fa-info-circle"></i> {{ notPriorToStartDateMsg }}</div>
+        </div>
+      <br>
+
+      <div>
+        <label >Amount</label>
+        <input #amountInfo=ngModel class="form-control form-item" type="number" required
+          [(ngModel)]='coupon.amount' placeholder="Amount" min="1" step="1" name='amount'
+          [disabled]="formAction === 'UPDATE_MSG'">
+        <div class="alert alert-danger form-err"
+          *ngIf="amountInfo.errors?.required && amountInfo.touched">
+            <i class="fa fa-info-circle"></i> Please Enter Amount</div>
+        <div class="alert alert-danger form-err"
+          *ngIf="!amountInfo.errors?.required && amountInfo.touched && !isAmountValid()">
+            <i class="fa fa-info-circle"></i> Amount must be a Positive Whole number</div>
+      </div>
+      <br>
+
+      <div>
+        <label >Price in USD</label>
+        <div *ngIf="formAction =='UPDATE_MSG'" class="form-control form-item price-display"
+        disabled>{{ coupon.price | currency }}</div>
+        <div *ngIf="formAction =='ADD' || formAction =='UPDATE'">
+          <div class='price'>
+            <span class="input-group-text usd">$</span>
+            <input #priceInfo=ngModel class="form-control form-item price-input" type="number" required
+            [(ngModel)]='coupon.price' placeholder="Price" [min]="minPrice" name='price'>
+          </div>
+          <div class="alert alert-danger form-err"
+            *ngIf="priceInfo.errors?.required && priceInfo.touched">
+              <i class="fa fa-info-circle"></i> Please Enter Price</div>
+          <div class="alert alert-danger form-err"
+            *ngIf="priceInfo.errors?.min && priceInfo.touched">
+            <i class="fa fa-info-circle"></i> {{ explainPrice }}</div>
+        </div>
+
+      </div>
+      <br>
+
+      <label *ngIf="formAction === 'ADD' || formAction === 'UPDATE'">{{ getImageLabel() }}</label>
+
+      <div *ngIf="formAction === 'ADD' || formAction === 'UPDATE'">
+        <button (click)='deleteDisplayedImg()'  class="btn btn-light" title='Delete Current Image'
+        *ngIf="(originalImgToDisplay !== '' && !isOriginalImgChanged) || chosenImg">🗑️</button>
+        <label for="img-file" class="btn btn-secondary"
+        [title]='getUploadBtnTitle()'>Select Image &nbsp; <i class="fas fa-camera"></i>
+        </label>
+        <div class="alert alert-danger form-err"
+          *ngIf="isImgErrShown">
+            <i class="fa fa-info-circle"></i> {{ imgErrMsg }}</div>
+
+        <input id="img-file" style="visibility:hidden;"
+        class="form-control form-item" type="file" accept="image/*" name='image'
+        (change)='createImg($event)' title='You Can Upload a Coupon Image Here'>
+
+        <img [src]='chosenImg' *ngIf="chosenImg" alt='Coupon Image'>
+      </div>
+
+
+      <div>
+        <img [src]='originalImgToDisplay' (click)='openSingleCoupon(originalImgToDisplay)'
+        *ngIf="originalImgToDisplay !== '' && !isOriginalImgChanged"
+        [ngClass]="{'org-img':formAction === 'UPDATE_MSG' }"
+         >
+      </div>
+
+      <br>
+
+
+<!--
+      <div>
+        <label >Image</label>
+        <input #imageInfo=ngModel class="form-control form-item" type="url" name='image'
+          [(ngModel)]='coupon.image' placeholder="Image Url" [pattern]='strPattern'
+          [title]='strTitle' required [disabled]="formAction === 'UPDATE_MSG'">
+        <div class="alert alert-danger form-err" [title]='strTitle'
+          *ngIf="imageInfo.errors?.required && imageInfo.touched && coupon.image === ''">
+            <i class="fa fa-info-circle"></i> Please Enter Image Url</div>
+        <div class="alert alert-danger form-err" [title]='strTitle'
+          *ngIf="imageInfo.errors?.pattern && imageInfo.touched">
+            <i class="fa fa-info-circle"></i> {{ explainStr|titlecase }}</div>
+      </div>
+ -->
+
+      <button *ngIf="formAction === 'ADD'" [disabled]='formInfo.invalid || !isAddPossible()'
+      (click)=addCoupon() type="button" name="submit" class="btn btn-primary">
+        Add Coupon <i class="fa fa-plus-square"></i></button>
+
+      <div *ngIf="formAction === 'UPDATE'">
+        <button type="button" class="btn btn-secondary update-btn"
+          (click)=cancelUpdate()><i class="fa fa-window-close"></i> Cancel Changes</button>
+
+        <button [disabled]='formInfo.invalid || !isUpdatePossible()' (click)=updateCoupon() type="button"
+          class="btn btn-primary update-btn"><i class="fa fa-save"></i> Save Changes</button>
+      </div>
+
+    </form>
+  </div>
+  <br>
+
+</div>
+
+<h4 *ngIf="isErrMsgShown" class="alert alert-warning" role="alert">
+        {{errMsg|titlecase}}
+</h4>
+
+
+<hr>
+<div *ngIf=isDevMode() >
+      <h3>Development mode</h3>
+
+      <p>{{coupon | json}}</p>
+
+ </div>
+

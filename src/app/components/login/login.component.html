@@ -1,0 +1,107 @@
+<div *ngIf="isLoggedIn()">
+  <div class="alert alert-primary" role="alert">
+    <h1>You Are Already Signed In</h1>
+    <h4>In Order To Sign In Again, You Need To Sign Out First</h4>
+  </div>
+
+
+</div>
+
+<div *ngIf="!isLoggedIn()">
+
+<h1 class="alert alert-primary" role="alert">Sign In</h1>
+
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+
+
+<div class="login-form">
+  <form #formInfo=ngForm>
+      <div>
+        <label >Email address</label>
+        <input #emailInfo=ngModel class="form-control form-item" [(ngModel)]='loginDetails.email'
+              type="email" placeholder="Email Address" name="email"
+              [pattern]=emailPattern required email>
+        <div class="alert alert-danger form-err"
+          *ngIf="emailInfo.errors?.required && emailInfo.touched">
+          <i class="fa fa-info-circle"></i> Please Enter Your Email</div>
+        <div class="alert alert-danger form-err"
+          *ngIf="emailInfo.errors?.pattern && emailInfo.touched">
+          <i class="fa fa-info-circle"></i> {{explainEmail}}</div>
+      </div>
+    <br>
+
+    <div>
+      <label>Password</label>
+      <div class="password-line">
+        <img (click)=showPassword() [src]='passwordImgSrc' alt="eye-icon">
+        <input #passwordInfo=ngModel class="form-control form-item password-input"
+        [(ngModel)]='loginDetails.password' [type]=passwordType placeholder="Password"
+        name="password" required>
+        <!-- [pattern]= passwordPattern -->
+      </div>
+      <div class="alert alert-danger form-err"
+      *ngIf="passwordInfo.errors?.required && passwordInfo.touched">
+            <i class="fa fa-info-circle"></i> Please Enter Your Password</div>
+    </div>
+    <br>
+    <label >User Type</label>
+    <select #typeInfo=ngModel class="form-control custom-select form-item"
+            [(ngModel)]='loginDetails.type' name="type" required>
+      <option selected disabled>Select Type</option>
+      <option>ADMINISTRATOR</option>
+      <option>COMPANY</option>
+      <option>CUSTOMER</option>
+    </select>
+    <div class="alert alert-danger form-err"
+    *ngIf="typeInfo.errors?.required && typeInfo.touched">
+      <i class="fa fa-info-circle"></i> Please select a type</div>
+
+  <br><br>
+
+    <button [disabled]=formInfo.invalid (click)=login() type="submit" name="submit"
+              class="btn btn-primary">Sign in <i class="fa fa-paper-plane"></i></button>
+  </form>
+
+  <br>
+
+  <div class="btn-group">
+    <button type="button" class="btn btn-light dropdown-toggle sign-up" data-toggle="dropdown"
+    aria-haspopup="true" aria-expanded="false">not a member? sign up for free
+    </button>
+    <div class="dropdown-menu">
+      <a class="dropdown-item text-success" routerLink='../customer-sign-up'
+      routerLinkActive='active-link' (click)='signUpAsCustomer()'>👤 sign up as a customer</a>
+      <a class="dropdown-item text-success" routerLink='../company-sign-up'
+      routerLinkActive='active-link' (click)='signUpAsCompany()'>🏢 sign up as a company</a>
+    </div>
+  </div>
+
+
+</div>
+
+<h4 *ngIf="isErrMsgShown" class="alert alert-warning" role="alert">
+      {{errMsg}}
+</h4>
+
+</div>
+
+<hr>
+
+<div *ngIf=isDevMode() id="dev">
+<h3>Development mode</h3>
+<button (click)=asAdmin()>As Admin</button>
+<button (click)=asCompany()>As Company</button>
+<button (click)=asCustomer()>As Customer</button>
+
+<p>{{loginDetails | json}}</p>
+<!-- <p>email: {{this.loginDetails.email}}</p>
+<p>password: {{this.loginDetails.password}}</p>
+<p>type: {{this.loginDetails.type}}</p> -->
+
+
+
+
+</div>
+
+

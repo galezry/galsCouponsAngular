@@ -1,0 +1,46 @@
+.active {
+  color: green;
+  font-weight: bolder;
+  /* text-decoration: underline; */
+}
+
+h2 {
+  color: gray;
+  font-size: 1.3em;
+  margin-bottom: 0;
+  /* margin-left: 3%; */
+}
+
+h2:hover {
+  color: green;
+  cursor: pointer;
+}
+
+.nav {
+  /* margin-left: 3%; */
+  padding: 1% 0 0 8%;
+  width: 100%;
+}
+
+.nav-item {
+  /* margin-left: 2%; */
+  padding: 0 5% 0 2%;
+}
+
+
+@media screen and (max-width: 480px) {
+  h2 {
+    font-size: 1.2em;
+  }
+
+  .nav {
+    padding: 2% 0 0 0;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .nav-item {
+  padding: 0;
+  }
+
+}

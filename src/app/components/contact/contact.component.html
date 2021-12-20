@@ -1,0 +1,48 @@
+
+<body class='entire-page'>
+  <h1 class='headline'>Feel Free to Contact Us</h1>
+
+  <div class='container'>
+    <img class='logo' width='30%' src="../../../assets/images/logo4.jpeg" alt="logo">
+
+    <div class='contact-info'>
+        <a class='contact-line' href="mailto:galezry@gmail.com">
+          <i class="far fa-envelope"></i>&nbsp;&nbsp;
+          Email us at&nbsp; <span class='value'>galezry@gmail.com</span>
+        </a>
+
+        <a class="contact-line" href="https://wa.me/+16468792266?&
+        text=Hey, I've checked out Gal's Coupons" target="_blank">
+        <i class="fab fa-whatsapp"></i>&nbsp;&nbsp;
+          Whatsapp us at&nbsp; <span class='value'>+1-646-879-2266</span>
+        </a>
+
+        <a *ngIf="!isOnVacation()" class="contact-line" href="sms://+972544366730?&
+        body=Hey%20I%27ve%20checked%20out%20Gal%27s%20Coupons">
+        <i class="far fa-comment"></i>&nbsp;&nbsp;
+          Text us at&nbsp; <span class='value'>+972-54-436-6730</span>
+        </a>
+
+
+        <a *ngIf="!isOnVacation()" class="contact-line" href="tel:+972544366730">
+          <i class="fas fa-phone"></i>&nbsp;&nbsp;
+          Call us at&nbsp; <span class='value'>+972-54-436-6730</span>
+        </a>
+
+
+        <a class="contact-line" href="https://www.linkedin.com/in/gal-ezry-995a58205/"
+        target="blank">
+          <i class="fab fa-linkedin"></i>&nbsp;&nbsp;
+          Connect on LinkedIn
+        </a>
+
+
+    </div>
+
+  </div>
+
+  <h1 class='bottom-headline'>We're always happy to hear from you!</h1>
+
+
+</body>
+

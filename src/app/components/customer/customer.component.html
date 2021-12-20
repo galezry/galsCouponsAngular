@@ -1,0 +1,42 @@
+
+<div >
+
+  <ul *ngIf="isLoggedIn() && isUserTypeCustomer()" class="nav">
+    <li class="nav-item">
+      <h2
+      class="nav-link" [ngClass]="{active: isProfileSelected()}"
+      (click)="showProfile()">Profile
+      </h2>
+    </li>
+
+    <li class="nav-item">
+      <h2 class="nav-link" [ngClass]="{active: isMyCouponsSelected()}"
+      (click)="showMyCoupons()">My Coupons
+      </h2>
+    </li>
+
+    <li class="nav-item">
+      <h2 class="nav-link" [ngClass]="{active: !isProfileSelected() && !isMyCouponsSelected()}"
+      (click)="showAllCoupons()">Buy Coupons
+      </h2>
+    </li>
+
+  </ul>
+
+
+
+  <div *ngIf="isMyCouponsSelected()">
+    <app-customer-coupons></app-customer-coupons>
+  </div>
+
+  <div *ngIf="!isProfileSelected() && !isMyCouponsSelected()">
+    <app-all-coupons></app-all-coupons>
+  </div>
+
+  <div *ngIf="isProfileSelected()">
+    <app-customer-form></app-customer-form>
+  </div>
+
+
+</div>
+

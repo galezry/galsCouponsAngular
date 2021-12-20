@@ -1,0 +1,244 @@
+.close-msg {
+  text-align: start;
+  width: fit-content;
+  position: relative;
+  left: 17px;
+  top: 15px;
+  font-size: 2.3em;
+  cursor: pointer;
+  color: red;
+}
+
+
+.scissors {
+  text-align: start;
+  width: fit-content;
+  position: absolute;
+  top: 40%;
+  left: 17px;
+  font-size: 2em;
+}
+
+
+.entire-page {
+  margin: 12px 30px 5% 30px;
+  border: 0.2em dashed green;
+  border-radius: 12px;
+  /* width: fit-content; */
+}
+
+h1 {
+  margin-top: 1%;
+}
+
+.container {
+  font-size: 1.2em;
+  /* color: blue; */
+}
+
+.img-and-details, .img-and-details-no-img {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: 5%;
+}
+
+.img-and-details-no-img {
+  justify-content: center;
+  margin-top: 3%;
+}
+
+
+/* do media queries (height) for iphone, and all other screen sizes */
+img {
+  margin-right: 5%;
+  height: 300px;
+  /* height: 20em; */
+  max-width: 75%;
+}
+
+.details {
+  text-align: left;
+}
+
+.detail-value {
+  /* font-size: 1.1em; */
+  color: green;
+}
+
+
+
+/* .img-desc {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+
+
+} */
+
+.quantity-msg {
+  font-weight: 500;
+  margin-top: 17%;
+}
+
+.cost-value {
+  color: green;
+  font-weight: 500;
+}
+
+.owned-msg {
+  color: green;
+  font-weight: 500;
+}
+
+.price {
+  margin: 35% 0 0 0;
+  /* align-self: flex-start; */
+  font-size: 1.35em;
+  color: blue;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.added-to-cart-msg {
+  color: green;
+  font-size: 0.8em;
+}
+
+.description {
+  text-align: left;
+  margin: 5% 0 3% 5%;
+  width: 70%;
+  font-size: 1.1em;
+}
+
+.desc-value {
+  font-size: 0.9em;
+  text-align: justify;
+  color: green;
+  line-height: 1.6;
+}
+
+
+@media screen and (max-width: 1400px) {
+  img {
+    max-width: 70%;
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  img {
+    max-width: 60%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+
+  .img-and-details, .img-and-details-no-img {
+    flex-direction: column;
+    /* justify-content: flex-start;
+    align-items: center; */
+    margin-left: 0;
+    /* margin-top: 30px; */
+  }
+
+  .img-and-details-no-img {
+    margin-top: 0;
+  }
+
+  img {
+    margin-right: 0;
+    /* height: 300px; */
+    max-width: 90%;
+    align-self: center;
+  }
+
+  .details {
+    margin-top: 5%;
+  }
+
+  .description {
+    margin-top: 7%;
+    width: 90%;
+    font-size: 1.1em;
+  }
+
+}
+
+@media screen and (max-width: 790px) {
+  h1 {
+    font-size: 1.6em;
+  }
+
+
+  /* img {
+    height: 300px;
+    height: auto;
+    width: 95%;
+  } */
+
+  /* .details {
+    margin-top: 8%;
+  } */
+
+  .description {
+    margin-top: 8%;
+  }
+
+}
+
+@media screen and (max-width: 767px) {
+  img {
+    /* height: 300px; */
+    height: auto;
+    width: 95%;
+    max-width: none;
+  }
+}
+
+@media screen and (max-width: 480px) {
+
+  h1 {
+    font-size: 1.35em;
+  }
+
+  .container {
+    font-size: 1.0em;
+  }
+
+  .details {
+    margin-top: 7%;
+  }
+
+  .price {
+    font-size: 1.15em;
+  }
+
+  .added-to-cart-msg {
+    font-size: 0.8em;
+  }
+
+  .description {
+    margin-top: 14%;
+    margin-bottom: 8%;
+    font-size: 1.0em;
+  }
+
+  .desc-value {
+    font-size: 0.93em;
+    line-height: 1.5;
+  }
+
+}
+
+
+@media screen and (max-height: 480px) {
+  img {
+    height: 200px;
+  }
+
+}

@@ -1,0 +1,18 @@
+a {
+  font-size: x-large;
+  color: blue;
+  display: block;
+  margin: 10%;
+}
+
+div {
+  height: 100%;
+  overflow: auto;
+  /* overflow: scroll; */
+}
+
+.active-link {
+color: magenta;
+font-weight: bold;
+
+}

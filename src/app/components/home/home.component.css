@@ -1,0 +1,182 @@
+.entire-page {
+  background-image: url('../../../assets/images/home-image.jpeg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  /* background-size: cover; */
+  background-color: rgba(255,255,255,0.94);
+  background-blend-mode: lighten;
+}
+
+.headline {
+  color: green;
+  font-family: Georgia, serif;
+  /* 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
+  font-size: 3em;
+  text-align: center;
+}
+
+.second-headline {
+  color: green;
+  font-family: 'Brush Script MT', 'Brush Script Std', cursive;
+  font-size: 2em;
+  text-align: center;
+  margin-top: 2%;
+}
+
+.sign-in-title {
+  display: flex;
+  justify-content: center;
+  margin: 3% 0% 4% 0%;
+  color: blue;
+}
+
+.sign-in {
+  margin: 0 10% 0 0;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.sign-up {
+  margin: 0 0 0 0;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.alt-main-img {
+  text-align: center;
+}
+
+.alt-main-img img {
+  width: 34%;
+}
+
+.top-coupons-headline {
+  color: green;
+  font-family: 'Snell Roundhand', cursive;
+  font-size: 2em;
+  /* margin: 0 0 0 10%; */
+}
+
+.container-a {
+  margin: 0 5% 0 5%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.each-img {
+  margin: 3%;
+  width: 30%;
+  cursor: pointer;
+  text-align: center;
+}
+
+.each-img img {
+  padding: 10px;
+  height: 15em;
+  max-width: 25em;
+}
+
+.errMsg {
+  text-align: center;
+}
+
+
+@media screen and (max-width: 900px) {
+
+  .second-headline {
+    margin-top: 3%;
+  }
+
+  .sign-in-title {
+    flex-direction: column;
+    align-items: center;
+    margin: 7% 0% 10% 0%;
+  }
+
+  .sign-in {
+    margin: 0;
+  }
+
+  .sign-up {
+    margin-top: 4%;
+  }
+
+  .alt-main-img img {
+    width: 80%;
+  }
+
+  .container-a {
+    margin-top: 2%;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .each-img {
+    width: 100%;
+  }
+
+  .each-img img {
+    padding: 10px;
+    height: 100%;
+    width: 80%;
+    max-width: 30em;
+    max-height: 25em;
+  }
+
+}
+
+@media screen and (max-width: 480px) {
+
+  .headline {
+    font-size: 2em;
+  }
+
+  .second-headline {
+    margin: 5% auto;
+    font-size: 1.5em;
+    max-width: 90%;
+  }
+
+  .sign-in {
+    font-size: 1.2em;
+  }
+
+  .sign-up {
+    font-size: 1.2em;
+  }
+
+  .top-coupons-headline {
+    font-size: 1.3em;
+  }
+
+}
+
+@media screen and (max-width: 359px) {
+  .headline {
+    font-size: 1.9em;
+  }
+
+  .second-headline {
+    font-size: 1.3em;
+  }
+
+  .sign-in {
+    font-size: 1.1em;
+  }
+
+  .sign-up {
+    font-size: 1.1em;
+  }
+
+  .top-coupons-headline {
+    font-size: 1.25em;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .second-headline {
+    font-size: 1.2em;
+  }
+}

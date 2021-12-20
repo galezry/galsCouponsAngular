@@ -1,0 +1,48 @@
+
+<body class='entire-page' [class]='getBgImgClass()'>
+  <div class='entire-page' [class]='getBgImgClass()'>
+    <h1 class='msg' [style]='getMsgColor()'>{{ getMsg() }}</h1>
+    <h2 class='msg2'>Where would you like to go?</h2>
+
+    <!-- <img [src]="getImg()" alt="404 page not found img"> -->
+
+    <div class='actions-container'>
+      <div class='options'>
+        <a class="home-icon" (click)='gotoHome()'>
+          <span class='home-txt'>Home Sweet Home</span>  🏠
+        </a>
+
+        <div>
+          <button class="btn btn-outline-success btn-lg goto-btn" (click)='goToUserPage()'>
+            {{ getSecondOption() }}</button>
+        </div>
+
+      </div>
+
+      <div class='email-us'>
+        <div class= current-url>
+          {{ getCurrentUrl() }}
+        </div>
+
+        <div class='email-us-txt'>
+          <a class= 'email-link' [href]='getHref()'>
+            <i class="fas fa-envelope-square"></i>
+            Tell us what you were trying to get to on this page
+          </a>
+        </div>
+      </div>
+
+
+
+
+    </div>
+  </div>
+
+
+
+
+
+
+</body>
+
+

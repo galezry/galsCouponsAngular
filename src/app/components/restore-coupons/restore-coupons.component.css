@@ -1,0 +1,13 @@
+.alert-warning, .alert-success {
+  padding: 5px;
+}
+
+.alert-warning h4, .alert-success h4 {
+  margin: 1px 2%;
+}
+
+.material-icons {
+  font-size: 17px;
+  position: relative;
+  top: 2px;
+}

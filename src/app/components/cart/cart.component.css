@@ -1,0 +1,278 @@
+
+.alert-warning h4 {
+  margin: 2px 2%;
+}
+
+.table-centered {
+  display: flex;
+  justify-content: center;
+}
+
+table {
+  margin-top: 25px;
+  width: 70%;
+}
+
+th {
+  text-align: center;
+  width: fit-content;
+  /* padding: 3px 10px 3px 10px; */
+}
+
+.image {
+  cursor: pointer;
+}
+
+td p {
+  margin: 0;
+}
+
+.total-sum {
+  font-weight: bold;
+}
+
+.cards-icon {
+  text-align: left;
+  margin: 2.5% 0 0 15%;
+  font-size: 1.7rem;
+}
+
+.cards-icon i {
+  font-size: 2.3rem;
+}
+
+.visa-line {
+  font-size: 20px;
+  margin: 5.5% 0 2% 0;
+}
+
+.visa-logo {
+  height: 27px;
+  position: relative;
+  bottom: 2px;
+}
+
+/* .lrg {
+  font-size: large;
+} */
+
+.amount-line {
+  font-size: 25px;
+  color: blue;
+}
+
+.price {
+  /* font-size: 35px; */
+  font-weight: bold;
+}
+
+.warn {
+  position: relative;
+  transform:translateY(-10%);
+}
+
+.wrn-msg {
+  padding: 5px;
+  font-size: 18px;
+}
+
+.close-msg {
+  position: relative;
+  bottom: 4px;
+  /* transform:translateY(-50%); */
+  font-size: 2.1rem;
+  cursor: pointer;
+}
+
+.place-order {
+  margin-top: 5%;
+  font-size: 20px;
+}
+
+.success-msg-btn {
+  margin-top: 8%;
+  display:flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+@media screen and (max-width: 800px) {
+
+  .cards-icon {
+    margin: 4% 0 0 15%;
+    font-size: 1.6rem;
+  }
+
+  .cards-icon i {
+    font-size: 2.2rem;
+  }
+
+  .visa-line {
+    font-size: 18px;
+    margin: 7% 0 2% 0;
+  }
+
+  .visa-logo {
+    height: 25px;
+  }
+
+  .amount-line {
+    font-size: 23px;
+  }
+
+  .warn {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+  .warn i {
+    position: relative;
+    top: 1px;
+  }
+
+  .wrn-msg {
+    padding: 4px;
+    font-size: 16px;
+  }
+
+  .close-msg {
+    font-size: 2rem;
+
+  }
+
+  .place-order {
+    margin-top: 6%;
+    font-size: 19px;
+  }
+
+}
+
+
+
+@media screen and (max-width: 700px) {
+
+  table  {
+    font-size: 0.93em;
+  }
+
+  .cards-icon {
+    margin: 4% 0 0 15%;
+    font-size: 1.5rem;
+  }
+
+  .cards-icon i {
+    font-size: 1.9rem;
+  }
+
+  .visa-line {
+    font-size: 16px;
+    /* margin: 7% 0 2% 0; */
+  }
+
+  .visa-logo {
+    height: 23px;
+  }
+
+  .amount-line {
+    font-size: 21px;
+  }
+
+  .warn {
+    font-size: 11px;
+  }
+
+  .wrn-msg {
+    padding: 3px;
+    font-size: 15px;
+  }
+
+  .close-msg {
+    font-size: 1.9rem;
+
+  }
+
+  .place-order {
+    margin-top: 7%;
+    font-size: 17px;
+  }
+
+}
+
+@media screen and (max-width: 650px) {
+  .amount-line {
+    font-size: 19px;
+    line-height: 1.6;
+    margin: 0 4%;
+  }
+
+  .warn {
+    padding: 4px 8px;
+    font-size: 10px;
+  }
+  .warn i {
+    top: 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .alert-warning h4 {
+    font-size: 0.95em;
+  }
+
+  table  {
+    font-size: 0.85em;
+  }
+
+  .cards-icon {
+    text-align: center;
+    margin: 5% 0 0 0;
+    font-size: 1.3rem;
+  }
+
+  .cards-icon i {
+    font-size: 1.7rem;
+  }
+
+  .visa-line {
+    font-size: 14px;
+    margin: 10% 4% 4% 4%;
+  }
+
+  .visa-logo {
+    height: 21px;
+  }
+
+  .amount-line {
+    font-size: 16px;
+  }
+
+  .warn {
+    padding: 3.5px 7px;
+    font-size: 9px;
+  }
+
+  .wrn-msg {
+    padding: 2px;
+    font-size: 14px;
+  }
+
+  .close-msg {
+    font-size: 1.8rem;
+  }
+
+  .place-order {
+    margin-top: 8%;
+    font-size: 15px;
+    /* padding: 5px 10px; */
+  }
+
+}
+
+
+
+
+
+
+
+
+

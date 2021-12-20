@@ -1,0 +1,279 @@
+
+.alert-warning h4 {
+  margin: 2px 2%;
+}
+
+.form-check {
+  text-align: right;
+  margin: 0 4% 0 0;
+}
+
+.filter {
+  width: 400px;
+  max-width: 85%;
+  text-align: left;
+  margin: 20px 0 20px 5%;
+}
+
+.filter button {
+  margin-bottom: 3px;
+  border: 1px solid green;
+  color: green;
+}
+
+.fa-filter {
+  margin-left: 20px;
+  color: green;
+}
+
+.filter button:hover {
+  color: white;
+}
+
+.filter button:disabled {
+  cursor: not-allowed;
+  pointer-events: all !important;
+  color: green;
+}
+
+.filter-sec div {
+  display: flex;
+  align-self: center;
+}
+
+.filter-sec div select, .filter-sec div input {
+  margin-top: 10px;
+  height: fit-content;
+}
+
+.filter-sec div div {
+  margin-right: 5px;
+  position: relative;
+  top: 5px;
+  width: 100px;
+  opacity: 75%;
+  /* transform:translateY(-5px); */
+}
+
+.filter-sec div span {
+  height: fit-content;
+}
+
+.search-line td {
+  color: gray;
+}
+
+.search-line td input, .search-line td select{
+  font-size: 0.9em;
+  margin-top: 3px;
+  color: black;
+}
+
+#add-coupon-btn {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: fit-content;
+  margin: 5% 0 0 5%;
+  line-height: normal;
+}
+
+/* table {
+    margin: 0 0 0 1%;
+  } */
+
+  th {
+    text-align: center;
+    width: fit-content;
+    /* padding: 3px 10px 3px 10px; */
+  }
+
+  .not-sorted:hover {
+    color: blue;
+    cursor: pointer;
+  }
+
+  .active-sort {
+    color: blue;
+    text-decoration: underline;
+    /* cursor: pointer; */
+    /* font-style: italic; */
+  }
+
+ .bold {
+  font-weight: bold;
+ }
+
+ .white {
+   color: white;
+ }
+
+ .del-line {
+   display: inline;
+ }
+
+ .del {
+   margin-left: 3%;
+ }
+
+
+ .alert {
+  padding: 0.5%;
+  margin: 0;
+ }
+
+  li {
+    display: inline;
+    list-style: none;
+  }
+
+  .btn-success {
+    margin: 10px;
+  }
+
+  .fa-camera {
+    font-size: 1.1em;
+  }
+
+
+  .img-Icon {
+    display: flex;
+    justify-content: center;
+  }
+
+  .cam {
+    align-self: center;
+    margin: 0 4% 0 0;
+  }
+
+  .fa-trash-alt {
+    align-self: center;
+  }
+
+  .image {
+    cursor: pointer;
+  }
+
+  td p {
+    margin: 0;
+  }
+
+
+  @media screen and (max-width: 1000px) {
+    /* #add-coupon-btn {
+      padding: 6px 12px;
+      font-size: 0.95em;
+    } */
+
+    .del {
+      padding: 5px 10px;
+      font-size: 0.93em;
+    }
+  }
+
+  @media screen and (max-width: 860px) {
+    .del-line {
+      margin-top: 10px;
+      display: block;
+    }
+
+    .del {
+      margin-right: 3.8%;
+    }
+
+}
+
+
+  @media screen and (max-width: 700px) {
+
+    .filter {
+      width: 380px;
+      margin-top: 23px;
+    }
+
+    .filter button {
+      font-size: 0.97em;
+    }
+
+    .filter-sec div select, .filter-sec div input, .filter-sec div div, .filter-sec div span {
+      font-size: 0.95em;
+    }
+
+    #add-coupon-btn {
+      margin: 50px 0 0 50px;
+      padding: 6px 12px;
+      font-size: 0.95em;
+    }
+
+    table  {
+      font-size: 0.9em;
+    }
+
+    .icon {
+      font-size: 0.9em;
+    }
+
+    .add-btn {
+      font-size: 0.9em;
+    }
+
+    .del-line {
+      margin-top: 6px;
+    }
+
+    .del {
+      padding: 4px 8px;
+      font-size: 0.95em;
+    }
+
+  }
+
+
+  @media screen and (max-width: 480px) {
+
+    .filter {
+      width: 350px;
+      margin-top: 15px;
+    }
+
+    /* .filter label {
+      font-size: 0.95em;
+    } */
+
+    .filter-sec div select, .filter-sec div input, .filter-sec div div, .filter-sec div span {
+      font-size: 0.9em;
+    }
+
+    .filter button {
+      font-size: 0.92em;
+      padding: 5px 10px;
+    }
+
+    #add-coupon-btn {
+      margin: 65px 0 0 50px;
+      padding: 5px 10px;
+      font-size: 0.92em;
+    }
+
+    table  {
+      font-size: 0.8em;
+    }
+
+    .icon {
+      font-size: 0.75em;
+    }
+
+    .add-btn {
+      font-size: 0.8em;
+    }
+
+    .del {
+      padding: 3px 6px;
+      font-size: 0.98em;
+    }
+
+  }
+
+
+
+

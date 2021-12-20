@@ -1,0 +1,178 @@
+
+<div *ngIf="isErrMsgShown" class="alert alert-warning" role="alert">
+  <h4>{{ errMsg|titlecase }}</h4>
+</div>
+
+<div *ngIf="isLoggedIn() && isUserTypeCustomer()">
+
+<div *ngIf="isCouponsArrEmpty()">
+  <br>
+  <app-empty-view message="There are no more available coupons. Please try again soon!">
+  </app-empty-view>
+
+  <br><br>
+  <button id="shop-for-coupons-btn" (click)='goToMyCoupons()'
+  class="btn btn-primary" title="My Coupons">My Coupons</button>
+</div>
+
+<div *ngIf="isVPWidthSmall() && !isCouponsArrEmpty()" class='filter'>
+
+  <button type="button" class="btn btn-outline-success" (click)='toggleFilterSec()'
+  >Filter by &nbsp;<i class="fas fa-caret-down"></i>
+  </button>
+  <i *ngIf='isFiltering()'  class="fas fa-filter"></i>
+
+  <div *ngIf="isFilterSecShown()" class='filter-sec'>
+
+    <!-- <td style="width: 13%"> Company &nbsp; 🔍
+
+    </td> -->
+
+    <div>
+      <div>Company </div>
+      <select (change)="searchByCompany()" class="form-control form-item"
+      [(ngModel)]='companySearched'>
+          <option selected disabled>Company  🔍</option>
+          <option>All</option>
+          <option *ngFor="let c of companiesForSearch()"> {{ c }} </option>
+      </select>
+    </div>
+
+    <div>
+      <div>Category </div>
+      <select (change)="searchByCategoryId()" class="form-control form-item"
+      [(ngModel)]='ctgrSearched' >
+          <option selected disabled>Category  🔍</option>
+          <option *ngFor="let c of keysOfCtgrForSearch()"> {{ c }} </option>
+      </select>
+    </div>
+
+    <div>
+      <div>Title </div>
+      <input (keyup)="searchByTitle()" class="form-control form-item" type="text"
+      [(ngModel)]='titleSearched' placeholder="Title  🔍" >
+    </div>
+
+    <div>
+      <div>Max Price </div>
+      <input #sPriceInfo=ngModel (change)="searchByMaxPrice()" (keyup)="searchByMaxPrice()"
+      class="form-control form-item" [(ngModel)]='maxPriceSearched'
+      placeholder="Max Price  🔍" type="number" [min]="minPrice" required>
+    </div>
+
+    <div>
+      <div></div>
+      <span class="alert alert-danger form-control form-item"
+        *ngIf="sPriceInfo.errors?.required && sPriceInfo.touched">
+        <i class="fa fa-info-circle"></i>&nbsp; Please enter Max Price</span>
+      <span class="alert alert-danger form-control form-item"
+        *ngIf="!sPriceInfo.errors?.required && maxPriceSearched < minPrice && sPriceInfo.touched">
+        <i class="fa fa-info-circle"></i>&nbsp; Max Price must be at least $0.10</span>
+    </div>
+
+  </div>
+
+  <!-- <br> -->
+</div>
+
+<table class="table table-hover" *ngIf="!isCouponsArrEmpty()">
+
+  <thead>
+
+    <tr *ngIf="!isVPWidthSmall()" class='search-line'>
+
+      <td style="width: 12%;"> Company &nbsp; 🔍
+        <select (change)="searchByCompany()" class="form-control form-item"
+        [(ngModel)]='companySearched'>
+            <option selected disabled>Company  🔍</option>
+            <option>All</option>
+            <option *ngFor="let c of companiesForSearch()"> {{ c }} </option>
+        </select>
+      </td>
+
+      <td style="width: 13%"> Category &nbsp; 🔍
+        <select (change)="searchByCategoryId()" class="form-control form-item"
+        [(ngModel)]='ctgrSearched'>
+            <option selected disabled>Category  🔍</option>
+            <option *ngFor="let c of keysOfCtgrForSearch()"> {{ c }} </option>
+        </select>
+      </td>
+
+      <td style="width: 16%"> Title &nbsp; 🔍
+        <input (keyup)="searchByTitle()" class="form-control form-item" type="text"
+        [(ngModel)]='titleSearched' placeholder="Title  🔍">
+      </td>
+
+      <td style="width: 15%"></td>
+
+      <td style="width: 10%"></td>
+
+      <td style="width: 12%"> Max Price &nbsp; 🔍
+        <input #sPriceInfo=ngModel (change)="searchByMaxPrice()" (keyup)="searchByMaxPrice()"
+        class="form-control form-item" [(ngModel)]='maxPriceSearched'
+        placeholder="Max Price  🔍" type="number" [min]="minPrice" required>
+        <div class="alert alert-danger" *ngIf="sPriceInfo.errors?.required && sPriceInfo.touched">
+          <i class="fa fa-info-circle"></i> Please Enter Price</div>
+        <div class="alert alert-danger"
+        *ngIf="!sPriceInfo.errors?.required && maxPriceSearched < minPrice && sPriceInfo.touched">
+        <i class="fa fa-info-circle"></i> Must be at least $0.10</div>
+      </td>
+
+      <td style="width: 15%"></td>
+      <td style="width: 7%"></td>
+    </tr>
+
+    <tr>
+      <th [class]="getClass('company')" (click)="shouldSortBy('company')" scope="col">Company</th>
+      <th [class]="getClass('categoryId')" (click)="shouldSortBy('categoryId')" scope="col">
+        Category</th>
+      <th [class]="getClass('title')" (click)="shouldSortBy('title')" scope="col">Title</th>
+      <th *ngIf='isDescShown()' scope="col">Description</th>
+      <th [class]="getClass('endDate')" (click)="shouldSortBy('endDate')" scope="col">
+        Exp. Date</th>
+      <th [class]="getClass('price')"
+        (click)="shouldSortBy('price')" scope="col">Price</th>
+      <th style="width: 15%;" scope="col">Image / Details</th>
+      <th class='cart' scope="col">🛒</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let c of couponsToShow" >
+      <td class="align-middle">{{ getCompanyName(c.companyId) }}</td>
+      <td class="align-middle">{{ getCategory(c.categoryId) | titlecase }}</td>
+      <td class="align-middle">{{ shortenTitle(c.title) }}</td>
+      <td *ngIf='isDescShown()' class="align-middle">{{ shortenDesc(c.description) }}</td>
+      <td class="align-middle"><span *ngIf='!isPastDate(c.startDate)'>✳️</span>
+        {{ c.endDate | date }}</td>
+      <td class="align-middle">{{ c.price | currency }}</td>
+      <td style="width: 15%;"
+        class="align-middle image" [style]='getImgStyle()' (click)='openSingleCoupon(c)'>
+        <img *ngIf='imagesToDisplay[c.id]' [style]='getImgStyle()'
+          [src]="imagesToDisplay[c.id]" alt="coupon image">
+        <p *ngIf='!imagesToDisplay[c.id]'><span class="material-icons">receipt</span></p>
+      </td>
+
+      <td class="align-middle">
+          <button class="btn btn-light cart-btn" (click)='addToCart(c)' title='Add to cart'
+          *ngIf='!isCouponInCart(c.id)'><i class="fas fa-cart-plus cart"></i></button>&nbsp;
+
+          <button class="btn btn-light trash" (click)='removeFromCart(c.id)'
+          title='Remove from cart' *ngIf='isCouponInCart(c.id)'>🗑️</button>
+      </td>
+    </tr>
+  </tbody>
+
+</table>
+<p class='bottom-comment' *ngIf='isCommentShown()'>✳️ Future Coupon - Valid from a future date.
+  Click the coupon's image/icon to see its validation period.
+</p>
+
+<div *ngIf=isDevMode() >
+  <h3>Development mode</h3>
+  <p>{{couponsToShow| json}}</p>
+</div>
+
+
+</div>
+

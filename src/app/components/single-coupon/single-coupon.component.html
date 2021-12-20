@@ -1,0 +1,91 @@
+
+<!-- <div *ngIf='getUser() === "other"'>
+  <h4 class="alert alert-warning" role="alert"> {{ notAuthorizedErrMsg }} </h4>
+</div> -->
+
+<!-- <div *ngIf='!isSingleCouponChosen()'>
+  <h4 class="alert alert-warning" role="alert"> {{ noCouponChosenMsg }} </h4>
+</div> -->
+
+<div *ngIf='isSingleCouponChosen()'>
+
+  <div class="close-msg" (click)='closePage()' title='Close Coupon'>
+    &otimes;</div>
+  <div class='scissors'>✂️</div>
+
+  <div *ngFor="let c of getCoupon()" class='entire-page'>
+    <h1 class="alert alert-success" role="alert">{{c.title}}</h1>
+
+    <div class='container'>
+
+      <div [ngClass]="{'img-and-details': couponImg, 'img-and-details-no-img': !couponImg}">
+        <img *ngIf='couponImg' [src]="couponImg" alt="coupon image">
+
+        <div class='details' >
+          <p *ngIf="isQuantityShown()">
+            <span>Coupon ID: </span> <span class='detail-value'> {{ c.id }}</span></p>
+
+          <p><span>a Coupon by </span> <span class='detail-value'> {{ getCompanyName() }}</span></p>
+
+          <p *ngIf="isQuantityShown()">
+            <span>Company ID: </span> <span class='detail-value'> {{ c.companyId }}</span></p>
+
+          <p *ngIf="isCategoryShown()"><span>Category: </span> <span class='detail-value'>
+            {{c.categoryId.toString() | titlecase}}</span></p>
+
+          <p *ngIf='isStratDateShown()'><span>Valid from </span>
+            <span class='detail-value'> {{ c.startDate | date }}</span></p>
+
+          <p><span>Valid until  </span>
+            <span class='detail-value'> {{ c.endDate | date }}</span></p>
+
+          <p *ngIf="isQuantityShown()">
+            <span>Quantity: </span> <span class='detail-value'> {{ c.amount }}</span></p>
+
+          <p class='quantity-msg' *ngIf="isQuantityMsgShown()">
+            <span class='detail-value'> {{ getQuantityMsg() }} </span></p>
+
+          <p *ngIf="isPriceShown()">
+            <span>Price: </span> <span class='detail-value'> {{ c.price | currency }}</span></p>
+
+          <p *ngIf="getUser() === 'customer' && isCouponOwnedByCustomer()">
+            <span>Cost: </span> <span class='cost-value'> {{ c.price | currency }}</span>
+            <br><br><br>
+            <span class='owned-msg'>You Own This Coupon!</span>
+          </p>
+
+          <div *ngIf="isPriceAndCartButtonShown()" class='price'>
+            <p>{{ c.price | currency }}</p>
+
+            <p class='added-to-cart-msg' *ngIf="isAddedToCartMsgShown">
+              <i class="fas fa-check-circle"></i> Added to cart</p>
+            <p class='added-to-cart-msg' *ngIf="!isAddedToCartMsgShown && isCouponInCart()">
+              Currently in cart</p>
+
+            <button *ngIf="isAddToCartBtnShown()" type="button" class="btn btn-primary"
+            (click)='addToCart()'> <i class="fas fa-cart-plus"></i>&nbsp; Add to cart </button>
+
+            <button *ngIf="isSignInBtnShown()" type="button" class="btn btn-primary"
+            routerLink='../login' routerLinkActive='active-link'> Sign In To Buy </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class='description'>
+        <p >Description </p>
+        <p class='desc-value'> {{ c.description }}</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+

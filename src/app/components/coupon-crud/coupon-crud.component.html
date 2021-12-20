@@ -1,0 +1,441 @@
+
+<div *ngIf="isErrMsgShown" class="alert alert-warning" role="alert">
+  <h4>{{ errMsg|titlecase }}</h4>
+</div>
+
+<div *ngIf="isLoggedIn() && isUserTypeCompany()">
+
+<div *ngIf="isCouponsArrEmpty()">
+
+  <h4 *ngIf="couponsToShow.length > 0" class="alert alert-success" role="alert">
+    {{couponMsg.description}}</h4>
+   <br>
+
+  <app-empty-view message="There are no coupons yet to view"></app-empty-view>
+  <a id="add-coupon-btn" (click)= add() routerLink="add-coupon" routerLinkActive="active-link"
+      class="btn btn-success" title="Add New Coupon"><i class="fas fa-plus"></i>
+      &nbsp;&nbsp; Add a Coupon</a>
+</div>
+
+
+<!-- change it to !isCustomersArrEmpty() -->
+<div *ngIf="!isCouponsArrEmpty() && !isErrMsgShown && !isVPWidthSmall()" class="form-check">
+
+    <input [(ngModel)]="isEditModePossible" (click)='editModeCheckBox()'
+    class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+
+    <label class="form-check-label" for="flexCheckDefault">Add & Update Coupons On This Page</label>
+</div>
+
+<div *ngIf="isVPWidthSmall() && !isCouponsArrEmpty()" class='filter'>
+
+  <button type="button" class="btn btn-outline-success" (click)='toggleFilterSec()'
+  [disabled]='isUpdateMode'>Filter by &nbsp;<i class="fas fa-caret-down"></i>
+  </button>
+  <i *ngIf='isFiltering()'  class="fas fa-filter"></i>
+
+  <div *ngIf="isFilterSecShown()" class='filter-sec'>
+    <div>
+      <div>ID </div>
+      <input (keyup)="searchById($event)" class="form-control form-item" [(ngModel)]='idSearched'
+        type="text" placeholder="ID  🔍" [disabled]='isUpdateMode'>
+    </div>
+
+    <div>
+      <div>Title </div>
+      <input (keyup)="searchByTitle($event)" class="form-control form-item" type="text"
+      [(ngModel)]='titleSearched' placeholder="Title  🔍" [disabled]='isUpdateMode'>
+    </div>
+
+    <div>
+      <div>Category </div>
+      <select (change)="searchByCategoryId()" class="form-control form-item"
+      [(ngModel)]='ctgrSearched' [disabled]='isUpdateMode'>
+          <option selected disabled>Category  🔍</option>
+          <option *ngFor="let c of keysOfCtgrForSearch()"> {{ c }} </option>
+      </select>
+    </div>
+
+    <div>
+      <div>Max Price </div>
+      <input #sPriceInfo=ngModel (change)="searchByMaxPrice()" (keyup)="searchByMaxPrice()"
+      class="form-control form-item" [(ngModel)]='maxPriceSearched' [disabled]='isUpdateMode'
+      placeholder="Max Price  🔍" type="number" [min]='minPrice' required>
+    </div>
+
+    <div>
+      <div></div>
+      <span class="alert alert-danger form-control form-item"
+        *ngIf="sPriceInfo.errors?.required && sPriceInfo.touched">
+        <i class="fa fa-info-circle"></i>&nbsp; Please enter Max Price</span>
+      <span class="alert alert-danger form-control form-item"
+        *ngIf="!sPriceInfo.errors?.required && maxPriceSearched < minPrice && sPriceInfo.touched">
+        <i class="fa fa-info-circle"></i>&nbsp; Max Price must be at least $0.10</span>
+    </div>
+
+  </div>
+
+  <!-- <br> -->
+</div>
+
+
+<table class="table table-hover" *ngIf="!isCouponsArrEmpty()">
+
+  <thead>
+    <!-- <tr>
+      <td style="width: 7%; padding-left: 15px;"></td>
+
+      <td style="width: 7%"></td>
+
+      <td style="width: 10%"></td>
+
+      <td style="width: 10%"></td>
+
+      <td style="width: 10%"></td>
+      <td style="width: 8%"></td>
+      <td style="width: 8%"></td>
+      <td style="width: 7%"></td>
+      <td style="width: 10%"></td>
+      <td style="width: 11%"></td>
+      <td style="width: 12%"></td>
+
+    </tr> -->
+
+    <tr *ngIf="!isVPWidthSmall()" class='search-line'>
+
+      <td style="width: 7%; padding-left: 15px;"> ID &nbsp; 🔍
+        <input (keyup)="searchById($event)" class="form-control form-item" [(ngModel)]='idSearched'
+        type="text" placeholder="ID  🔍" [disabled]='isUpdateMode'>
+      </td>
+
+      <!-- <td style="width: 7%"></td> -->
+
+      <td style="width: 10%"> Category &nbsp; 🔍
+        <select (change)="searchByCategoryId()" class="form-control form-item"
+        [(ngModel)]='ctgrSearched' [disabled]='isUpdateMode'>
+            <option selected disabled>Category  🔍</option>
+            <option *ngFor="let c of keysOfCtgrForSearch()"> {{ c }} </option>
+        </select>
+      </td>
+
+      <!-- colspan="2" -->
+      <td style="width: 17%" > Title &nbsp; 🔍
+        <input (keyup)="searchByTitle($event)" class="form-control form-item" type="text"
+        [(ngModel)]='titleSearched' placeholder="Title  🔍" [disabled]='isUpdateMode'>
+
+      </td>
+
+      <td style="width: 10%"></td>
+      <td style="width: 8%"></td>
+      <td style="width: 8%"></td>
+      <td style="width: 7%"></td>
+      <td style="width: 10%"> Max Price &nbsp; 🔍
+        <input #sPriceInfo=ngModel (change)="searchByMaxPrice()" (keyup)="searchByMaxPrice()"
+        class="form-control form-item" [(ngModel)]='maxPriceSearched' [disabled]='isUpdateMode'
+        placeholder="Max Price  🔍" type="number" [min]="minPrice" required>
+        <div class="alert alert-danger" *ngIf="sPriceInfo.errors?.required && sPriceInfo.touched">
+          <i class="fa fa-info-circle"></i> Please enter Max Price</div>
+        <div class="alert alert-danger"
+        *ngIf="!sPriceInfo.errors?.required && maxPriceSearched < minPrice && sPriceInfo.touched">
+        <i class="fa fa-info-circle"></i> Must be at least $0.10</div>
+      </td>
+      <td style="width: 11%"></td>
+      <td style="width: 12%"></td>
+
+    </tr>
+
+    <tr>
+      <th style="width: 7%; padding-left: 15px;"
+      [class]="getClass('id')" (click)="shouldSortBy('id')" scope="col">ID</th>
+      <!-- <th  scope="col">Company ID</th> -->
+      <th style="width: 10%"
+       [class]="getClass('categoryId')" (click)="shouldSortBy('categoryId')" scope="col">
+        Category</th>
+      <th style="width: 17%"
+      [class]="getClass('title')" (click)="shouldSortBy('title')" scope="col">Title</th>
+      <th style="width: 10%"
+       *ngIf='!isVPWidthSmall()' scope="col">Description</th>
+      <th style="width: 8%"
+       [class]="getClass('startDate')" (click)="shouldSortBy('startDate')" scope="col">
+        Start Date</th>
+      <th style="width: 8%"
+       [class]="getClass('endDate')" (click)="shouldSortBy('endDate')" scope="col">
+        Exp. Date</th>
+      <th style="width: 7%"
+       [class]="getClass('amount')" (click)="shouldSortBy('amount')" scope="col">Amount</th>
+      <th style="width: 10%"
+       [class]="getClass('price')" (click)="shouldSortBy('price')" scope="col">Price</th>
+
+      <th style="width: 11%"
+       scope="col">{{ getImageTableTitle() }}</th>
+      <!-- <th *ngIf="isUpdateMode && couponAdded.id === -5" scope="col">Add Image</th>
+      <th *ngIf="isUpdateMode && couponAdded.id === 0" scope="col">Update Image</th> -->
+
+      <th style="width: 12%"
+       *ngIf="!isUpdateMode" scope="col">Delete / Update</th>
+      <th *ngIf="isUpdateMode" scope="col">Cancel / Save</th>
+    </tr>
+  </thead>
+
+  <tbody *ngIf="!isEditModePossible || isVPWidthSmall()">
+    <tr *ngFor="let c of couponsToShow" >
+      <th *ngIf='c.id > 0' scope="row" class="align-middle bold">{{ c.id }}</th>
+      <!-- <td *ngIf='c.id > 0' class="align-middle">{{ c.companyId }}</td> -->
+      <td *ngIf='c.id > 0' class="align-middle">{{ getCategory(c.categoryId) | titlecase }}</td>
+      <td *ngIf='c.id > 0' class="align-middle">{{ shortenTitle(c.title) }}</td>
+      <td *ngIf='c.id > 0 && !isVPWidthSmall()' class="align-middle">
+        {{ shortenDesc(c.description) }}</td>
+
+
+      <td *ngIf='c.id === 0 && c.title === ""' class="align-middle" [class]='couponMsgClass'
+      colspan="10">{{ c.description }}</td>
+
+      <td *ngIf='c.id === 0 && c.title === "delete"' class="align-middle" [class]='couponMsgClass'
+      colspan="10"> {{ c.description }}
+      <div class='del-line'>
+        <button (click)='cancelDelete()' type="button" class="del btn btn-primary">
+          <i class="fas fa-arrow-alt-circle-left"></i> &nbsp; Cancel</button>
+
+        <button (click)='deleteCoupon()' type="button" class="del btn btn-danger">
+          <i class="fas fa-trash"></i> &nbsp; Delete Coupon</button>
+      </div>
+
+      </td>
+
+      <td *ngIf='c.id > 0' class="align-middle">{{ c.startDate | date }}</td>
+      <td *ngIf='c.id > 0' class="align-middle">{{ c.endDate | date }}</td>
+      <td *ngIf='c.id > 0' class="align-middle">{{ c.amount }}</td>
+      <td *ngIf='c.id > 0' class="align-middle">{{ c.price | currency }}</td>
+      <td *ngIf='c.id > 0' class="align-middle" [style]='getImgStyle()'
+        [ngClass]='{image:!isUpdateMode}' (click)='openSingleCoupon(c)'>
+        <img *ngIf='imagesToDisplay[c.id]'
+        [style]='getImgStyle()'
+        [src]="imagesToDisplay[c.id]" alt="coupon image">
+        <p *ngIf='!imagesToDisplay[c.id]'><span class="material-icons">receipt</span></p>
+      </td>
+
+      <td *ngIf='c.id > 0' class="align-middle">
+        <button class="btn btn-light icon" (click)=delete(c) title='Delete Coupon'
+        [disabled]='isUpdateMode'>🗑️
+        </button>  &nbsp;
+          <button class="btn btn-light icon" (click)=update(c) routerLink="update-coupon"
+          routerLinkActive="active-link" title='Update Coupon' [disabled]='isUpdateMode'>
+           ✏️</button>
+      </td>
+    </tr>
+  </tbody>
+
+
+
+  <tbody *ngIf="isEditModePossible && !isVPWidthSmall()">
+
+    <tr *ngFor="let c of couponsToShow" >
+
+      <th  *ngIf='c.id > 0' scope="row" class="align-middle bold">{{ c.id }}</th>
+      <td *ngIf='c.id === -5' scope="row" class="align-middle bold" [title]=idAutoIncMsg></td>
+
+      <!-- <td *ngIf='c.id > 0' scope="row" class="align-middle bold">{{ c.companyId }}</td>
+      <td *ngIf='c.id === -5' scope="row" class="align-middle bold" [title]=compIdAutoIncMsg>
+        {{ getCompanyId() }}
+      </td> -->
+
+      <td *ngIf='(!isUpdateMode || couponIdToUpdate !== c.id) && c.id > 0'
+        class="align-middle">{{ getCategory(c.categoryId) | titlecase }}</td>
+
+      <td *ngIf='isUpdateMode && (couponIdToUpdate === c.id || c.id === -5)' class="align-middle">
+        <select #ctgrInfo=ngModel class="form-control custom-select form-item"
+            [(ngModel)]='updatedCategoryId' required>
+                <option selected disabled>Select Category</option>
+                <option *ngFor="let c of keysOfCtgr()"> {{ c }} </option>
+        </select>
+        <div class="alert alert-danger" *ngIf="isCategoryIdNone() && ctgrInfo.touched">
+          <i class="fa fa-info-circle"></i> Please select a Category</div>
+      </td>
+
+      <td *ngIf='(!isUpdateMode || couponIdToUpdate !== c.id) && c.id > 0'
+        class="align-middle">{{ shortenTitle(c.title) }}</td>
+
+      <td *ngIf='isUpdateMode && (couponIdToUpdate === c.id || c.id === -5)' class="align-middle">
+        <textarea #titleInfo=ngModel class="form-control form-item" type="text" required
+          [(ngModel)]='updatedTitle' placeholder="Title" [pattern]='strPattern'
+          [title]='strTitle' (keydown)="deleteCouponMsg()" maxlength="255">
+        </textarea>
+        <div class="alert alert-danger" *ngIf="titleInfo.errors?.required && titleInfo.touched"
+          [title]='strTitle'>
+            <i class="fa fa-info-circle"></i> Please Enter a Title</div>
+        <div class="alert alert-danger" *ngIf="titleInfo.errors?.pattern && titleInfo.touched"
+          [title]='strTitle'>
+            <i class="fa fa-info-circle"></i> {{ explainStr }}</div>
+        <div class="alert alert-danger" [title]='strTitle'
+           *ngIf="!titleInfo.errors?.pattern && doesUpdatedTitleEqualsExistedTitle()">
+            <i class="fa fa-info-circle"></i> Title is taken. Please use another</div>
+      </td>
+
+      <td *ngIf='(!isUpdateMode || couponIdToUpdate !== c.id) && c.id > 0'
+        class="align-middle">{{ shortenDesc(c.description) }}
+      </td>
+
+      <td *ngIf='c.id === 0 && c.title === ""' class="align-middle" [class]='couponMsgClass'
+      colspan="10">{{ c.description }}</td>
+      <td *ngIf='c.id === 0 && c.title === "delete"' class="align-middle" [class]='couponMsgClass'
+      colspan="10"> {{ c.description }}
+        <button (click)='cancelDelete()' type="button" class="del btn btn-primary">
+          <i class="fas fa-arrow-alt-circle-left"></i> &nbsp; Cancel</button>
+
+        <button (click)='deleteCoupon()' type="button" class="del btn btn-danger">
+          <i class="fas fa-trash"></i> &nbsp; Delete Coupon</button>
+      </td>
+
+      <td *ngIf='isUpdateMode && (couponIdToUpdate === c.id || c.id === -5)' class="align-middle">
+        <textarea #descInfo=ngModel class="form-control form-item" [pattern]='strPattern' type="text"
+          [(ngModel)]='updatedDescription' placeholder="Description" required [title]='strTitle'
+          maxlength="255">
+        </textarea>
+        <div class="alert alert-danger" *ngIf="descInfo.errors?.required && descInfo.touched"
+          [title]='strTitle'>
+            <i class="fa fa-info-circle"></i> Please Enter Description</div>
+        <div class="alert alert-danger" *ngIf="descInfo.errors?.pattern && descInfo.touched"
+          [title]='strTitle'>
+            <i class="fa fa-info-circle"></i> {{ explainStr }}</div>
+      </td>
+
+
+      <td *ngIf='(!isUpdateMode || couponIdToUpdate !== c.id) && c.id > 0'
+        class="align-middle">{{ c.startDate | date }}</td>
+
+      <td *ngIf='isUpdateMode && (couponIdToUpdate === c.id || c.id === -5)' class="align-middle">
+          <input #sDateInfo=ngModel class="form-control form-item" type="date" required
+          [(ngModel)]="updatedStartDate" placeholder="Start Date">
+          <div class="alert alert-danger" *ngIf="!isStartDateValid() && sDateInfo.touched">
+            <i class="fa fa-info-circle"></i> {{ inValidDateMsg }}</div>
+      </td>
+
+      <td *ngIf='(!isUpdateMode || couponIdToUpdate !== c.id) && c.id > 0'
+        class="align-middle">{{ c.endDate | date }}</td>
+
+      <td *ngIf='isUpdateMode && (couponIdToUpdate === c.id || c.id === -5)' class="align-middle">
+          <input #eDateInfo=ngModel class="form-control form-item" type="date" required
+          [(ngModel)]='updatedEndDate' placeholder="End Date" [title]='endDateTitle'>
+          <div class="alert alert-danger" [title]='endDateTitle'
+            *ngIf="!isEndDateLegal() && eDateInfo.touched">
+              <i class="fa fa-info-circle"></i> {{ inValidDateMsg }}</div>
+          <div class="alert alert-danger" [title]='endDateTitle'
+            *ngIf="isEndDateLegal() && !isEndDateFutureDate()">
+              <i class="fa fa-info-circle"></i> {{ noPastEndDateMsg }}</div>
+          <div class="alert alert-danger" [title]='endDateTitle'
+            *ngIf="isEndDateLegal() && isEndDateFutureDate() && isEndDateSmaller()" >
+              <i class="fa fa-info-circle"></i> {{ notPriorToStartDateMsg }}</div>
+      </td>
+
+      <td *ngIf='(!isUpdateMode || couponIdToUpdate !== c.id) && c.id > 0'
+        class="align-middle">{{ c.amount }}</td>
+
+      <td *ngIf='isUpdateMode && (couponIdToUpdate === c.id || c.id === -5)' class="align-middle">
+          <input #amountInfo=ngModel class="form-control form-item" type="number" required
+          [(ngModel)]='updatedAmount' placeholder="Amount" min='1' step="1">
+          <div class="alert alert-danger" *ngIf="amountInfo.errors?.required && amountInfo.touched">
+            <i class="fa fa-info-circle"></i> Please Enter Amount</div>
+          <div class="alert alert-danger"
+          *ngIf="!amountInfo.errors?.required && !isAmountValid() && amountInfo.touched">
+          <i class="fa fa-info-circle"></i> Amount must be a Positive Whole number</div>
+      </td>
+
+      <td *ngIf='(!isUpdateMode || couponIdToUpdate !== c.id) && c.id > 0'
+        class="align-middle">{{ c.price | currency }}</td>
+
+      <td *ngIf='isUpdateMode && (couponIdToUpdate === c.id || c.id === -5)' class="align-middle">
+          <input #priceInfo=ngModel class="form-control form-item" type="number" required
+          [(ngModel)]='updatedPrice' placeholder="Price" [min]='minPrice'>
+          <div class="alert alert-danger" *ngIf="priceInfo.errors?.required && priceInfo.touched">
+            <i class="fa fa-info-circle"></i> Please Enter Price</div>
+          <div class="alert alert-danger"
+          *ngIf="!priceInfo.errors?.required && !isPriceValid() && priceInfo.touched">
+          <i class="fa fa-info-circle"></i> {{ explainPrice }} </div>
+      </td>
+
+
+      <td *ngIf='!isUpdateMode && c.id > 0' class="align-middle image"
+        (click)='openSingleCoupon(c)' [style]='getImgStyle()'>
+        <img *ngIf='imagesToDisplay[c.id]' [style]='getImgStyle()'
+           [src]="imagesToDisplay[c.id]" alt="coupon image">
+        <p *ngIf='!imagesToDisplay[c.id]'><span class="material-icons">receipt</span></p>
+      </td>
+
+      <td *ngIf='isUpdateMode && couponIdToUpdate !== c.id && c.id > 0' class="align-middle"
+      [style]='getImgStyle()'>
+        <img *ngIf='imagesToDisplay[c.id]' [style]='getImgStyle()'
+          [src]="imagesToDisplay[c.id]" alt="coupon image">
+        <p *ngIf='!imagesToDisplay[c.id]'><span class="material-icons">receipt</span></p>
+      </td>
+
+      <td *ngIf='isUpdateMode && (couponIdToUpdate === c.id || c.id === -5)' class="align-middle"
+      [style]='getImgStyle()'>
+        <div [class]='getImgIconClass(c.id)'>
+          <label class="cam btn btn-light btn-sm" for="img-file" title='select image'>
+            <i class="fas fa-camera"></i>
+           </label>
+           &nbsp;
+          <i (click)='deleteDisplayedImg()' class="fas fa-trash-alt btn btn-light btn-sm"
+          title='Delete Current Image'
+          *ngIf="(imagesToDisplay[c.id] && !isOriginalImgChanged) || chosenImg"></i>
+
+
+        <input id="img-file" style="display:none;"
+          class="form-control form-item" type="file" accept="image/*" name='image'
+          (change)='createImg($event)' title='You Can Upload a Coupon Image Here'>
+        </div>
+        <img [src]='chosenImg' [style]='getImgStyle()'
+         *ngIf="chosenImg" alt='Coupon Image'>
+
+        <img *ngIf='imagesToDisplay[c.id] && !isOriginalImgChanged' [style]='getImgStyle()'
+         [src]="imagesToDisplay[c.id]" alt="coupon image">
+
+        <div class="alert alert-danger form-err" *ngIf="isImgErrShown">
+            <i class="fa fa-info-circle"></i> {{ imgErrMsg }}</div>
+
+      </td>
+
+      <td *ngIf="(!isUpdateMode || couponIdToUpdate!==c.id) && c.id > 0" class="align-middle">
+        <button  class="btn btn-light icon" (click)=delete(c) title='Delete Coupon'
+        [disabled]='isUpdateMode && couponIdToUpdate!==c.id'>
+        🗑️</button> &nbsp;
+        <button  class="btn btn-light icon" (click)=update(c) title='Update Coupon'
+        [disabled]='isUpdateMode && couponIdToUpdate!==c.id'>
+         ✏️</button>
+      </td>
+
+      <td *ngIf="isUpdateMode && (couponIdToUpdate === c.id || c.id === -5)" class="align-middle">
+        <button  class="btn btn-light" title='Cancel Changes'
+        (click)=cancelUpdate()>⬅️</button>  &nbsp;
+
+        <button *ngIf='couponIdToUpdate === c.id' [disabled]='!isUpdatePossible()'
+        class='btn btn-light' (click)=updateCoupon(c) [title]='saveBtnTitle'> 💾</button>
+
+        <button *ngIf='c.id === -5' class="btn btn-light" [disabled]='!isAddCouponPossible()'
+        (click)=addCoupon() [title]='saveBtnTitle'> 💾</button>
+    </td>
+
+  </tr>
+  </tbody>
+
+  <button *ngIf="!isEditModePossible || isVPWidthSmall()" [disabled]='isUpdateMode'
+  routerLink="add-coupon" routerLinkActive="active-link"
+  (click)=add() class="btn btn-success add-btn" title="Add New Coupon">
+  <i class="fas fa-plus white"></i></button>
+
+  <button *ngIf="isEditModePossible && !isVPWidthSmall()" [disabled]='isUpdateMode'
+  (click)=add() class="btn btn-success add-btn" title="Add New Coupon">
+  <i class="fas fa-plus white"></i></button>
+
+</table>
+
+
+<div *ngIf=isDevMode() >
+  <h3>Development mode</h3>
+
+  <p>{{couponsToShow| json}}</p>
+
+  </div>
+
+
+</div>

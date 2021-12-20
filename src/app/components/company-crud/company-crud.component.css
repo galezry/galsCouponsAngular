@@ -1,0 +1,287 @@
+
+.alert-warning h4 {
+  margin: 2px 2%;
+}
+
+.form-check {
+  text-align: right;
+  margin: 0 4% 0 0;
+}
+
+.filter {
+  width: 280px;
+  max-width: 85%;
+  text-align: left;
+  margin: 20px 0 20px 5%;
+}
+
+.filter button {
+  margin-bottom: 3px;
+  border: 1px solid green;
+  color: green;
+}
+
+.fa-filter {
+  margin-left: 20px;
+  color: green;
+}
+
+.filter button:hover {
+  color: white;
+}
+
+.filter button:disabled {
+  cursor: not-allowed;
+  pointer-events: all !important;
+  color: green;
+}
+
+.filter input {
+  margin-top: 10px;
+  height: fit-content;
+}
+
+#add-company-btn {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: fit-content;
+  margin: 5% 0 0 5%;
+  line-height: normal;
+}
+
+/* table {
+    margin-right: 300px;
+
+    border: 1px solid black;
+  } */
+
+  th {
+    /* border: 1px solid black;
+    color: white;
+    background-color: green; */
+    text-align: center;
+    width: fit-content;
+    /* padding: 3px 10px 3px 10px; */
+    /* position: relative;
+    top: 50%;
+    transform:translateY(-38%); */
+  }
+
+  /* .id-filter {
+    padding-left: 15px;
+  } */
+
+  .not-sorted:hover {
+    color: blue;
+    cursor: pointer;
+  }
+
+  .active-sort {
+    color: blue;
+    text-decoration: underline;
+    /* cursor: pointer; */
+    /* font-style: italic; */
+  }
+
+ .bold {
+  font-weight: bold;
+ }
+
+ /* .red {
+  color: red;
+ } */
+
+
+ .white {
+   color: white;
+ }
+
+ .del-line {
+   display: inline;
+ }
+
+ .del {
+   margin-left: 3%;
+ }
+
+ .alert {
+  padding: 0.5%;
+  margin: 0;
+ }
+
+
+
+  /* tbody>tr:nth-child(odd) {
+    background-color: lightblue;
+  }
+
+  tbody>tr:nth-child(even) {
+    background-color: lightcoral;
+  } */
+
+  li {
+    display: inline;
+    list-style: none;
+  }
+
+  /* .btn-light {
+    position: relative;
+    top: 50%;
+    transform:translateY(-20%);
+
+  } */
+
+  .btn-success {
+    margin: 10px;
+  }
+
+  .fa-eye, .fa-eye-slash {
+    cursor: pointer;
+    font-size: 0.9em;
+  }
+
+  .password-line {
+    display: flex;
+  }
+
+  .eye-input {
+    width: 40px;
+  }
+
+  .eye {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  @media screen and (max-width: 1000px) {
+    /* #add-company-btn {
+      padding: 6px 12px;
+      font-size: 0.95em;
+    } */
+
+    .del {
+      padding: 5px 10px;
+      font-size: 0.93em;
+    }
+
+  }
+
+  @media screen and (max-width: 700px) {
+    .filter, .filter input {
+      font-size: 0.95em;
+    }
+
+    .filter {
+      width: 270px;
+    }
+
+    #add-company-btn {
+      margin: 50px 0 0 50px;
+      padding: 6px 12px;
+      font-size: 0.95em;
+    }
+
+    table  {
+      font-size: 0.9em;
+    }
+
+    .circle {
+      font-size: 0.9em;
+    }
+
+    .circle .fa-eye, .circle .fa-eye-slash {
+      font-size: 1em;
+    }
+
+    .fa-eye, .fa-eye-slash {
+      font-size: 0.9em;
+    }
+
+    .icon {
+      font-size: 0.85em;
+    }
+
+    .add-btn {
+      font-size: 0.9em;
+    }
+
+    .del-line {
+      display: block;
+      margin-top: 6px;
+    }
+
+    .del {
+      padding: 4px 8px;
+      font-size: 0.95em;
+      margin-right: 3.8%;
+    }
+
+
+
+  }
+
+
+  @media screen and (max-width: 480px) {
+
+    /* .alert-warning h4 { if do it here do it with all err msg
+      font-size: 14px;
+    } */
+
+    .filter, .filter input {
+      font-size: 0.9em;
+    }
+
+    .filter {
+      width: 260px;
+      margin-top: 15px;
+    }
+
+    .filter button {
+      font-size: 1em;
+      padding: 5px 10px;
+    }
+
+    #add-company-btn {
+      margin: 65px 0 0 50px;
+      padding: 5px 10px;
+      font-size: 0.92em;
+    }
+
+    table  {
+      font-size: 0.8em;
+    }
+
+    .circle {
+      font-size: 0.8em;
+    }
+
+    .circle .fa-eye, .circle .fa-eye-slash {
+      font-size: 1em;
+    }
+
+    .fa-eye, .fa-eye-slash {
+      font-size: 0.8em;
+    }
+
+    .icon {
+      font-size: 0.75em;
+    }
+
+    .add-btn {
+      font-size: 0.8em;
+    }
+
+    .del {
+      padding: 3px 6px;
+      font-size: 0.98em;
+      /* margin-right: 3.8%; */
+    }
+
+  }
+
+
+
+
+

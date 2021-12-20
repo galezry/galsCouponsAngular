@@ -1,0 +1,305 @@
+
+<div *ngIf="isErrMsgShown" class="alert alert-warning" role="alert">
+  <h4 > {{errMsg|titlecase}} </h4>
+</div>
+
+  <div *ngIf="isLoggedIn() && isUserTypeAdmin()">
+
+    <!-- TODO no need for isCompaniesArrEmpty - delete it -->
+  <div *ngIf="isCompaniesArrEmpty()">
+    <h4 *ngIf="companiesToShow.length > 0" class="alert alert-success" role="alert">
+      {{companyMsg.name}}</h4>
+    <br>
+
+    <app-empty-view message="There are no companies yet to view"></app-empty-view>
+    <a id="add-company-btn" (click)= add() routerLink="add-company" routerLinkActive="active-link"
+        class="btn btn-success" title="Add New Company"><i class="fas fa-plus"></i>
+        &nbsp;&nbsp; Add a Company</a>
+  </div>
+
+  <!-- <input type="checkbox" [(ngModel)]="isEditModePossible">
+  Add & Update Companies On This Page -->
+
+
+
+  <div *ngIf="companiesToShow.length > 0 && !isErrMsgShown && !isVPWidthSmall()" class="form-check">
+    <input [(ngModel)]="isEditModePossible" (click)='editModeCheckBox()'
+    class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+    <label class="form-check-label" for="flexCheckDefault">Add & Update Companies On This Page</label>
+  </div>
+
+  <div *ngIf="isVPWidthSmall() && !isCompaniesArrEmpty()" class='filter'>
+
+    <button type="button" class="btn btn-outline-success" (click)='toggleFilterSec()'
+    [disabled]='isUpdateMode'>Filter by &nbsp;<i class="fas fa-caret-down"></i>
+    </button>
+    <i *ngIf='isFiltering()'  class="fas fa-filter"></i>
+
+    <div *ngIf="isFilterSecShown()">
+      <input (keyup)="searchById($event)" class="form-control form-item" [(ngModel)]='idSearched'
+      type="text" placeholder="ID  🔍" [disabled]='isUpdateMode'>
+      <input (keyup)="searchByName($event)" class="form-control form-item"
+      [(ngModel)]='nameSearched' type="text" placeholder="Name  🔍" [disabled]='isUpdateMode'>
+      <input (keyup)="searchByEmail($event)" class="form-control form-item"
+      [(ngModel)]='emailSearched' type="text" placeholder="Email  🔍" [disabled]='isUpdateMode'>
+    </div>
+    <!-- <br> -->
+  </div>
+
+
+  <table class="table table-hover" *ngIf="!isCompaniesArrEmpty()">
+      <!-- <caption>Company Details</caption> -->
+    <thead>
+      <tr *ngIf="!isVPWidthSmall()">
+        <th style="width: 10%; padding-left: 15px;">
+          <input (keyup)="searchById($event)" class="form-control form-item" [(ngModel)]='idSearched'
+          type="text" placeholder="ID  🔍" [disabled]='isUpdateMode'>
+        </th>
+        <th style="width: 15%">
+          <input (keyup)="searchByName($event)" class="form-control form-item"
+          [(ngModel)]='nameSearched' type="text" placeholder="Name  🔍" [disabled]='isUpdateMode'>
+        </th>
+        <th style="width: 22%">
+          <input (keyup)="searchByEmail($event)" class="form-control form-item"
+          [(ngModel)]='emailSearched' type="text" placeholder="Email  🔍" [disabled]='isUpdateMode'>
+        </th>
+        <th style="width: 18%"></th>
+        <th style="width: 20%"></th>
+        <th style="width: 15%"></th>
+      </tr>
+
+      <tr>
+        <th style="width: 10%; "
+         [class]="getClass('id')" (click)="shouldSortBy('id')" scope="col">ID</th>
+        <th style="width: 15%"
+         [class]="getClass('name')" (click)="shouldSortBy('name')" scope="col">Name</th>
+        <th style="width: 22%"
+         [class]="getClass('email')" (click)="shouldSortBy('email')" scope="col">Email</th>
+
+        <th style="width: 18%"
+         *ngIf='!this.areAllPasswordsShown' scope="col">
+          <i class='fas fa-eye-slash' (click)='showAllPasswords()'></i>&nbsp; Password</th>
+        <th style="width: 20%"
+         *ngIf='this.areAllPasswordsShown' scope="col">
+          <i class='fas fa-eye' (click)='hideAllPasswords()'></i>&nbsp; Password</th>
+
+
+        <th style="width: 15%"
+         scope="col">Coupons</th>
+        <th
+         *ngIf="!isUpdateMode" scope="col">Delete / Update</th>
+        <th style="width: 15%"
+         *ngIf="isUpdateMode" scope="col">Cancel / Save</th>
+      </tr>
+    </thead>
+
+    <tbody *ngIf="!isEditModePossible || isVPWidthSmall()">
+      <tr *ngFor="let c of companiesToShow" >
+        <td *ngIf='c.id > 0' scope="row" class="align-middle ">{{ c.id }}</td>
+        <td *ngIf='c.id > 0' class="align-middle">{{ c.name }}</td>
+
+        <td *ngIf='c.id === 0 && c.email === ""' class="align-middle" [class]='companyMsgClass'
+        colspan="6">{{ c.name }}</td>
+
+        <td *ngIf='c.id === 0 && c.email === "delete"' class="align-middle" [class]='companyMsgClass'
+          colspan="6"> {{ c.name }}
+          <div class='del-line'>
+            <button (click)='cancelDelete()' type="button" class="del btn btn-primary">
+              <i class="fas fa-arrow-alt-circle-left"></i> &nbsp; Cancel</button>
+
+            <button (click)='deleteCompany()' type="button" class="del btn btn-danger">
+              <i class="fas fa-trash"></i> &nbsp; Delete Company</button>
+          </div>
+        </td>
+
+        <td *ngIf='c.id > 0' class="align-middle">{{ c.email }}</td>
+
+        <td *ngIf='c.id > 0 && companyIdVsPw[c.id]' class="align-middle">
+          <i class="fas fa-eye" (click)='toggleOwnPassword(c.id)'></i>
+          &nbsp;&nbsp; {{ c.password }}
+        </td>
+        <td *ngIf='c.id > 0 && !companyIdVsPw[c.id]' class="align-middle circle">
+          <i class="fas fa-eye-slash" (click)='toggleOwnPassword(c.id)'></i>
+          &nbsp;&nbsp;{{ getHiddenPassword(c.password) }}</td>
+
+        <td *ngIf='c.id > 0' class="align-middle">
+            <li *ngFor="let co of getFutureCoupons(c.coupons); let i = index"> {{ co.id }}
+              <span *ngIf="i < getFutureCoupons(c.coupons).length - 1">, </span>
+            </li>
+        </td>
+
+        <td *ngIf='c.id > 0'>
+          <button class="btn btn-light icon" (click)=delete(c) title='Delete Company'
+          [disabled]='isUpdateMode'>🗑️
+          </button>  &nbsp;
+            <button class="btn btn-light icon" (click)=update(c) routerLink="update-company"
+            routerLinkActive="active-link" title='Update Company' [disabled]='isUpdateMode'>
+             ✏️</button>
+        </td>
+      </tr>
+    </tbody>
+
+
+
+    <tbody *ngIf="isEditModePossible && !isVPWidthSmall()">
+
+      <tr *ngFor="let c of companiesToShow" >
+
+        <td *ngIf='(!isUpdateMode || companyIdToUpdate !== c.id) && c.id > 0' scope="row"
+          class="align-middle">{{ c.id }}</td>
+
+        <td *ngIf='isUpdateMode && companyIdToUpdate === c.id' scope="row"
+          class="align-middle" [title]='cannotChangeIdMsg'>{{ c.id }}</td>
+
+        <td *ngIf='c.id === -5' scope="row" class="align-middle bold" [title]='idAutoIncMsg'></td>
+
+
+        <td *ngIf='c.id > 0' class="align-middle">{{ c.name }}</td>
+        <td *ngIf='c.id === 0 && c.email === ""' class="align-middle" [class]='companyMsgClass'
+        colspan="6">{{ c.name }}</td>
+
+        <td *ngIf='c.id === 0 && c.email === "delete"' class="align-middle" [class]='companyMsgClass'
+        colspan="6"> {{ c.name }}
+          <button (click)='cancelDelete()' type="button" class="del btn btn-primary">
+            <i class="fas fa-arrow-alt-circle-left"></i> &nbsp; Cancel</button>
+
+          <button (click)='deleteCompany()' type="button" class="del btn btn-danger">
+            <i class="fas fa-trash"></i> &nbsp; Delete Company</button>
+        </td>
+
+        <td *ngIf='c.id === -5' class="align-middle" >
+          <input #nameInfo=ngModel class="form-control form-item" (keydown)="deleteCompanyMsg()"
+          [(ngModel)]='newName' type="text" placeholder="Company Name" [pattern]=namePattern
+          [title]='nameTitle' required maxlength="255">
+          <div class="alert alert-danger" *ngIf="nameInfo.errors?.required && nameInfo.touched"
+          [title]='nameTitle'>
+            <i class="fa fa-info-circle"></i> Please Enter Company Name</div>
+          <div class="alert alert-danger" *ngIf="nameInfo.errors?.pattern && nameInfo.touched"
+          [title]='nameTitle'>
+            <i class="fa fa-info-circle"></i> {{explainName|titlecase}}</div>
+          <div class="alert alert-danger"
+          *ngIf="!nameInfo.errors?.pattern && doesNewNameEqualExistedName()" [title]='nameTitle'>
+            <i class="fa fa-info-circle"></i> Name is taken. Please use another</div>
+        </td>
+
+
+        <td *ngIf="(!isUpdateMode || companyIdToUpdate !== c.id) && c.id > 0"
+        class="align-middle">{{ c.email }}</td>
+
+        <td *ngIf="isUpdateMode && (companyIdToUpdate === c.id || c.id === -5)" class="align-middle">
+          <input #emailInfo=ngModel class="form-control form-item" type="text" [title]=emailTitle
+          [(ngModel)]="updatedEmail" [pattern]=emailPattern placeholder="Email Address" required
+          (keydown)="deleteCompanyMsg()" maxlength="255">
+            <div class="alert alert-danger" *ngIf="emailInfo.errors?.required && emailInfo.touched"
+            [title]=emailTitle><i class="fa fa-info-circle"></i> Please Enter Email</div>
+            <div class="alert alert-danger" *ngIf="emailInfo.errors?.pattern && emailInfo.touched"
+            [title]=emailTitle><i class="fa fa-info-circle"></i> {{explainEmail}}</div>
+            <div class="alert alert-danger" [title]=emailTitle
+            *ngIf="!emailInfo.errors?.pattern && this.doesUpdatedEmailEqualExistedEmail()">
+              <i class="fa fa-info-circle"></i> Email is taken. Please use another</div>
+        </td>
+
+        <td *ngIf='c.id > 0 && companyIdVsPw[c.id] && (!isUpdateMode || companyIdToUpdate!==c.id)'
+          class="align-middle"><i class="fas fa-eye" (click)='toggleOwnPassword(c.id)'></i>
+          &nbsp;&nbsp; {{ c.password }}</td>
+        <td *ngIf='c.id > 0 && !companyIdVsPw[c.id] && (!isUpdateMode || companyIdToUpdate!==c.id)'
+          class="align-middle circle"><i class="fas fa-eye-slash" (click)='toggleOwnPassword(c.id)'></i>
+          &nbsp;&nbsp;{{ getHiddenPassword(c.password) }}</td>
+
+        <td *ngIf="isUpdateMode && (companyIdToUpdate === c.id || c.id === -5)" class="align-middle">
+          <div class='password-line'>
+            <div class="input-group-addon eye-input">
+              <i [class]="getEyeClass(c.id)" (click)='toggleOwnPassword(c.id)'></i>
+            </div>
+            <input #passwordInfo=ngModel class="form-control form-item" [type]="getPasswordType(c.id)"
+            [(ngModel)]="updatedPassword" required [pattern]= passwordPattern
+            [title]='passwordTitle|titlecase' placeholder="Password" maxlength="255">
+          </div>
+          <div class="alert alert-danger" [title]='passwordTitle|titlecase'
+          *ngIf="passwordInfo.errors?.required && passwordInfo.touched">
+            <i class="fa fa-info-circle"></i> Please Enter Password</div>
+          <div class="alert alert-danger" [title]='passwordTitle|titlecase'
+          *ngIf="passwordInfo.errors?.pattern && passwordInfo.touched">
+            <i class="fas fa-info-circle"></i> {{explainPassword|titlecase}}</div>
+        </td>
+
+        <td *ngIf='(!isUpdateMode || companyIdToUpdate !== c.id) && c.id > 0' class="align-middle">
+          <li *ngFor="let co of getFutureCoupons(c.coupons); let i = index"> {{ co.id }}
+            <span *ngIf="i < getFutureCoupons(c.coupons).length - 1">, </span>
+          </li>
+        </td>
+
+        <td *ngIf="isUpdateMode && companyIdToUpdate === c.id" class="align-middle"
+          [title]='cannotAddCouponsMsg'>
+          <li *ngFor="let co of getFutureCoupons(c.coupons); let i = index"> {{ co.id }}
+            <span *ngIf="i < getFutureCoupons(c.coupons).length - 1">, </span>
+          </li>
+        </td>
+
+        <td *ngIf='c.id === -5' class="align-middle" [title]='cannotAddCouponsMsg'></td>
+
+
+        <td *ngIf="(!isUpdateMode || companyIdToUpdate!==c.id) && c.id > 0">
+          <button  class="btn btn-light icon" (click)=delete(c) title='Delete Company'
+          [disabled]='isUpdateMode && companyIdToUpdate!==c.id '>
+          🗑️</button> &nbsp;
+          <button  class="btn btn-light icon" (click)=update(c) title='Update Company'
+          [disabled]='isUpdateMode && companyIdToUpdate!==c.id '>
+           ✏️</button>
+        </td>
+
+        <td *ngIf="isUpdateMode && (companyIdToUpdate === c.id || c.id === -5)" class="align-middle">
+          <button  class="btn btn-light" title='Cancel Changes'
+          (click)=cancelUpdate()>⬅️</button>  &nbsp;
+
+          <button *ngIf='companyIdToUpdate === c.id' [disabled]='!isUpdatePossible()'
+          class='btn btn-light' (click)=updateCompany(c) [title]='saveBtnTitle'> 💾</button>
+
+          <button *ngIf='c.id === -5' class="btn btn-light" [disabled]='!isAddCompanyPossible()'
+          (click)=addCompany() [title]='saveBtnTitle'> 💾</button>
+      </td>
+
+
+
+        <!-- <td>
+            <button *ngIf="!isUpdateMode || companyIdToUpdate!==c.id" class="btn btn-light"
+            (click)=deleteCompany(c.id)>🗑️</button>  &nbsp;
+            <button *ngIf="isUpdateMode && companyIdToUpdate==c.id" class="btn btn-light"
+            (click)=deleteCompany(c.id)>🔙</button>  &nbsp;
+
+            <button *ngIf="!isUpdateMode || companyIdToUpdate!==c.id" class="btn btn-light"
+            (click)=update(c)> ✏️</button>
+            <button *ngIf="isUpdateMode && companyIdToUpdate==c.id" class="btn btn-light"
+            (click)=update(c)> 💾</button>
+        </td> -->
+
+      </tr>
+    </tbody>
+
+    <button *ngIf="!isEditModePossible || isVPWidthSmall()" [disabled]='isUpdateMode'
+    routerLink="add-company" routerLinkActive="active-link"
+    (click)=add() class="btn btn-success add-btn" title="Add New Company" >
+    <i class="fas fa-plus white"></i></button>
+
+    <button *ngIf="isEditModePossible && !isVPWidthSmall()" [disabled]='isUpdateMode'
+    (click)=add() class="btn btn-success add-btn" title="Add New Company">
+    <i class="fas fa-plus white"></i></button>
+
+
+  </table>
+
+
+
+
+  <div *ngIf=isDevMode() >
+    <h3>Development mode</h3>
+
+    <p>{{companiesToShow | json}}</p>
+
+    </div>
+
+
+  </div>
+
+
+

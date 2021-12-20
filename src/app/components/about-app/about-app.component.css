@@ -1,0 +1,84 @@
+.entire-page {
+  background-image: url('../../../assets/images/logo-no-pic3.jpeg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  background-color: rgba(255,255,255,0.95);
+  background-blend-mode: lighten;
+  line-height: 1.6;
+}
+
+.headline {
+  text-align: center;
+  color: green;
+  font-weight: 500;
+  font-family: 'Goudy Old Style', Georgia, 'Times New Roman', Times, serif;
+}
+
+.column-container {
+  text-align: left;
+  margin: 0 2% 2% 2%;
+  font-size: medium;
+  display: flex;
+  justify-content: center;
+}
+
+.column {
+  width: 28%;
+  margin: 0 4% 0 4%;
+}
+
+.p-headline {
+  color: green;
+  font-weight: 500;
+  padding-top: 4%;
+}
+
+.ul-headline {
+  color: green;
+  font-weight: 500;
+  padding-top: 1%;
+  margin-bottom: 0.5%;
+}
+
+ul, li {
+  margin-top: 0.5%;
+}
+
+.contact-line {
+  text-decoration: none;
+  color: green;
+}
+
+
+@media screen and (max-width: 900px) {
+  .headline {
+    font-size: 1.8em;
+    margin-bottom: 5px;
+  }
+
+  .column-container {
+    flex-direction: column;
+  }
+
+  .column {
+    width: 80%;
+    margin: 0 0 0 10%;
+  }
+
+}
+
+@media screen and (max-width: 480px) {
+  .headline {
+    font-size: 1.4em;
+    margin-bottom: 2%;
+  }
+
+  .column-container {
+    font-size: 1.1em;
+  }
+
+}
+
+
+

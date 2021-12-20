@@ -1,0 +1,223 @@
+
+<div *ngIf="isViewShown()">
+  <h1  class="alert alert-primary" role="alert">{{ getHeadline() }}</h1>
+
+
+<!-- <div class="back-to-admin">
+      <button *ngIf="formAction==='ADD' || formAction==='UPDATE'" class="btn btn-info"
+            routerLink="../../admin" routerLinkActive="active-link">
+            <i class="fa fa-step-backward"></i>&nbsp; Back To Admin</button>
+</div> -->
+
+
+<div *ngIf="formAction==='ADD_MSG' || formAction==='UPDATE_MSG'">
+   <br>
+   <h4 [class]=msgClass role="alert">{{msg|titlecase}}</h4>
+
+
+   <span class="add-msg">
+
+      <button *ngIf="!isCurrentCompanyUpdate() && !isCompanySignUp()"
+       class="btn btn-info" routerLink='../../admin' routerLinkActive="active-link">
+         <i class="fa fa-step-backward"></i>&nbsp; Back To Admin</button>
+
+      <button *ngIf="isCurrentCompanyUpdate()"
+      class="btn btn-info"  (click)=goToManageCoupons()>
+        <i class="fa fa-step-backward"></i>&nbsp; Back To Manage Coupons</button>
+
+      <button *ngIf="formAction==='UPDATE_MSG'" class='btn btn-info'
+         (click)="continueUpdate()"> ✏️&nbsp; {{ getContinueUpdateText() }}</button>
+
+      <button (click)=addAnotherCompany() *ngIf="formAction==='ADD_MSG' && !isCompanySignUp()"
+      class="btn btn-success">Add Another Company</button>
+
+      <button *ngIf="formAction==='ADD_MSG' && isCompanySignUp()" (click)=signInTheNewCompany()
+      class="btn btn-success">Sign me in</button>
+   </span>
+</div>
+
+<!-- ------------ -->
+
+<div>
+  <form *ngIf="formAction =='UPDATE_MSG'">
+      <label >Company ID</label>
+        <input disabled class="form-control form-item" [(ngModel)]='company.id'
+              type="number" name="id">
+      <br>
+
+      <label >Company Name</label>
+        <input disabled class="form-control form-item"
+        [(ngModel)]='company.name' type="text"  name="name">
+    <br>
+
+      <label >Email Address</label>
+        <input disabled class="form-control form-item" [(ngModel)]='company.email'
+         name='email' type="email">
+    <br>
+
+    <div>
+      <label >Password</label>
+      <div class="password-line">
+        <img class='eye' (click)=showPassword() [src]="passwordImgSrc" alt="eye-icon">
+        <input class="form-control form-item password-input" [(ngModel)]='company.password'
+         #passwordInfo=ngModel name="password" [type]=passwordType disabled>
+      </div>
+    </div>
+    <br>
+
+      <label >Company's Coupons</label>
+      <input disabled class="form-control form-item" [(ngModel)]='coupons'
+            type="text" name="coupons">
+  <br>
+
+</form>
+</div>
+
+
+<!-- ----------------------------- -->
+
+<div> <!-- try to remove this class: class="add-comp-form"-->
+  <form *ngIf="formAction =='ADD' || formAction =='UPDATE'" #formInfo=ngForm>
+    <div *ngIf="formAction =='UPDATE'">
+      <label >Company ID</label>
+        <input disabled #idInfo=ngModel class="form-control form-item" [(ngModel)]='company.id'
+              type="number" name="id" required number [title]="cannotChangeIdMsg">
+      <br>
+    </div>
+    <div>
+      <label >Company Name</label>
+        <input [disabled]="formAction ==='UPDATE'" #nameInfo=ngModel class="form-control form-item"
+        [(ngModel)]='company.name' type="text" placeholder="Company Name" name="name" required
+        [pattern]=namePattern  [title]='nameTitle|titlecase' (keydown)="hideErrMsg()"
+        maxlength="255">
+
+        <div class="alert alert-danger form-err" [title]='nameTitle|titlecase'
+        *ngIf="nameInfo.errors?.required && nameInfo.touched && company.name === ''">
+            <i class="fa fa-info-circle"></i> Please Enter Company Name</div>
+
+        <div class="alert alert-danger form-err" [title]='nameTitle|titlecase'
+        *ngIf="nameInfo.errors?.pattern && nameInfo.touched">
+            <i class="fa fa-info-circle"></i> {{explainName|titlecase}}</div>
+
+        <div class="alert alert-danger form-err" [title]='nameTitle|titlecase'
+        *ngIf="!nameInfo.errors?.pattern && doesEnteredNameEqualExistedName()">
+            <i class="fa fa-info-circle"></i> This name is taken. Please use another</div>
+    </div>
+    <br>
+
+    <div>
+      <label >Email Address</label>
+        <input #emailInfo=ngModel class="form-control form-item" [(ngModel)]='company.email'
+          [title]='emailTitle' name='email' type="email" placeholder="Email Address"
+          [pattern]=emailPattern required (keydown)="hideErrMsg()" maxlength="255">
+        <div [title]='emailTitle' class="alert alert-info form-err"
+          *ngIf="emailInfo.untouched && company.email === ''">We Value Your Privacy</div>
+        <div class="alert alert-danger form-err" [title]='emailTitle'
+          *ngIf="emailInfo.errors?.required && emailInfo.touched && company.email === ''">
+          <i class="fa fa-info-circle"></i> Please Enter Email</div>
+        <div class="alert alert-danger form-err" [title]='emailTitle'
+          *ngIf="emailInfo.errors?.pattern && emailInfo.touched">
+          <i class="fa fa-info-circle"></i> {{explainEmail}}</div>
+        <div class="alert alert-danger form-err" [title]='emailTitle'
+          *ngIf="!emailInfo.errors?.pattern && this.doesEnteredEmailEqualExistedEmail()">
+          <i class="fa fa-info-circle"></i> This email is taken. Please use another</div>
+      </div>
+    <br>
+
+    <div>
+      <label >Password</label>
+      <div class="password-line">
+        <img class='eye' (click)='showPassword()' [src]="passwordImgSrc" alt="eye-icon">
+        <input class="form-control form-item password-input" [(ngModel)]='company.password'
+         #passwordInfo=ngModel placeholder="Password" name="password"
+        [type]=passwordType required [pattern]= passwordPattern [title]='passwordTitle|titlecase'
+        maxlength="255">
+      </div>
+      <div class="alert alert-danger form-err" [title]='passwordTitle|titlecase'
+      *ngIf="passwordInfo.errors?.required && passwordInfo.touched && company.password===''">
+            <i class="fa fa-info-circle"></i> Please Enter Password</div>
+      <div class="alert alert-danger form-err" [title]='passwordTitle|titlecase'
+      *ngIf="passwordInfo.errors?.pattern && passwordInfo.touched">
+              <i class="fa fa-info-circle"></i> {{explainPassword|titlecase}}</div>
+    </div>
+    <br>
+
+    <!-- <div>
+      <label >Confirm Password</label>
+      <div class="password-line">
+        <img class='eye' (click)='showConPassword()' [src]="conPasswordImgSrc" alt="eye-icon">
+        <input class="form-control form-item password-input" [(ngModel)]='confirmPassword'
+         #conPasswordInfo=ngModel placeholder="Confirm Password" name="c-password"
+        [type]=conPasswordType required [pattern]= passwordPattern title='enter password again'>
+      </div>
+      <div class="alert alert-danger form-err" [title]='passwordTitle|titlecase'
+      *ngIf="passwordInfo.errors?.required && passwordInfo.touched && company.password===''">
+            <i class="fa fa-info-circle"></i> Please Enter Password</div>
+      <div class="alert alert-danger form-err" [title]='passwordTitle|titlecase'
+      *ngIf="passwordInfo.errors?.pattern && passwordInfo.touched">
+              <i class="fa fa-info-circle"></i> {{explainPassword|titlecase}}</div>
+    </div>
+    <br> -->
+
+    <div *ngIf="formAction =='UPDATE'">
+      <label >Company's Coupons</label>
+      <input disabled class="form-control form-item" [(ngModel)]='coupons'
+            type="text" name="coupons" [title]='getCannotChangeCouponTitle()'>
+  </div>
+
+  <br>
+
+  <button *ngIf="formAction ==='ADD'" [disabled]='formInfo.invalid  || !isAddPossible()'
+    name="submit" class="btn btn-primary" (click)=addCompany() type="button">
+    {{ getAddBtnName() }} <i *ngIf='!this.isCompanySignUp()' class="far fa-building"></i>
+    &nbsp;<i *ngIf='!this.isCompanySignUp()' class="fa fa-plus-square"></i>
+  </button>
+
+  <br><br>
+
+    <div *ngIf="formAction === 'ADD' && isCompanySignUp()">
+      <div class='goto-sign-in'
+    routerLink='../login' routerLinkActive='active-link'>Already a member? &nbsp;Sign in</div>
+
+    <div class="btn-group">
+      <button type="button" class="btn btn-light dropdown-toggle customer-sign-up"
+      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">👤 Customer?
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item text-success" routerLink='../customer-sign-up'
+        routerLinkActive='active-link' (click)='signUpAsCustomer()'>Sign up as a customer</a>
+        <a class="dropdown-item text-success" routerLink='../login'
+        routerLinkActive='active-link'>Sign in</a>
+      </div>
+    </div>
+
+    </div>
+
+
+
+  <div *ngIf="formAction =='UPDATE'">
+    <button type="button" class="btn btn-secondary update-btn"
+      (click)=cancelUpdate()><i class="fa fa-window-close"></i> Cancel Changes</button>
+
+    <button [disabled]='formInfo.invalid || !isUpdatePossible()' (click)=updateCompany()
+      type="button" class="btn btn-primary update-btn"><i class="fa fa-save"></i> Save Changes
+    </button>
+  </div>
+
+</form>
+</div>
+<br>
+
+</div>
+
+<h4 *ngIf="isErrMsgShown" class="alert alert-warning" role="alert">
+      {{errMsg|titlecase}}
+</h4>
+
+
+
+<div *ngIf=isDevMode() >
+  <hr>
+  <h3>Development mode</h3>
+  <p>{{company | json}}</p>
+</div>

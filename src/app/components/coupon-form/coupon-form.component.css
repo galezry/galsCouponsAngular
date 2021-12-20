@@ -1,0 +1,189 @@
+
+
+.add-msg {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+input, select, textarea {
+    width: 320px;
+  }
+
+.form-item {
+    margin: auto;
+  }
+
+.form-err {
+  width: fit-content;
+  min-width: 320px;
+  max-width: 85%;
+  margin: auto;
+  padding: 0.5%;
+}
+
+  /* .red {
+    color: red;
+  }
+
+  .blue {
+    color: blue;
+  }
+
+  .blue:hover {
+    background-color: yellow;
+  } */
+
+  .update-btn {
+    margin: 0 10px;
+  }
+
+  .price-display {
+    width: 320px;
+    text-align: left;
+  }
+
+  .price {
+    display: flex;
+    justify-content: center;
+    /* position: relative;
+    right: 1.5%; */
+  }
+
+  .price-input {
+    margin: 0;
+    width: 290px;
+  }
+
+  .usd {
+    font-size: medium;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+  }
+
+  img {
+    height: 100px;
+    max-width: 300px;
+  }
+
+  .org-img {
+    cursor: pointer;
+  }
+
+  /* .custom-file {
+    width: 20%;
+    margin: auto;
+  }
+
+  .custom-file-input {
+    width: 100%;
+    margin: auto;
+  }
+
+  .custom-file-label {
+    width: 100%;
+    margin: auto;
+  } */
+
+
+
+  @media screen and (max-width: 1100px) {
+    .add-msg {
+      margin-bottom: 30px;
+    }
+  }
+
+
+
+
+  @media screen and (max-width: 480px) {
+
+    h1 {
+      font-size: 1.45em;
+    }
+
+    h4 {
+      font-size: 0.9em;
+    }
+
+    input, select, textarea {
+      width: 280px;
+    }
+
+    .form-err {
+      min-width: 280px;
+    }
+
+    .btn {
+      padding: 5px 10px;
+      font-size: 0.9em;
+    }
+
+    .price-display {
+      width: 280px;
+    }
+
+    .price-input {
+      width: 250px;
+    }
+
+    .usd {
+      /* font-size: medium; */
+      width: 30px;
+    }
+
+    img {
+      height: 90px;
+      max-width: 250px;
+    }
+
+  }
+
+
+  @media screen and (max-width: 349px) {
+
+    .add-msg {
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      margin-top: 5px;
+      padding: 4px 8px;
+      font-size: 0.8em;
+    }
+
+    input, select, textarea {
+      width: 230px;
+      max-width: 90%;
+    }
+
+    .form-err {
+      min-width: 230px;
+      max-width: 90%;
+    }
+
+    .price-display {
+      width: 230px;
+      max-width: 90%;
+    }
+
+    .price-input {
+      width: 200px;
+      max-width: 75%;
+    }
+
+    img {
+      height: 80px;
+      max-width: 220px;
+    }
+
+  }
+
+
+
+
+

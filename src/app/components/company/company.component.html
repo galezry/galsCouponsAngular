@@ -1,0 +1,29 @@
+
+<div >
+
+  <ul *ngIf="isLoggedIn() && isUserTypeCompany()" class="nav">
+    <li class="nav-item">
+      <h2
+      class="nav-link" [ngClass]="{active: isProfileSelected()}"
+      (click)="showCompanyProfile()">Profile
+      </h2>
+    </li>
+    <li class="nav-item">
+      <h2 class="nav-link" [ngClass]="{active: !isProfileSelected()}"
+      (click)="showCouponCrud()">Manage Coupons
+      </h2>
+    </li>
+  </ul>
+
+
+
+  <div *ngIf="!isProfileSelected()">
+    <app-coupon-crud></app-coupon-crud>
+  </div>
+
+  <div *ngIf="isProfileSelected()">
+    <app-company-form></app-company-form>
+  </div>
+
+  
+</div>

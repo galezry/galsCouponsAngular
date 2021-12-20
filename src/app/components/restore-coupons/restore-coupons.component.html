@@ -1,0 +1,16 @@
+<div *ngIf="isErrMsgShown" class="alert alert-warning" role="alert">
+  <h4 > {{errMsg|titlecase}} </h4>
+</div>
+
+<div *ngIf="isLoggedIn() && IsUserTypeCompany()">
+  <br><br><br>
+
+    <button (click)=restore() class="btn btn-primary">
+      Restore
+      <span class="material-icons">restore</span></button>
+      <br><br>
+    <div *ngIf="isSuccessMsgShown" class="alert alert-success" role="alert">
+      <h4 > {{successMsg}} </h4>
+    </div>
+
+</div>

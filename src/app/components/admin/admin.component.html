@@ -1,0 +1,37 @@
+<div >
+  <!-- *ngIf="IsUserTypeAdmin()" -->
+
+  <ul *ngIf="isLoggedIn() && IsUserTypeAdmin()" class="nav">
+    <li class="nav-item">
+      <h2 class="nav-link" [ngClass]="{active: getSelection() === 'company'}"
+      (click)="showCompanyCrud()">Companies
+      </h2>
+    </li>
+    <li class="nav-item">
+      <h2
+      class="nav-link" [ngClass]="{active: getSelection() === 'customer'}"
+      (click)="showCustomerCrud()">Customers
+      </h2>
+    </li>
+
+  </ul>
+
+
+
+  <div *ngIf="getSelection() === 'company'">
+    <app-company-crud></app-company-crud>
+  </div>
+
+  <div *ngIf="getSelection() === 'customer'">
+    <app-customer-crud></app-customer-crud>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,199 @@
+.entire-page {
+  background-image: url('../../../assets/images/logo-no-pic3.jpeg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  background-color: rgba(255,255,255,0.95);
+  background-blend-mode: lighten;
+  line-height: 1.6;
+}
+
+.headline {
+  text-align: center;
+  color: green;
+  font-weight: 500;
+  font-family: 'Goudy Old Style', Georgia, 'Times New Roman', Times, serif;
+}
+
+.column-container {
+  text-align: left;
+  margin: 0 2% 2% 2%;
+  font-size: medium;
+  display: flex;
+  justify-content: center;
+}
+
+.column {
+  width: 28%;
+  margin: 0 4% 0 4%;
+}
+
+.p-headline {
+  color: green;
+  font-weight: 500;
+  padding-top: 4%;
+}
+
+.ul-headline {
+  color: green;
+  font-weight: 500;
+  padding-top: 1%;
+  margin-bottom: 0.5%;
+}
+
+ul, li {
+  margin-top: 0.5%;
+}
+
+.logo-container {
+  margin: 5% 7% 5% 7%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.src-code {
+  text-decoration: none;
+  color: green;
+}
+
+.src-code:hover {
+  color: rgb(9, 91, 9);
+}
+
+
+
+ img {
+  margin-right: 2%;
+}
+
+.java {
+  width: 22px;
+  height: 40px;
+}
+
+.spring {
+  width: 22px;
+  height: 22px;
+}
+
+.mysql {
+  width: 44px;
+  height: 30px;
+}
+
+.postg {
+  width: 25px;
+  height: 26px;
+}
+
+.swagger {
+  width: 28px;
+  height: 28px;
+}
+
+.angular {
+  width: 30px;
+  height: 30px;
+  margin-left: 25%;;
+}
+
+.html {
+  width: 28px;
+  height: 28px;
+}
+
+.css {
+  width: 21px;
+  height: 30px;
+}
+
+.js {
+  width: 25px;
+  height: 25px;
+}
+
+.ts {
+  width: 25px;
+  height: 25px;
+}
+
+.bs {
+  width: 31px;
+  height: 25px;
+  margin-right: 0;
+}
+
+
+@media screen and (max-width: 1000px) {
+  .headline {
+    font-size: 1.8em;
+    margin-bottom: 5px;
+  }
+
+  .column-container {
+    flex-direction: column;
+  }
+
+  .column {
+    width: 80%;
+    margin: 0 0 0 10%;
+  }
+
+  .logo-container {
+    margin: 5% 9% 5% 9%;
+  }
+
+  .angular {
+    margin-left: 20%;
+  }
+
+}
+
+
+@media screen and (max-width: 768px) {
+
+   img {
+    margin-right: 2.5%;
+  }
+
+  .angular {
+    margin-left: 17%;
+  }
+
+}
+
+
+@media screen and (max-width: 600px) {
+  .headline {
+    font-size: 1.4em;
+    margin-bottom: 2%;
+  }
+
+  .column-container {
+    font-size: 1.1em;
+  }
+
+  .logo-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5% 10% 5% 10%;
+  }
+
+  /* .swagger {
+    margin-right: 0;
+  } */
+
+  .angular {
+    margin-left: 0;
+  }
+
+  img {
+    /* margin-right: 4%; */
+    margin-right: 0%;
+  }
+
+
+
+}

@@ -1,0 +1,49 @@
+
+<div *ngIf='isSignedOutMsgShown()' class="alert alert-warning" role="alert">
+  <span class='msg'>{{successfullySignedOutMessage}}</span>
+<span class="close-msg" (click)="hideSignOutMsg()"> &otimes;</span>
+</div>
+
+<div *ngIf='isWelcomeMsgShown()' class="alert alert-success msg-cont" role="alert">
+  <div>
+    <span class='msg'>{{getWelcomeMsg()}}</span>
+    <p *ngIf='isVPWidthSmall()' class='mob-msg'><i class="fas fa-desktop"></i>&nbsp;&nbsp;
+      Please check out our desktop version as well. </p>
+    <p *ngIf='isMobile()' class='mob-msg'>
+      <i class="fas fa-mobile-alt"></i>&nbsp;💡&nbsp;
+       A Tip for mobile: Rotate your phone horizontally while watching our tables. </p>
+  </div>
+
+  <span class="close-msg" (click)="hideWelcomeMsg()"> &otimes;</span>
+</div>
+
+<!--
+<div *ngIf='isCartNotEmptyMsgShown()' class="alert alert-warning" role="alert">
+
+  <p class='items-in-cart-msg'>
+    {{itemLeftInCartMsg}}
+</p>
+
+<div class='two-buttons'>
+
+  <button (click)='cancelSignOut()' type="button" class="cancel-btn btn btn-primary">
+    <i class="fas fa-window-close"></i> &nbsp; Cancel
+  </button>
+
+  <div class='signout-options'>
+    <div class="form-check">
+      <input [(ngModel)]="doesUserChooseToEmptyCart" class="form-check-input" type="checkbox"
+      value="" id="flexCheckDefault">
+      <label class="form-check-label" for="flexCheckDefault">
+      This is NOT my computer. Please empty cart</label>
+    </div>
+
+    <button (click)='signOutAnyway()' type="button" class="signout-btn btn btn-danger">
+      <i class="fas fa-sign-out-alt"></i> &nbsp; Sign Out
+    </button>
+  </div>
+
+</div>
+
+</div>
+ -->

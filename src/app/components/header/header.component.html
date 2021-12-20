@@ -1,0 +1,119 @@
+<div class='all-header'>
+
+  <a class="logo" routerLink="home" routerLinkActive="active-link">
+    <img src="../../../assets/images/logo4.jpeg" alt="logo">
+  </a>
+
+  <a *ngIf="!isBarsMenuShown()" class="home-icon" routerLink="home"
+  routerLinkActive="active-link">🏠</a>
+  <a *ngIf="!isBarsMenuShown()" class="about-link" routerLink="about"
+  routerLinkActive="active-link">About</a>
+  <a *ngIf="!isBarsMenuShown()" class="about-link" routerLink="contact"
+  routerLinkActive="active-link">Contact</a>
+
+  <a [class]="getUserTypeClass()" [routerLink]="getUserTypeRouterLink()"
+  *ngIf="isLoggedIn() && !isBarsMenuShown()">
+    <!-- <ng-template #specifyUser> -->
+      <a>{{ getName() }}</a>
+
+    <!-- </ng-template> -->
+  </a>
+
+  <button [routerLink]="getUserTypeRouterLink()"
+  *ngIf="isLoggedIn() && isBarsMenuShown()" class="btn btn-primary main-btn">Main</button>
+
+    <div class="btn-group bars" *ngIf="isBarsMenuShown() && !isLoggedIn()">
+      <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+       aria-expanded="false" ><i class="fas fa-bars"></i>
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item text-primary btn-lg" routerLink='login'
+        (click)='signUpAsCustomer()'><i class="fas fa-sign-in-alt"></i> Sign in</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item text-success" routerLink='../customer-sign-up'
+        (click)='signUpAsCustomer()'><i class="fas fa-user"></i> Customer Sign up</a>
+        <a class="dropdown-item text-success" routerLink='../company-sign-up'
+        (click)='signUpAsCompany()'><i class="fas fa-building"></i>&nbsp; Company Sign up</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item text-secondary" routerLink="home"><i class="fas fa-home"></i> Home</a>
+        <a class="dropdown-item text-secondary" routerLink="about">
+          <i class="fas fa-address-card"></i> About</a>
+        <a class="dropdown-item text-secondary" routerLink="contact">
+          <i class="fas fa-envelope-square"></i> Contact</a>
+
+      </div>
+    </div>
+
+
+
+<nav class="login">
+
+  <div *ngIf="!isLoggedIn()">
+
+    <div *ngIf="!isBarsMenuShown()">
+      <div class="btn-group sign-up">
+        <button class="btn btn-outline-light dropdown-toggle signup-btn" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false" >Sign up
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item text-success" routerLink='../customer-sign-up'
+          routerLinkActive='active-link' (click)='signUpAsCustomer()'>👤 Sign up as a customer</a>
+          <a class="dropdown-item text-success" routerLink='../company-sign-up'
+          routerLinkActive='active-link' (click)='signUpAsCompany()'>🏢 Sign up as a company</a>
+        </div>
+      </div>
+
+      <button routerLink='login' routerLinkActive='active-link'
+        *ngIf="!isLoginViewed()" class="btn btn-primary">Sign in</button>
+    </div>
+
+
+  </div>
+
+
+
+
+
+
+<div class="btn-group" *ngIf=isLoggedIn()>
+  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+  aria-haspopup="true" aria-expanded="false"><i [class]=getIcon()></i> {{ getName() }}
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item text-success" (click)="firstOption()">{{ getFirstOption() }}</a>
+    <a class="dropdown-item text-success" (click)="secondOption()">{{ getSecondOption() }}</a>
+    <a *ngIf="getUserType() === 3"
+    class="dropdown-item text-success" (click)="thirdOption()">{{ getThirdOption() }}</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item text-secondary" routerLink="about">About</a>
+    <a class="dropdown-item text-secondary" routerLink="contact">Contact</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item alert-danger text-danger" (click)=logout()>Sign out</a>
+  </div>
+</div>
+
+  <!-- <button (click)=logout() *ngIf=isLoggedIn() class="btn btn-danger">
+    Sign out</button> -->
+<div *ngIf='isCartShown()' class='notification'>
+  <button class="btn cart" routerLink="cart" title="Shopping Cart"
+  routerLinkActive="active-link"><i class="fas fa-shopping-cart"></i></button>
+  <span [class]="getBadgeClass()" class='badge' routerLink="cart" title="Shopping Cart"
+    routerLinkActive="active-link">{{ getNumOfItmensInCart() }}</span>
+
+</div>
+
+
+
+  </nav>
+
+
+
+</div>
+
+
+
+
+
+
+
+

@@ -1,0 +1,132 @@
+
+.login-form {
+  margin-top: 45px;
+}
+
+input {
+  width: 320px;
+  /* max-width: 90%; */
+}
+
+.form-item {
+  margin: auto;
+}
+
+.form-err {
+  width: fit-content;
+  min-width: 320px;
+  max-width: 90%;
+  margin: auto;
+  padding: 0.5%;
+}
+
+/* .red {
+  color: red;
+}
+
+.blue {
+  color: blue;
+} */
+
+
+.password-line {
+  position: relative;
+  right: 15px;
+}
+
+.password-input {
+  display: inline;
+  /* width: 300px; */
+}
+
+img {
+  width: 21px;
+  margin-right: 9px;
+}
+
+select {
+  width: 320px;
+  /* max-width: 90%; */
+}
+
+.sign-up {
+  color: blue;
+  font-size: 1.05em;
+}
+
+a:hover {
+  color: green;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.dropdown-item {
+  cursor: pointer;
+}
+
+
+@media screen and (max-width: 480px) {
+
+  input {
+    width: 280px;
+    /* max-width: 90%; */
+  }
+
+  .form-err {
+    /* width: fit-content; */
+    min-width: 280px;
+    /* max-width: 90%; */
+    /* margin: auto; */
+    /* padding: 0.5%; */
+  }
+
+  .password-line {
+    /* position: relative; */
+    right: 11px;
+  }
+
+  img {
+    width: 15px;
+    margin-right: 7px;
+  }
+
+  select {
+    width: 280px;
+    /* max-width: 90%; */
+  }
+
+  .sign-up {
+    font-size: 1em;
+  }
+
+}
+
+
+@media screen and (max-width: 349px) {
+
+  .login-form {
+    margin-top: 25px;
+  }
+
+  input {
+    width: 230px;
+  }
+
+  .form-err {
+    min-width: 230px;
+  }
+
+  select {
+    width: 230px;
+  }
+
+  .sign-up {
+    color: blue;
+    font-size: 0.95em;
+  }
+
+
+}
+
+
+

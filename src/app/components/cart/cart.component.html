@@ -1,0 +1,115 @@
+
+<div *ngIf="isErrMsgShown" class="alert alert-warning" role="alert">
+  <h4>{{errMsg|titlecase}}</h4>
+</div>
+
+<div *ngIf="isLoggedIn() && isUserTypeCustomer()">
+
+  <div *ngIf="isCartEmpty() && !shouldShowSuccessMsg()">
+    <br>
+    <app-empty-view message="Oops! Looks Like Your cart is empty!" imageAlt='empty shopping cart'
+      [imageSrc]="getEmpyCartImg()" [imgWidth]="getEmpyCartWidth()">
+    </app-empty-view>
+    <br>
+    <div class='success-msg-btn'>
+      <button class='btn btn-primary' (click)="goToMyCoupons()">View My Coupons</button>
+      <button *ngIf="!isAllCouponsEmpty() && isCustomerCouponsInitialized()"
+      class='btn btn-primary' (click)="goToAllCoupons()">Shop For New Coupons</button>
+    </div>
+  </div>
+
+  <div *ngIf="!isCartEmpty() && !shouldShowSuccessMsg()">
+
+    <div class='table-centered'>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th class="align-middle" style="width: 30%;" scope="col">Image / Details</th>
+            <th class="align-middle" style="width: 20%" scope="col">Company</th>
+            <th class="align-middle" style="width: 20%" scope="col">Title</th>
+            <th class="align-middle" style="width: 20%" scope="col">Price</th>
+            <th class="align-middle" style="width: 10%;" scope="col">Remove</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let c of getCouponsInCart()" >
+
+            <td scope="row" class="align-middle image" [style]='getImgStyle()'
+            (click)='openSingleCoupon(c)'>
+              <img *ngIf='imagesToDisplay[c.id]'  [style]='getImgStyle()'
+              [src]="imagesToDisplay[c.id]" alt="coupon image">
+              <p *ngIf='!imagesToDisplay[c.id]'><span class="material-icons">receipt</span></p>
+            </td>
+
+            <td scope="row" class="align-middle">{{ getCompanyName(c.companyId) }}</td>
+            <td scope="row" class="align-middle">{{ shortenTitle(c.title) }}</td>
+            <td scope="row" class="align-middle">{{ c.price | currency }}</td>
+
+            <td scope="row" class="align-middle">
+                <button class="btn btn-light" (click)='removeFromCart(c.id)' title='Remove from Cart'
+                >🗑️</button>
+            </td>
+          </tr>
+
+          <tr class="table-success">
+            <td></td>
+            <td scope="row" class="align-middle total-sum">Total</td>
+            <td></td>
+            <td scope="row" class="align-middle total-sum">{{ getTotalPrice() | currency }}</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class='cards-icon'>We accept &nbsp;&nbsp;<i class="fab fa-cc-visa"></i>&nbsp;&nbsp;
+      <i class="fab fa-cc-mastercard"></i> &nbsp;&nbsp; <i class="fab fa-cc-amex"></i>
+      &nbsp;&nbsp; <i class="fab fa-cc-discover"></i> &nbsp;&nbsp;
+      <i class="fab fa-cc-diners-club"></i> &nbsp;&nbsp; <i class="fab fa-cc-paypal"></i>
+      &nbsp;&nbsp; <i class="fab fa-cc-apple-pay"></i> &nbsp;&nbsp;
+    </p>
+
+    <div class='visa-line'>💳 &nbsp;&nbsp;  Your Payment Method: &nbsp;&nbsp;
+      <img class='visa-logo' src="../../../assets/images/Visa-Logo.png" alt="visa logo">
+      &nbsp;&nbsp; {{ getCircles() + getVisaNum() }}
+    </div>
+
+    <div class='amount-line'>Total Amount To Be Charged To Your Account: &nbsp;
+      <span class='price'>{{ getTotalPrice() | currency }}</span>&nbsp; &nbsp;
+      <button type="button" class="btn btn-warning warn" (click)="togglePaymentAlert()">
+         <i class="fas fa-question"></i></button>
+    </div>
+
+    <h3 *ngIf="isPaymentAlertShown" class="alert alert-warning wrn-msg" role="alert">
+      This is a demo app. It is NOT a real transaction &nbsp;
+      <span class="close-msg"
+      (click)="togglePaymentAlert()">&otimes;</span>
+    </h3>
+
+    <button type="button" class="btn btn-danger place-order" (click)='buyCoupons()'>
+      place order</button>
+    <br><br>
+    <h3 *ngIf="isWaitMsgShown" class="alert alert-warning" role="alert">{{ waitMsg }}</h3>
+
+  </div>
+
+  <br>
+  <div *ngIf="shouldShowSuccessMsg()">
+    <h3  class="alert alert-success" role="alert">{{ successMsg }}</h3>
+
+    <div class='success-msg-btn'>
+      <button class='btn btn-primary' (click)="goToMyCoupons()">
+        <i class="fa fa-step-backward"></i>&nbsp; My Coupons</button>
+
+      <button *ngIf="!isAllCouponsEmpty()" class='btn btn-primary' (click)="goToAllCoupons()">
+        <i class="fa fa-step-backward"></i>&nbsp; Continue Shopping</button>
+    </div>
+
+  </div>
+
+
+
+
+  </div>
+

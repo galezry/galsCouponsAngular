@@ -1,0 +1,176 @@
+<div *ngIf="isViewShown()">
+  <h1  class="alert alert-primary" role="alert">{{ getHeadline() }}</h1>
+
+
+  <div *ngIf="formAction==='ADD_MSG' || formAction==='UPDATE_MSG'">
+     <br>
+     <h4 [class]=msgClass role="alert">{{msg}}</h4>
+
+
+     <span class="add-msg">
+        <button *ngIf="!isCurrentCustomerUpdate() && !isCustomerSignUp()"
+        class="btn btn-info" routerLink="../../admin" routerLinkActive="active-link">
+           <i class="fa fa-step-backward"></i>&nbsp; Back To Admin</button>
+
+        <button *ngIf="isCurrentCustomerUpdate()"
+        class="btn btn-info"  (click)=goToCustomerCoupons()>
+           <i class="fa fa-step-backward"></i>&nbsp; Back To My Coupons</button>
+
+        <button *ngIf="formAction==='UPDATE_MSG'" class='btn btn-info'
+        (click)="continueUpdate()"> ✏️&nbsp; {{ getContinueUpdateText() }}</button>
+
+        <button *ngIf="formAction==='ADD_MSG' && !isCustomerSignUp()" (click)=addAnotherCustomer()
+        class="btn btn-success">Add Another Customer</button>
+
+        <button *ngIf="formAction==='ADD_MSG' && isCustomerSignUp()" (click)=signInTheNewCustomer()
+        class="btn btn-success">Sign me in</button>
+     </span>
+  </div>
+
+  <div>
+    <form *ngIf="formAction =='ADD' || formAction =='UPDATE' || formAction==='UPDATE_MSG'"
+    #formInfo=ngForm>
+
+      <div *ngIf="formAction =='UPDATE' || formAction==='UPDATE_MSG'">
+        <label>Customer ID</label>
+          <input *ngIf="formAction =='UPDATE'" [(ngModel)]='customer.id' disabled #idInfo=ngModel
+             class="form-control form-item" type="number" name="id" [title]="cannotChangeIdMsg">
+          <input *ngIf="formAction =='UPDATE_MSG'" [(ngModel)]='customer.id' disabled
+            #idInfo=ngModel class="form-control form-item" type="number" name="id" >
+        <br>
+      </div>
+
+      <div>
+        <label >First Name</label>
+          <input #fNameInfo=ngModel class="form-control form-item"
+          [(ngModel)]='customer.firstName' type="text" placeholder="First Name" name="f-name"
+          [pattern]=firstNamePattern required [title]=firstNameTitle|titlecase
+          [disabled]="formAction === 'UPDATE_MSG'" maxlength="255">
+
+          <div class="alert alert-danger form-err" [title]=firstNameTitle|titlecase
+          *ngIf="fNameInfo.errors?.required && fNameInfo.touched && customer.firstName === ''">
+              <i class="fa fa-info-circle"></i> Please Enter First Name</div>
+
+          <div class="alert alert-danger form-err" [title]=firstNameTitle|titlecase
+          *ngIf="fNameInfo.errors?.pattern && fNameInfo.touched">
+              <i class="fa fa-info-circle"></i> {{explainPersonName|titlecase}}</div>
+      </div>
+      <br>
+
+      <div>
+        <label >Last Name</label>
+          <input #lNameInfo=ngModel class="form-control form-item"
+          [(ngModel)]='customer.lastName' type="text" placeholder="Last Name" name="l-name"
+          [pattern]=lastNamePattern required [title]='lastNameTitle|titlecase'
+          [disabled]="formAction === 'UPDATE_MSG'" maxlength="255">
+
+          <div class="alert alert-danger form-err" [title]='lastNameTitle|titlecase'
+          *ngIf="lNameInfo.errors?.required && lNameInfo.touched && customer.lastName === ''">
+              <i class="fa fa-info-circle"></i> Please Enter Last Name</div>
+
+          <div class="alert alert-danger form-err" [title]='lastNameTitle|titlecase'
+          *ngIf="lNameInfo.errors?.pattern && lNameInfo.touched">
+              <i class="fa fa-info-circle"></i> {{explainPersonName|titlecase}}</div>
+      </div>
+      <br>
+
+      <div>
+        <label >Email Address</label>
+          <input #emailInfo=ngModel class="form-control form-item" [(ngModel)]='customer.email'
+            [title]='emailTitle' name='email' type="email" placeholder="Email Address"
+            [pattern]=emailPattern required (keydown)="hideErrMsg()"
+            [disabled]="formAction === 'UPDATE_MSG'" maxlength="255">
+          <div class="alert alert-info form-err" [title]='emailTitle'
+            *ngIf="emailInfo.untouched && customer.email === ''">We Value Your Privacy</div>
+          <div class="alert alert-danger form-err" [title]='emailTitle'
+            *ngIf="emailInfo.errors?.required && emailInfo.touched && customer.email === ''">
+            <i class="fa fa-info-circle"></i> Please Enter Email Address</div>
+          <div class="alert alert-danger form-err" [title]='emailTitle'
+            *ngIf="emailInfo.errors?.pattern && emailInfo.touched">
+            <i class="fa fa-info-circle"></i> {{explainEmail}}</div>
+          <div class="alert alert-danger form-err" [title]='emailTitle'
+            *ngIf="!emailInfo.errors?.pattern && this.doesEnteredEmailEqualExistedEmail()">
+            <i class="fa fa-info-circle"></i> This email is taken. Please use another</div>
+        </div>
+      <br>
+
+      <div>
+        <label >Password</label>
+        <div class="password-line">
+          <img class='eye' (click)=showPassword() [src]="passwordImgSrc" alt="eye-icon">
+          <input class="form-control form-item password-input" [(ngModel)]='customer.password'
+           #passwordInfo=ngModel placeholder="Password" name="password"
+          [type]=passwordType required [pattern]= passwordPattern
+          [title]='passwordTitle|titlecase' [disabled]="formAction === 'UPDATE_MSG'"
+          maxlength="255">
+        </div>
+        <div class="alert alert-danger form-err" [title]='passwordTitle|titlecase'
+        *ngIf="passwordInfo.errors?.required && passwordInfo.touched && customer.password===''">
+              <i class="fa fa-info-circle"></i> Please Enter Password</div>
+        <div class="alert alert-danger form-err" [title]='passwordTitle|titlecase'
+        *ngIf="passwordInfo.errors?.pattern && passwordInfo.touched">
+                <i class="fa fa-info-circle"></i> {{explainPassword|titlecase}}</div>
+      </div>
+      <br>
+
+      <div *ngIf="formAction =='UPDATE' || formAction === 'UPDATE_MSG'">
+        <label >Customer's Coupons</label>
+        <input disabled class="form-control form-item" [(ngModel)]='coupons' name="coupons"
+          type="text" [title]='getCannotChangeCouponTitle()'>
+    </div>
+    <br>
+
+    <button *ngIf="formAction === 'ADD'" [disabled]='formInfo.invalid || !isAddPossible()'
+      (click)=addCustomer() type="button" name="submit" class="btn btn-primary">
+      {{ getAddBtnName() }} &nbsp; <i *ngIf='!this.isCustomerSignUp()' class="fas fa-user-plus"></i>
+    </button>
+
+    <br><br>
+
+    <div *ngIf="formAction === 'ADD' && isCustomerSignUp()">
+      <div class='goto-sign-in'
+        routerLink='../login' routerLinkActive='active-link'>Already a member? &nbsp;Sign in
+      </div>
+      <div class="btn-group">
+        <button type="button" class="btn btn-light dropdown-toggle comp-sign-up"
+        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">🏢 Merchant?
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item text-success" routerLink='../company-sign-up'
+          routerLinkActive='active-link' (click)='signUpAsCompany()'>Sign up as a company</a>
+          <a class="dropdown-item text-success" routerLink='../login'
+          routerLinkActive='active-link'>Sign in</a>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+    <div *ngIf="formAction === 'UPDATE'">
+      <button type="button" class="btn btn-secondary update-btn"
+        (click)=cancelUpdate()><i class="fa fa-window-close"></i> Cancel Changes</button>
+
+      <button [disabled]='formInfo.invalid || !isUpdatePossible()' (click)=updateCustomer()
+        type="button" class="btn btn-primary update-btn"><i class="fa fa-save"></i> Save Changes
+      </button>
+    </div>
+
+  </form>
+  </div>
+  <br>
+
+  </div>
+
+  <h4 *ngIf="isErrMsgShown" class="alert alert-warning" role="alert">
+        {{errMsg|titlecase}}
+  </h4>
+
+
+
+  <div *ngIf=isDevMode() >
+    <hr>
+    <h3>Development mode</h3>
+    <p>{{customer | json}}</p>
+  </div>
