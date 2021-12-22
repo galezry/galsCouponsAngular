@@ -40,4 +40,12 @@ export class AboutComponent implements OnInit {
     this.authService.setAboutSelection('team');
   }
 
+
+  // public isBigScreen(): boolean {
+
+  //   return true;
+  // }
+
+
+
 }

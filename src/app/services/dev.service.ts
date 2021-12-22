@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class DevService {
 
-  public _isDevMode: boolean = false;
+  public _isDevMode: boolean = true;
 
   constructor() { }
 

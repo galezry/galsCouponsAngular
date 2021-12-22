@@ -202,7 +202,7 @@ export class FormService {
 
   public getImgStyleWithPad(): string {
     if (this.screenWidth < 481) {
-      return 'max-width: 172px; height: 75px; padding-right: 8px;';
+      return 'max-width: 162px; height: 75px; padding-right: 8px;';
     }
     if (this.screenHeight < 481) {
       return 'max-width: 149px; height: 65px; padding-right: 7px;';

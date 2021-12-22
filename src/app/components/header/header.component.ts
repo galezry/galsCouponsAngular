@@ -59,7 +59,7 @@ export class HeaderComponent implements OnInit {
       case  UserType.ADMINISTRATOR:
         return "Admin";
       case UserType.COMPANY:
-        if (this.isMobile() && this.formService.currentLoggedInCompany.name.length > 24) {
+        if (this.isMobile() && this.formService.currentLoggedInCompany.name.length > 10) {
           return '';
         }
         return this.formService.currentLoggedInCompany.name;
@@ -98,6 +98,16 @@ export class HeaderComponent implements OnInit {
   public getUserType(): UserType {
     return this.authService.getUserType();
   }
+
+  // public getUser(): string {
+  //   return this.authService.getUser();
+  // }
+
+  public isCompany(): boolean {
+    return this.authService.getUser() === 'company';
+  }
+
+
 
   public getUserTypeRouterLink(): string {
     switch (this.getUserType()) {

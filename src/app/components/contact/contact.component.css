@@ -88,6 +88,8 @@
   color: green;
   font-family: 'Brush Script MT', 'Brush Script Std', cursive;
   font-size: 2.3em;
+  margin-bottom: 0;
+  padding-bottom: 25px;
 }
 
 
@@ -124,7 +126,5 @@
   .bottom-headline {
     font-size: 1.65em;
   }
-
-
 
 }

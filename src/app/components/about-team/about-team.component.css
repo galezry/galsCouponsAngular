@@ -1,10 +1,10 @@
 .entire-page {
-  background-image: url('../../../assets/images/logo-no-pic3.jpeg');
+  /* background-image: url('../../../assets/images/logo-no-pic3.jpeg');
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-size: 100% 100%;
-  background-color: rgba(255,255,255,0.95);
-  background-blend-mode: lighten;
+  background-size: 100% 100%; */
+  /* background-color: rgba(255,255,255,0.95); */
+  /* background-blend-mode: lighten; */
   line-height: 1.6;
 }
 
@@ -17,10 +17,11 @@
 
 .column-container {
   text-align: left;
-  margin: 0 2% 2% 2%;
+  margin: 0 2% 0 2%;
   font-size: medium;
   display: flex;
   justify-content: center;
+  padding-bottom: 2%;
 }
 
 .column {

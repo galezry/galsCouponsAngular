@@ -9,9 +9,9 @@
     <span class='msg'>{{getWelcomeMsg()}}</span>
     <p *ngIf='isVPWidthSmall()' class='mob-msg'><i class="fas fa-desktop"></i>&nbsp;&nbsp;
       Please check out our desktop version as well. </p>
-    <p *ngIf='isMobile()' class='mob-msg'>
+    <!-- <p *ngIf='isMobile()' class='mob-msg'>
       <i class="fas fa-mobile-alt"></i>&nbsp;💡&nbsp;
-       A Tip for mobile: Rotate your phone horizontally while watching our tables. </p>
+       A Tip for mobile: Rotate your phone horizontally while watching our tables. </p> -->
   </div>
 
   <span class="close-msg" (click)="hideWelcomeMsg()"> &otimes;</span>

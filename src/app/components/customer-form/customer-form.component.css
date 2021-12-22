@@ -91,11 +91,11 @@ input {
     }
 
     input {
-      width: 280px;
+      width: 240px;
     }
 
     .form-err {
-      min-width: 280px;
+      min-width: 240px;
     }
 
     .password-line {
@@ -103,8 +103,8 @@ input {
     }
 
     .eye {
-      width: 15px;
-      margin-right: 7px;
+      width: 19px;
+      margin-right: 8px;
     }
 
     .goto-sign-in {
@@ -135,13 +135,18 @@ input {
     }
 
     input {
-      width: 230px;
-      max-width: 90%;
+      width: 200px;
+      max-width: 80%;
+    }
+
+    .eye {
+      width: 17px;
+      margin-right: 7px;
     }
 
     .form-err {
-      min-width: 230px;
-      max-width: 90%;
+      min-width: 200px;
+      max-width: 80%;
     }
 
     .goto-sign-in {

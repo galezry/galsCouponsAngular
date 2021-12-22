@@ -221,6 +221,7 @@ td p {
 
   table  {
     font-size: 0.85em;
+    width: 100%;
   }
 
   .cards-icon {

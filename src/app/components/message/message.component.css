@@ -35,14 +35,14 @@
 
   .msg {
     font-size: 0.98em;
-    text-align: left;
-    padding: 0 3% 0 3%;
+    /* text-align: left; */
+    padding: 0 0 0 4px;
   }
 
   .mob-msg {
     font-size: 0.9em;
-    text-align: left;
-    padding: 5px 3% 0 3%;
+    /* text-align: left; */
+    padding: 5px 0 0 4px;
   }
 
   .close-msg {

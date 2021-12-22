@@ -103,7 +103,15 @@ a:hover {
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  margin: 0 6% 0 auto;
+
+}
+
+.btn-marg {
+  margin: 0 8% 0 auto;
+}
+
+.comp-btn-marg {
+  margin: 0 14% 0 auto;
 }
 
 /* button {

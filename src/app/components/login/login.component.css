@@ -68,31 +68,24 @@ a:hover {
 @media screen and (max-width: 480px) {
 
   input {
-    width: 280px;
-    /* max-width: 90%; */
+    width: 240px;
   }
 
   .form-err {
-    /* width: fit-content; */
-    min-width: 280px;
-    /* max-width: 90%; */
-    /* margin: auto; */
-    /* padding: 0.5%; */
+    min-width: 240px;
   }
 
   .password-line {
-    /* position: relative; */
     right: 11px;
   }
 
   img {
-    width: 15px;
-    margin-right: 7px;
+    width: 19px;
+    margin-right: 8px;
   }
 
   select {
-    width: 280px;
-    /* max-width: 90%; */
+    width: 240px;
   }
 
   .sign-up {
@@ -109,15 +102,20 @@ a:hover {
   }
 
   input {
-    width: 230px;
+    width: 200px;
   }
 
   .form-err {
-    min-width: 230px;
+    min-width: 200px;
+  }
+
+  img {
+    width: 17px;
+    margin-right: 7px;
   }
 
   select {
-    width: 230px;
+    width: 200px;
   }
 
   .sign-up {

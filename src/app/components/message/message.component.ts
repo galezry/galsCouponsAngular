@@ -52,7 +52,8 @@ export class MessageComponent implements OnInit {
 
   public getWelcomeMsg(): string {
     let name: string = this.authService.getName();
-    let suff = ", hope you're doing well!";
+    // let suff = ", hope you're doing well!";
+    let suff = "!";
     let greeting: string = '';
     let currentHour: number = new Date().getHours();
     if (currentHour >= 3 && currentHour < 12) {
@@ -62,9 +63,9 @@ export class MessageComponent implements OnInit {
     } else {
       greeting = 'Good Evening';
     }
-    if (this.authService.getUser() === 'company') {
-      suff ='';
-    }
+    // if (this.authService.getUser() === 'company') {
+    //   suff ='';
+    // }
     return greeting + ' ' + name + suff;
   }
 

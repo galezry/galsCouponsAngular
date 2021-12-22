@@ -1,43 +1,45 @@
-<body class= 'entire-page'>
-  <!-- *ngIf="IsUserTypeAdmin()" -->
 
-    <ul  class="nav">
-      <li class="nav-item">
-        <h3 class="nav-link" [ngClass]="{active: getSelection() === 'app'}"
-        (click)="showAboutApp()">The App
-        </h3>
-      </li>
-      <li class="nav-item">
-        <h3
-        class="nav-link" [ngClass]="{active: getSelection() === 'stack'}"
-        (click)="showAboutStack()">The Stack
-        </h3>
-      </li>
-      <li class="nav-item">
-        <h3
-        class="nav-link" [ngClass]="{active: getSelection() === 'team'}"
-        (click)="showAboutTeam()">Our Team
-        </h3>
-      </li>
+<body [ngClass]="{'entire-page': true}">
+  <div class= 'entire-page'>
+    <!-- *ngIf="IsUserTypeAdmin()" -->
 
-    </ul>
+      <ul  class="nav">
+        <li class="nav-item">
+          <h3 class="nav-link" [ngClass]="{active: getSelection() === 'app'}"
+          (click)="showAboutApp()">The App
+          </h3>
+        </li>
+        <li class="nav-item">
+          <h3
+          class="nav-link" [ngClass]="{active: getSelection() === 'stack'}"
+          (click)="showAboutStack()">The Stack
+          </h3>
+        </li>
+        <li class="nav-item">
+          <h3
+          class="nav-link" [ngClass]="{active: getSelection() === 'team'}"
+          (click)="showAboutTeam()">Our Team
+          </h3>
+        </li>
 
-
-    <div *ngIf="getSelection() === 'app'">
-      <app-about-app></app-about-app>
-    </div>
-
-    <div *ngIf="getSelection() === 'stack'">
-      <app-about-stack></app-about-stack>
-    </div>
-
-    <div *ngIf="getSelection() === 'team'">
-      <app-about-team></app-about-team>
-    </div>
+      </ul>
 
 
+      <div *ngIf="getSelection() === 'app'">
+        <app-about-app></app-about-app>
+      </div>
 
+      <div *ngIf="getSelection() === 'stack'">
+        <app-about-stack></app-about-stack>
+      </div>
 
+      <div *ngIf="getSelection() === 'team'">
+        <app-about-team></app-about-team>
+      </div>
 
+  </div>
 
+  
 </body>
+
+
