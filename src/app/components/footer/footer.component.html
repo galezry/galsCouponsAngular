@@ -24,7 +24,7 @@
 
 </div>
 
-
+<!-- *ngIf="getScreenWidth() <= 860" -->
 <div *ngIf="getScreenWidth() > 480 && getScreenWidth() <= 860" class="footer">
 
   <div class='first-line'>
@@ -36,9 +36,12 @@
         <i class="fab fa-linkedin"></i></a>
     </div>
 
-    <a routerLink="about" routerLinkActive="active-link">About Us</a>
+    <a *ngIf="getScreenWidth() > 480" routerLink="about" routerLinkActive="active-link">About Us</a>
+    <!-- <a *ngIf="getScreenWidth() <= 480" routerLink="about" routerLinkActive="active-link">About</a> -->
 
-    <a routerLink="contact" routerLinkActive="active-link">Contact Us</a>
+    <a *ngIf="getScreenWidth() > 480" routerLink="contact" routerLinkActive="active-link">Contact Us</a>
+    <!-- <a *ngIf="getScreenWidth() <= 480" routerLink="contact" routerLinkActive="active-link">Contact</a> -->
+
 
     <div class="contact">
       <a href="mailto:galezry@gmail.com">

@@ -3,7 +3,6 @@ import { Title } from '@angular/platform-browser';
 import { FormState } from 'src/app/models/form-state.model';
 import { UserType } from 'src/app/models/user-type.model';
 import { AuthService } from 'src/app/services/auth.service';
-import { CustomerRestService } from 'src/app/services/customer-rest.service';
 import { FormService } from 'src/app/services/form.service';
 
 @Component({
@@ -14,7 +13,7 @@ import { FormService } from 'src/app/services/form.service';
 export class CustomerComponent implements OnInit {
 
   constructor(private title: Title, private authService: AuthService,
-    private formService: FormService, private customerRestService: CustomerRestService) { }
+    private formService: FormService) { }
 
   ngOnInit(): void {
     this.title.setTitle("Customer");

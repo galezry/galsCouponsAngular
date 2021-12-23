@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { FormService } from 'src/app/services/form.service';
 
 @Component({
   selector: 'app-about',
@@ -10,7 +11,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class AboutComponent implements OnInit {
 
-  constructor(private title: Title, private authService: AuthService, private router: Router) { }
+  constructor(private title: Title, private authService: AuthService, private router: Router,
+    private formService: FormService) { }
 
   ngOnInit(): void {
     if (this.authService.isLoggedIn && this.authService.isUserTypeCustomer()
@@ -41,10 +43,9 @@ export class AboutComponent implements OnInit {
   }
 
 
-  // public isBigScreen(): boolean {
-
-  //   return true;
-  // }
+  public isMobile(): boolean {
+    return this.formService.getScreenType() === 'mobile';
+  }
 
 
 

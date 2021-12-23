@@ -30,16 +30,16 @@ export class HeaderComponent implements OnInit {
     this.welcomeRestService.checkIfUserLoggedIn();
     this.formService.screenWidth = window.innerWidth;
     this.formService.screenHeight = window.innerHeight;
-    console.log('width:', this.formService.screenWidth);
-    console.log('height:', this.formService.screenHeight);
+    // console.log('width:', this.formService.screenWidth);
+    // console.log('height:', this.formService.screenHeight);
     this.formService.getScreenType();
   }
 
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.formService.screenWidth = window.innerWidth;
-    console.log('width:', this.formService.screenWidth);
-    console.log('height:', this.formService.screenHeight);
+    // console.log('width:', this.formService.screenWidth);
+    // console.log('height:', this.formService.screenHeight);
     this.formService.screenHeight = window.innerHeight;
     this.formService.getScreenType();
     // this.formService.getImgHeight();

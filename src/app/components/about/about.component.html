@@ -1,6 +1,6 @@
 
-<body [ngClass]="{'entire-page': true}">
-  <div class= 'entire-page1'>
+<body [ngClass]="{'entire-page': !isMobile()}">
+  <div class='entire-page'>
     <!-- *ngIf="IsUserTypeAdmin()" -->
 
       <ul  class="nav">
