@@ -70,9 +70,9 @@
 }
 
 .home-txt {
-  font-size: 0.7em;
+  font-size: 0.6em;
   font-weight: 600;
-  font-family: 'Brush Script MT', 'Brush Script Std', cursive;
+  font-family: 'Brush Script MT', 'Brush Script Std', 'Caveat', cursive;
   color: purple;
   cursor: pointer;
 }
