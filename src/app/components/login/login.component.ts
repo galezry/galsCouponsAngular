@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
   public explainEmail = this.formService.explainEmail;
 
   public passwordType = 'password';
-  public passwordImgSrc = "../../../assets/images/password-is-hidden.jpeg";
+  // public passwordImgSrc = "../../../assets/images/password-is-hidden.jpeg";
   public isPasswordShown = false;
 
   public passwordPattern = this.formService.passwordPattern;
@@ -60,9 +60,9 @@ export class LoginComponent implements OnInit {
     this.isPasswordShown = !this.isPasswordShown;
     if (this.isPasswordShown) {
       this.passwordType = 'text';
-      this.passwordImgSrc = "../../../assets/images/password-is-shown.jpeg";
+      // this.passwordImgSrc = "../../../assets/images/password-is-shown.jpeg";
     } else {
-      this.passwordImgSrc = "../../../assets/images/password-is-hidden.jpeg";
+      // this.passwordImgSrc = "../../../assets/images/password-is-hidden.jpeg";
       this.passwordType = 'password';
     }
   }

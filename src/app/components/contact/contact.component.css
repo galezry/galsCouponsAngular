@@ -11,7 +11,7 @@
   text-align: center;
   padding-top: 2%;
   color: green;
-  font-family: 'Apple Chancery', arial, helvetica, sans-serif;
+  font-family: 'Apple Chancery', 'Dancing Script', arial, helvetica, sans-serif;
   font-weight: 500;
   font-size: 2.5em;
 }
@@ -86,7 +86,7 @@
 .bottom-headline {
   text-align: center;
   color: green;
-  font-family: 'Brush Script MT', 'Brush Script Std', cursive;
+  font-family: 'Brush Script MT', 'Brush Script Std', 'Caveat', cursive;
   font-size: 2.3em;
   margin-bottom: 0;
   padding-bottom: 25px;
@@ -124,7 +124,8 @@
   }
 
   .bottom-headline {
-    font-size: 1.65em;
+    font-size: 1.6em;
+    font-weight: 500;
   }
 
 }

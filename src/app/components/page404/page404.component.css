@@ -27,8 +27,10 @@
 .msg {
   padding: 4% 3% 0 3%;
   /* color: rgb(58, 91, 25); */
-  font-family: 'Comic Sans MS', 'Comic Sans', 'Brush Script MT', 'Brush Script Std', cursive;
+  font-family: 'Comic Sans MS', 'Comic Sans', 'Brush Script MT', 'Brush Script Std',
+   'Comic Neue', cursive;
   /* font-family: 'Brush Script MT', 'Brush Script Std', cursive; */
+  font-weight: 500;
   font-size: 2.4em;
   text-align: center;
 }
@@ -174,13 +176,15 @@
 @media screen and (max-width: 480px) {
   .msg {
     padding: 6% 4% 0 4%;
-    font-size: 1.4em;
+    font-size: 1.8em;
+    font-weight: 800;
   }
 
   .msg2 {
     /* color: purple; */
     font-size: 2.0em;
     margin-top: 14%;
+    font-weight: 600;
   }
 
   .actions-container {
@@ -196,7 +200,7 @@
   }
 
   .home-txt {
-    font-size: 0.7em;
+    font-size: 0.8em;
     font-weight: 500;
   }
 
@@ -212,6 +216,10 @@
   .email-us {
     margin: 40% 0 0 0;
     font-size: 1.1em;
+  }
+
+  .email-us-txt {
+    font-size: 1.3em;
   }
 
   /* .email-us-txt {

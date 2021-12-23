@@ -38,7 +38,7 @@ export class CustomerFormComponent implements OnInit {
   public emailTitle = this.formService.emailTitle;
 
   public passwordType = 'password';
-  public passwordImgSrc = "../../../assets/images/password-is-hidden.jpeg";
+  // public passwordImgSrc = "../../../assets/images/password-is-hidden.jpeg";
   public isPasswordShown = false;
 
   public passwordPattern = this.formService.passwordPattern;
@@ -119,9 +119,9 @@ export class CustomerFormComponent implements OnInit {
     this.isPasswordShown = !this.isPasswordShown;
     if (this.isPasswordShown) {
       this.passwordType = 'text';
-      this.passwordImgSrc = "../../../assets/images/password-is-shown.jpeg";
+      // this.passwordImgSrc = "../../../assets/images/password-is-shown.jpeg";
     } else {
-      this.passwordImgSrc = "../../../assets/images/password-is-hidden.jpeg";
+      // this.passwordImgSrc = "../../../assets/images/password-is-hidden.jpeg";
       this.passwordType = 'password';
     }
   }

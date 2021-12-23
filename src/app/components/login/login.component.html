@@ -34,7 +34,9 @@
     <div>
       <label>Password</label>
       <div class="password-line">
-        <img (click)=showPassword() [src]='passwordImgSrc' alt="eye-icon">
+        <!-- <img (click)=showPassword() [src]='passwordImgSrc' alt="eye-icon"> -->
+        <i class="fas eye" [ngClass]="{'fa-eye': isPasswordShown, 'fa-eye-slash': !isPasswordShown}"
+        (click)='showPassword()'></i>
         <input #passwordInfo=ngModel class="form-control form-item password-input"
         [(ngModel)]='loginDetails.password' [type]=passwordType placeholder="Password"
         name="password" required>
@@ -79,16 +81,17 @@
 
 
 </div>
-
+<br>
 <h4 *ngIf="isErrMsgShown" class="alert alert-warning" role="alert">
       {{errMsg}}
 </h4>
 
 </div>
 
-<hr>
+
 
 <div *ngIf=isDevMode() id="dev">
+  <hr>
 <h3>Development mode</h3>
 <button (click)=asAdmin()>As Admin</button>
 <button (click)=asCompany()>As Company</button>

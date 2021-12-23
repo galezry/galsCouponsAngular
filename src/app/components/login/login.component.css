@@ -39,7 +39,7 @@ input {
   /* width: 300px; */
 }
 
-img {
+.eye {
   width: 21px;
   margin-right: 9px;
 }
@@ -76,11 +76,11 @@ a:hover {
   }
 
   .password-line {
-    right: 11px;
+    right: 14px;
   }
 
-  img {
-    width: 19px;
+  .eye {
+    width: 20px;
     margin-right: 8px;
   }
 
@@ -109,7 +109,11 @@ a:hover {
     min-width: 200px;
   }
 
-  img {
+  .password-line {
+    right: 12px;
+  }
+
+  .eye {
     width: 17px;
     margin-right: 7px;
   }

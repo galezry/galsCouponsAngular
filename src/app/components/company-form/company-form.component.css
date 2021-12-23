@@ -111,11 +111,11 @@ input {
     }
 
     .password-line {
-      right: 11px;
+      right: 14px;
     }
 
     .eye {
-      width: 19px;
+      width: 20px;
       margin-right: 8px;
     }
 
@@ -150,6 +150,10 @@ input {
     input {
       width: 200px;
       max-width: 80%;
+    }
+
+    .password-line {
+      right: 12px;
     }
 
     .eye {

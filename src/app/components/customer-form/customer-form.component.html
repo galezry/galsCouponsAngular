@@ -97,7 +97,9 @@
       <div>
         <label >Password</label>
         <div class="password-line">
-          <img class='eye' (click)=showPassword() [src]="passwordImgSrc" alt="eye-icon">
+          <!-- <img class='eye' (click)=showPassword() [src]="passwordImgSrc" alt="eye-icon"> -->
+          <i class="fas eye" [ngClass]="{'fa-eye': isPasswordShown, 'fa-eye-slash': !isPasswordShown}"
+          (click)='showPassword()'></i>
           <input class="form-control form-item password-input" [(ngModel)]='customer.password'
            #passwordInfo=ngModel placeholder="Password" name="password"
           [type]=passwordType required [pattern]= passwordPattern

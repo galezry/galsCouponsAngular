@@ -55,7 +55,7 @@
   color: green;
   font-family: 'Snell Roundhand', cursive;
   font-size: 2em;
-  /* margin: 0 0 0 10%; */
+  margin: 0 0 0 10%;
 }
 
 .container-a {
@@ -107,6 +107,10 @@
     width: 80%;
   }
 
+  .top-coupons-headline {
+    margin: 0 0 0 0;
+  }
+
   .container-a {
     margin-top: 2%;
     flex-direction: column;
@@ -148,7 +152,7 @@
   }
 
   .top-coupons-headline {
-    font-size: 1.6em;
+    font-size: 1.8em;
   }
 
 }
