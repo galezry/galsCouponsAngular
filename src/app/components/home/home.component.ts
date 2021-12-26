@@ -101,6 +101,10 @@ export class HomeComponent implements OnInit {
     && this.areThereNoCoupon()) || this.isErrMsgShown;
   }
 
+  public isMobile(): boolean {
+    return this.formService.getScreenType() === 'mobile';
+  }
+
   public showErrMsg(err: any) {
     this.isErrMsgShown = true;
     this.errMsg = this.authService.connectionToServerAndLoginCheck(err);

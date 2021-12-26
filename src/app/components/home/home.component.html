@@ -1,75 +1,78 @@
-<div class='entire-page'>
-  <div *ngIf="isErrMsgShown">
-    <h4 class="alert alert-warning errMsg" role="alert"> {{errMsg|titlecase}} </h4>
+<body [ngClass]="{'entire-page': !isMobile()}">
+  <div class='entire-page'>
+    <div *ngIf="isErrMsgShown">
+      <h4 class="alert alert-warning errMsg" role="alert"> {{errMsg|titlecase}} </h4>
+    </div>
+    <br><br>
+    <h1 class='headline'>Gal's Coupons</h1>
+    <h3 class='second-headline'>The home of the best coupons</h3>
+
+    <div *ngIf='!isSignedIn()' class='sign-in-title'>
+      <h3 class='sign-in' routerLink='../login' routerLinkActive='active-link'>
+        Sign in to enjoy our great coupons</h3>
+      <h3 class='sign-up' routerLink='../customer-sign-up' routerLinkActive='active-link'
+       (click)='signUpAsCustomer()'>not a member? sign up for free</h3>
+    </div>
+
+    <h3 *ngIf='isTopCouponsHeadlineShown()' class='top-coupons-headline'>
+      Here're some of our top coupons</h3>
+    <div *ngIf='!areThereNoCoupon()' class='container-a'>
+      <tr class='each-img'  *ngFor="let c of getWelcomeCoupons()">
+        <img
+        [src]="getImagesToDisplay()[c.id]" alt="coupon image" (click)='openSingleCoupon(c)'>
+      </tr>
+
+    </div>
+
+    <div *ngIf='isAlternativeImageShown()' class='alt-main-img'>
+        <img src="../../../assets/images/home-image.jpeg" alt="coupons image">
+
+
+    </div>
+
+
+
+
+
+
+
+    <!-- <div class='container-table'>
+
+      <table class='left-table table table-borderless'>
+        <thead>
+          <th style='width:100%' class="align-middle"></th>
+        </thead>
+
+        <tbody>
+            <tr  *ngFor="let c of getWelcomeCoupons()">
+              <img height=200em [src]="getImagesToDisplay()[c.id]" alt="coupon image">
+            </tr>
+        </tbody>
+
+      </table>
+
+      <table class='right-table table table-borderless'>
+        <thead>
+          <th style='width:100%' class="align-middle"></th>
+        </thead>
+
+        <tbody>
+            <tr  *ngFor="let c of getWelcomeCoupons()">
+              <img height=200em [src]="getImagesToDisplay()[c.id]" alt="coupon image">
+            </tr>
+        </tbody>
+
+      </table>
+
+
+
+    </div> -->
+
+
+
   </div>
-  <br><br>
-  <h1 class='headline'>Gal's Coupons</h1>
-  <h3 class='second-headline'>The best place to get the most amazing coupons</h3>
+</body>
 
-  <div *ngIf='!isSignedIn()' class='sign-in-title'>
-    <h3 class='sign-in' routerLink='../login' routerLinkActive='active-link'>
-      Sign in to enjoy our great coupons</h3>
-    <h3 class='sign-up' routerLink='../customer-sign-up' routerLinkActive='active-link'
-     (click)='signUpAsCustomer()'>not a member? sign up for free</h3>
-  </div>
-
-  <h3 *ngIf='isTopCouponsHeadlineShown()' class='top-coupons-headline'>
-    Here's some of our top coupons</h3>
-  <div *ngIf='!areThereNoCoupon()' class='container-a'>
-    <tr class='each-img'  *ngFor="let c of getWelcomeCoupons()">
-      <img
-      [src]="getImagesToDisplay()[c.id]" alt="coupon image" (click)='openSingleCoupon(c)'>
-    </tr>
-
-  </div>
-
-  <div *ngIf='isAlternativeImageShown()' class='alt-main-img'>
-      <img src="../../../assets/images/home-image.jpeg" alt="coupons image">
-
-
-  </div>
-
-
-
-
-
-
-
-  <!-- <div class='container-table'>
-
-    <table class='left-table table table-borderless'>
-      <thead>
-        <th style='width:100%' class="align-middle"></th>
-      </thead>
-
-      <tbody>
-          <tr  *ngFor="let c of getWelcomeCoupons()">
-            <img height=200em [src]="getImagesToDisplay()[c.id]" alt="coupon image">
-          </tr>
-      </tbody>
-
-    </table>
-
-    <table class='right-table table table-borderless'>
-      <thead>
-        <th style='width:100%' class="align-middle"></th>
-      </thead>
-
-      <tbody>
-          <tr  *ngFor="let c of getWelcomeCoupons()">
-            <img height=200em [src]="getImagesToDisplay()[c.id]" alt="coupon image">
-          </tr>
-      </tbody>
-
-    </table>
-
-
-
-  </div> -->
-
-
-
-</div>
 
 
 

@@ -2,9 +2,6 @@
 
 /* You can add global styles to this file, and also import other style files */
 
-html {
-  -webkit-text-size-adjust: 100%;
-}
 
 html,body{
 font-family: helvetica, 'open sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

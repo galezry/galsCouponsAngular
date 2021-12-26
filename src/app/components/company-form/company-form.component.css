@@ -1,4 +1,8 @@
 
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
 /* .back-to-admin {
   display: flex;
   justify-content: flex-start;

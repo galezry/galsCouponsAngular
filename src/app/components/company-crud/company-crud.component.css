@@ -1,3 +1,7 @@
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
 
 .alert-warning h4 {
   margin: 2px 2%;
