@@ -1,4 +1,5 @@
-<body [ngClass]="{'entire-page': !isMobile()}">
+<!-- [ngClass]="{'entire-page': !isMobile()}" -->
+<body class='entire-page'>
   <div class='entire-page'>
     <div *ngIf="isErrMsgShown">
       <h4 class="alert alert-warning errMsg" role="alert"> {{errMsg|titlecase}} </h4>

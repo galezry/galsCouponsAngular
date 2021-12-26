@@ -53,7 +53,7 @@
 
 .top-coupons-headline {
   color: green;
-  font-family: 'Snell Roundhand', 'Dancing Script', cursive;
+  font-family: 'Snell Roundhand', 'Dancing Script', 'Oooh Baby', cursive;
   font-size: 1.7em;
   margin: 5% 0 0 10%;
 }
@@ -80,6 +80,14 @@
 
 .errMsg {
   text-align: center;
+}
+
+@media screen and (max-height: 480px) {
+  .entire-page {
+    background-image: none;
+    /* background-color: #F9F9F9; */
+    background-color: rgba(4, 138, 64, 0.06);
+  }
 }
 
 
