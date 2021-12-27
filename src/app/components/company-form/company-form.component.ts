@@ -219,7 +219,7 @@ export class CompanyFormComponent implements OnInit {
 
     if (this.isCompanySignUp()) {
       this.welcomeRestService.companySignUp(companyToSend).subscribe(response => {
-        console.log(response);
+        // console.log(response);
         this.isErrMsgShown = false;
         this.msg =`Congretulations, Company ${this.company.name} has successfully signed up!`;
         this.msgClass = 'alert alert-success';
@@ -228,7 +228,7 @@ export class CompanyFormComponent implements OnInit {
         this.authService.isCompanySignUp = false;
 
       }, err => {
-        console.log(err.error); // TODO delete this line
+        // console.log(err.error); // TODO delete this line
         this.showErrMsg(err);
         if (err.error.value.toLowerCase().includes('name')) {
           this.existedName = this.company.name;
@@ -239,7 +239,7 @@ export class CompanyFormComponent implements OnInit {
       });
     } else {
       this.adminRestService.addCompany(companyToSend).subscribe(response => {
-        console.log(response);
+        // console.log(response);
          // this.showMsg = true;
         this.isErrMsgShown = false;
         const addedComp: Company = Object.assign({}, this.company);
@@ -250,7 +250,7 @@ export class CompanyFormComponent implements OnInit {
         this.updateFormState(FormState.ADD_MSG);
 
         }, err => {
-          console.log(err.error); // TODO delete this line
+          // console.log(err.error); // TODO delete this line
           this.showErrMsg(err);
           if (!this.authService.isLoggedIn) {
             this.authService.hasAlreadyRetrievedCompaniesFromServer = false;
@@ -276,8 +276,6 @@ export class CompanyFormComponent implements OnInit {
   }
 
   public doesUpdatedEmailBelongToAnotherCompany(): boolean {
-    console.log(this.doesEmailExist());
-    console.log(this.company.email);
     if (this.company.email.toLowerCase() !== this.originalEmailToUpdate.toLowerCase()
     && this.doesEmailExist()) {
       this.isErrMsgShown = true;
@@ -290,18 +288,18 @@ export class CompanyFormComponent implements OnInit {
 
 
   public updateCompany() {
-    console.log(this.isCurrentCompanyUpdate());
+    // console.log(this.isCurrentCompanyUpdate());
     if (this.wereNoChangesMade()) {
       return;
     }
     if (!this.isCurrentCompanyUpdate()) {
-      console.log('admin');
+      // console.log('admin');
       if (this.doesUpdatedEmailBelongToAnotherCompany()) {
         return;
       }
       this.existedEmail = 'x';
       this.adminRestService.updateCompany(this.company).subscribe(response => {
-        console.log(response);
+        // console.log(response);
         this.adminRestService.companies = this.adminRestService.companies.
         filter(c => c.id !== this.company.id);
         const updatedComp: Company = Object.assign({}, this.company);
@@ -310,10 +308,10 @@ export class CompanyFormComponent implements OnInit {
         this.msg = `Company ${this.company.name} has been updated successfully!`;
         this.msgClass = 'alert alert-success';
         this.updateFormState(FormState.UPDATE_MSG);
-        console.log(this.formAction); // TODO can delete this line
+        // console.log(this.formAction); // TODO can delete this line
 
       }, err => {
-        console.log(err.error); // TODO delete this line
+        // console.log(err.error); // TODO delete this line
         this.showErrMsg(err);
 
             // this.isErrMsgShown = true;
@@ -323,17 +321,17 @@ export class CompanyFormComponent implements OnInit {
 
     } else {
       this.companyRestService.updateCompany(this.company).subscribe(response => {
-        console.log(response);
+        // console.log(response);
         this.existedEmail = 'x';
         this.isErrMsgShown = false;
         this.formService.currentLoggedInCompany = Object.assign({}, this.company);
         this.msg = `Company's profile has been updated successfully!`;
         this.msgClass = 'alert alert-success';
         this.updateFormState(FormState.UPDATE_MSG);
-        console.log(this.formAction); // TODO can delete this line
+        // console.log(this.formAction); // TODO can delete this line
 
       }, err => {
-        console.log(err.error); // TODO delete this line
+        // console.log(err.error); // TODO delete this line
         this.showErrMsg(err);
         if (err.error.value.toLowerCase().includes('is taken')) {
           this.existedEmail = this.company.email;
@@ -407,14 +405,14 @@ export class CompanyFormComponent implements OnInit {
       type: 'COMPANY'
     }
     this.welcomeRestService.login(loginDetails).subscribe(response => {
-      console.log(response); // TODO delete this line
+      // console.log(response); // TODO delete this line
       this.authService.setToken(response.token);
       this.authService.setUserType(UserType.COMPANY);
       this.companyRestService.getCurrentCompanyDetails();
       this.authService.isLoggedIn = true;
       this.router.navigateByUrl('company');
     }, err => {
-      console.log(err.error); // TODO delete this line
+      // console.log(err.error); // TODO delete this line
       this.showErrMsg(err);
     });
   }
@@ -425,11 +423,6 @@ export class CompanyFormComponent implements OnInit {
     // this.formService.companyForm = FormState.NONE;
     // this.authService.isCompanySignUp = false;
   }
-
-
-
-
-
 
   public isDevMode(): boolean {
     return this.devService.isDevMode;

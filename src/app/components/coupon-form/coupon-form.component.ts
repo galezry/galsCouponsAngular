@@ -1,4 +1,4 @@
-import { DatePipe } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -230,7 +230,7 @@ export class CouponFormComponent implements OnInit {
     };
 
     this.companyRestService.addCoupon(couponToSend).subscribe(response => {
-      console.log(response);
+      // console.log(response);
       this.isErrMsgShown = false;
       const addedCoupon: Coupon = Object.assign({}, this.coupon);
       this.companyRestService.coupons.push(addedCoupon); // so it will recognize the title if add another coupon before going to show all coupons
@@ -240,16 +240,16 @@ export class CouponFormComponent implements OnInit {
         const imgToUpload: FormData = new FormData();
         imgToUpload.append('couponImg', this.imgFile, this.imgFile.name);
         this.companyRestService.getCouponIdByTitle(this.coupon.title).subscribe(response => {
-          console.log(response); // TODO delete this line
+          // console.log(response); // TODO delete this line
           const couponId = response;
           if (couponId > 0) {
             this.imageRestService.addImage(imgToUpload, couponId, this.companyId).subscribe(
             response => {
-              console.log(response); // TODO delete this line
+              // console.log(response); // TODO delete this line
               this.companyRestService.imagesToDisplay[couponId] = this.chosenImg;
               this.showSuccessfullyAddedMsg();
             }, err => {
-              console.log(err.error); // TODO delete this line
+              // console.log(err.error); // TODO delete this line
               this.showErrMsg(err);
               this.showImgFailedToBeAddedMsg();
             });
@@ -259,7 +259,7 @@ export class CouponFormComponent implements OnInit {
             this.showImgFailedToBeAddedMsg();
           }
         }, err => {
-          console.log(err.error); // TODO delete this line
+          // console.log(err.error); // TODO delete this line
           this.showErrMsg(err);
           this.showImgFailedToBeAddedMsg();
         });
@@ -269,7 +269,7 @@ export class CouponFormComponent implements OnInit {
       }
 
     }, err => {
-      console.log(err.error); // TODO delete this line
+      // console.log(err.error); // TODO delete this line
       this.showErrMsg(err);
     });
   }
@@ -316,7 +316,7 @@ export class CouponFormComponent implements OnInit {
   }
 
   public updateCoupon() {
-    console.log(this.getImgUpdateAction());
+    // console.log(this.getImgUpdateAction());
     if (this.wereNoChangesMade()) {
       return;
     }
@@ -330,7 +330,7 @@ export class CouponFormComponent implements OnInit {
     } else {
       this.capNames();
       this.companyRestService.updateCoupon(this.coupon).subscribe(response => {
-        console.log(response);
+        // console.log(response);
         this.companyRestService.coupons = this.companyRestService.coupons.
           filter(c => c.id !== this.coupon.id);
         this.companyRestService.originalcouponsInDB = this.companyRestService.originalcouponsInDB.
@@ -341,7 +341,7 @@ export class CouponFormComponent implements OnInit {
         this.updateImage();
 
       }, err => {
-        console.log(err.error); // TODO delete this line
+        // console.log(err.error); // TODO delete this line
         this.showErrMsg(err);
       });
     }
@@ -358,7 +358,6 @@ export class CouponFormComponent implements OnInit {
         imgToUpload.append('couponImg', this.imgFile, this.imgFile.name);
         this.imageRestService.updateImage(imgToUpload, this.coupon.id, this.companyId).subscribe(
         response => {
-          console.log(response); // TODO delete this line
           this.showSuccessfullyUpdatedMsg();
           const tempImg = this.chosenImg; // need this intermediate variable to creat a shallow copy
           this.originalImgToDisplay = tempImg;
@@ -366,7 +365,7 @@ export class CouponFormComponent implements OnInit {
           this.companyRestService.imagesToDisplay[this.coupon.id] = tempImg;
 
         }, err => {
-          console.log(err.error); // TODO delete this line
+          // console.log(err.error); // TODO delete this line
           this.showErrMsg(err);
           this.showImgFailedToBeUpdatedMsg();
         });
@@ -374,12 +373,12 @@ export class CouponFormComponent implements OnInit {
 
       case 'delete':
         this.imageRestService.deleteImage(this.coupon.id).subscribe(response => {
-          console.log(response); // TODO delete this line
+          // console.log(response); // TODO delete this line
           this.showSuccessfullyUpdatedMsg();
           this.originalImgToDisplay = '';
           this.companyRestService.imagesToDisplay[this.coupon.id] = '';
         }, err => {
-          console.log(err.error); // TODO delete this line
+          // console.log(err.error); // TODO delete this line
           this.showErrMsg(err);
           this.showImgFailedToBeUpdatedMsg();
         });
@@ -492,7 +491,7 @@ export class CouponFormComponent implements OnInit {
         }
       };
 
-      console.log(this.isOriginalImgChanged);
+      // console.log(this.isOriginalImgChanged);
     } else {
       this.isImgErrShown = true;
     }
@@ -573,12 +572,9 @@ public isLoggedIn(): boolean {
   return this.authService.isLoggedIn;
 }
 
-
-
-
-  public isDevMode(): boolean {
-    return this.devService.isDevMode;
-  }
+public isDevMode(): boolean {
+  return this.devService.isDevMode;
+}
 
 
 }

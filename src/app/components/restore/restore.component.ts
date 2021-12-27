@@ -34,14 +34,14 @@ export class RestoreComponent implements OnInit {
 
   public restore() {
     this.adminRestService.restore('anything').subscribe(response => {
-      console.log(response);
+      // console.log(response);
       this.authService.hasAlreadyRetrievedCompaniesFromServer = false;
       this.authService.hasAlreadyRetrievedCustomersFromServer = false;
       this.isSuccessMsgShown = true;
       this.successMsg = 'Companies and customers have been restored successfully';
 // Companies, customers and coupons have been restored successfully
     }, err => {
-      console.log(err.error); // TODO delete this line
+      // console.log(err.error); // TODO delete this line
       this.showErrMsg(err);
     });
   }

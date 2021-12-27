@@ -418,6 +418,11 @@ export class AllCouponsComponent implements OnInit {
     this.formService.hasSingleCouponImgClickedFromUpdate = false;
   }
 
+  public isEmptyViewShown(): boolean {
+    return this.authService.hasAlreadyRetrievedAllCouponsFromServer
+    && this.isCouponsArrEmpty();
+  }
+
   public isDevMode(): boolean {
     return this.devService.isDevMode;
   }

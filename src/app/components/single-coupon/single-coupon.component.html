@@ -30,7 +30,8 @@
           <p *ngIf="isQuantityShown()">
             <span>Company ID: </span> <span class='detail-value'> {{ c.companyId }}</span></p>
 
-          <p *ngIf="isCategoryShown()"><span>Category: </span> <span class='detail-value'>
+          <!-- *ngIf="isCategoryShown()" -->
+          <p ><span>Category: </span> <span class='detail-value'>
             {{c.categoryId.toString() | titlecase}}</span></p>
 
           <p *ngIf='isStratDateShown()'><span>Valid from </span>
@@ -76,7 +77,7 @@
 
 
       <div class='description'>
-        <p >Description </p>
+        <p class='desc-headline'>Description </p>
         <p class='desc-value'> {{ c.description }}</p>
       </div>
 

@@ -5,7 +5,7 @@
 
 <div *ngIf="isLoggedIn() && isUserTypeAdmin()">
 
-<div *ngIf="isCustomersArrEmpty()">
+<div *ngIf="isEmptyViewShown()">
 
   <h4 *ngIf="customersToShow.length > 0" class="alert alert-success" role="alert">
     {{customerMsg.firstName}}</h4>

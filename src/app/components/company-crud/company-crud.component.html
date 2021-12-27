@@ -6,7 +6,7 @@
   <div *ngIf="isLoggedIn() && isUserTypeAdmin()">
 
     <!-- TODO no need for isCompaniesArrEmpty - delete it -->
-  <div *ngIf="isCompaniesArrEmpty()">
+  <div *ngIf="isEmptyViewShown()">
     <h4 *ngIf="companiesToShow.length > 0" class="alert alert-success" role="alert">
       {{companyMsg.name}}</h4>
     <br>

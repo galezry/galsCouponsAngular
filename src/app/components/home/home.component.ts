@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
 
     if (!this.welcomeRestService.hasAlreadyRetrievedWelcomeCouponsFromServer) {
       this.welcomeRestService.getWelcomeCoupons().subscribe(response => {
-        console.log(response); // TODO delete this line
+        // console.log(response); // TODO delete this line
         this.isErrMsgShown = false;
         this.welcomeRestService.hasAlreadyRetrievedWelcomeCouponsFromServer = true;
         this.welcomeRestService.welcomeCoupons = [...response.coupons];
@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
         }
 
       }, err => {
-        console.log(err.error); // TODO delete this line
+        // console.log(err.error); // TODO delete this line
         this.showErrMsg(err);
       });
     } else {

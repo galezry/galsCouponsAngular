@@ -5,7 +5,7 @@
 
 <div *ngIf="isLoggedIn() && isUserTypeCustomer()">
 
-<div *ngIf="isCouponsArrEmpty()">
+<div *ngIf="isEmptyViewShown()">
   <br>
   <app-empty-view message="Oops! Looks like you don't have any coupons 🥺"></app-empty-view>
   <br><br>

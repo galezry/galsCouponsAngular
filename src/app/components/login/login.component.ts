@@ -82,13 +82,12 @@ export class LoginComponent implements OnInit {
     }
     this.welcomeRestService.login(this.loginDetails).subscribe(response => {
       this.saveToken(response);
-      console.log(response); // TODO delete this line
       this.authService.isWelcomeMsgShown = true;
       this.authService.currentTime = new Date().getTime();
       this.navigateToView();
       this.authService.isLoggedIn = true;
     }, err => {
-      console.log(err.error); // TODO delete this line
+      // console.log(err.error);
       this.showErrMsg(err);
       // alert(err.error.value);
       // alert(err.message);
@@ -112,7 +111,6 @@ export class LoginComponent implements OnInit {
 
 
   public navigateToView(): void {
-    console.log(this.loginDetails.type); // TODO delete this line
     switch (this.loginDetails.type) {
 
       //case UserType.ADMINISTRATOR.toString():

@@ -130,7 +130,7 @@ export class CompanyCrudComponent implements OnInit {
 
     if (!this.authService.hasAlreadyRetrievedCompaniesFromServer) {
       this.adminRestService.getAllCompanies().subscribe(response => {
-        console.log(response); // TODO delete this line
+        // console.log(response);
         this.authService.hasAlreadyRetrievedCompaniesFromServer = true;
         this.isErrMsgShown = false;
         this.adminRestService.companies = [...response];
@@ -152,7 +152,7 @@ export class CompanyCrudComponent implements OnInit {
         // this.adminRestService.isAlreadyRetrievedFromServer = true;
         // console.log(JSON.stringify(response));
       }, err => {
-        console.log(err.error); // TODO delete this line
+        // console.log(err.error); // TODO delete this line
         // alert(err.error.value);
         this.authService.signOut();
         this.isErrMsgShown = true;
@@ -283,15 +283,15 @@ export class CompanyCrudComponent implements OnInit {
         // if (this.adminRestService.companies.length === 0) {
         //   this.isCompaniesArrEmpty = true;
         // }
-      console.log(response);
-      console.log(this.companiesToShow);
-      console.log(this.adminRestService.companies);
+      // console.log(response);
+      // console.log(this.companiesToShow);
+      // console.log(this.adminRestService.companies);
       this.welcomeRestService.hasAlreadyRetrievedWelcomeCouponsFromServer = false;
 
       }, err => {
         this.showErrMsg(err);
 
-        console.log(err.error); // TODO delete this line
+        // console.log(err.error); // TODO delete this line
       });
 
 
@@ -465,7 +465,6 @@ export class CompanyCrudComponent implements OnInit {
       this.existedEmail = 'x';
       this.companyIdToUpdate = -1;
       this.isUpdateMode = false;
-      console.log(this.companiesToShow); //TODO delete this line
       return true;
     }
     return false;
@@ -490,7 +489,7 @@ export class CompanyCrudComponent implements OnInit {
     comp.password = this.updatedPassword;
 
     this.adminRestService.updateCompany(comp).subscribe(response => {
-      console.log(response);
+      // console.log(response);
       this.companyMsg.name = `Company ${comp.name} Has Been Updated Successfully!`;
       this.companyMsgClass = 'table-success';
       this.adminRestService.companies = this.adminRestService.companies
@@ -498,7 +497,7 @@ export class CompanyCrudComponent implements OnInit {
       this.adminRestService.companies.push(comp);
 
       }, err => {
-        console.log(err.error); // TODO delete this line
+        // console.log(err.error); // TODO delete this line
         this.isUpdateMode = false;
         this.showErrMsg(err);
       });
@@ -595,7 +594,7 @@ export class CompanyCrudComponent implements OnInit {
       this.getAllCompanies();
 
       }, err => {
-        console.log(err.error); // TODO delete this line
+        // console.log(err.error); // TODO delete this line
         this.isUpdateMode = false;
         this.showErrMsg(err);
       });
@@ -666,6 +665,11 @@ export class CompanyCrudComponent implements OnInit {
 
   public isUserTypeAdmin(): boolean {
     return this.authService.getUserType() === UserType.ADMINISTRATOR;
+  }
+
+  public isEmptyViewShown(): boolean {
+    return this.authService.hasAlreadyRetrievedCompaniesFromServer
+    && this.isCompaniesArrEmpty();
   }
 
   public isDevMode(): boolean {

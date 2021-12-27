@@ -5,7 +5,7 @@
 
 <div *ngIf="isLoggedIn() && isUserTypeCompany()">
 
-<div *ngIf="isCouponsArrEmpty()">
+<div *ngIf="isEmptyViewShown()">
 
   <h4 *ngIf="couponsToShow.length > 0" class="alert alert-success" role="alert">
     {{couponMsg.description}}</h4>

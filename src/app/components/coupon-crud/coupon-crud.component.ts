@@ -187,7 +187,7 @@ export class CouponCrudComponent implements OnInit {
   public getCompanyImages(): void {
     if (!this.authService.hasAlreadyRetrievedCompanyImagesFromServer) {
       this.companyRestService.getCompanyImages().subscribe(response => {
-        console.log(response); // TODO delete this line
+        // console.log(response); // TODO delete this line
         this.authService.hasAlreadyRetrievedCompanyImagesFromServer = true;
         this.isErrMsgShown = false;
         this.companyRestService.companyImages = [...response];
@@ -198,7 +198,7 @@ export class CouponCrudComponent implements OnInit {
         // console.log(this.imagesToDisplay);
 
       }, err => {
-        console.log(err.error); // TODO delete this line
+        // console.log(err.error); // TODO delete this line
         // this.authService.signOut();
         this.showErrMsg(err);
       });
@@ -208,7 +208,7 @@ export class CouponCrudComponent implements OnInit {
   public getCompanyCoupons(): void {
     if (!this.authService.hasAlreadyRetrievedCouponsFromServer) {
       this.companyRestService.getCompanyCoupons().subscribe(response => {
-        console.log(response); // TODO delete this line
+        // console.log(response); // TODO delete this line
         this.authService.hasAlreadyRetrievedCouponsFromServer = true;
         this.isErrMsgShown = false;
         this.companyRestService.originalcouponsInDB = [...response];
@@ -235,7 +235,7 @@ export class CouponCrudComponent implements OnInit {
         }
 
       }, err => {
-        console.log(err.error); // TODO delete this line
+        // console.log(err.error); // TODO delete this line
         this.authService.signOut();
         this.isErrMsgShown = true;
         this.errMsg = this.authService.hasBeenSignedOutErrMsg;
@@ -428,7 +428,7 @@ export class CouponCrudComponent implements OnInit {
     const couponToDelete = this.couponsToShow[couponIdx - 1];
 
     this.companyRestService.deleteCoupon(couponToDelete.id).subscribe(response => {
-      console.log(response);
+      // console.log(response);
       this.isUpdateMode = false;
       this.companyRestService.coupons = this.companyRestService.coupons
       .filter(c => c.id !== couponToDelete.id);
@@ -448,7 +448,7 @@ export class CouponCrudComponent implements OnInit {
 
       }, err => {
         this.showErrMsg(err);
-        console.log(err.error); // TODO delete this line
+        // console.log(err.error); // TODO delete this line
       });
   }
 
@@ -457,13 +457,13 @@ export class CouponCrudComponent implements OnInit {
   //  console.log(this.companyRestService.imagesToDisplay[couponId].charAt(0));
   //  console.log(this.companyRestService.imagesToDisplay);
     this.imageRestService.deleteImage(couponId).subscribe(response => {
-      console.log(response); // TODO delete this line
+      // console.log(response); // TODO delete this line
       this.companyRestService.imagesToDisplay[couponId] = '';
     //  console.log(this.companyRestService.imagesToDisplay);
 
     }, err => {
-      console.log('error occured while deleting the image from the DB');
-      console.log(err.error); // TODO delete this line
+      // console.log('error occured while deleting the image from the DB');
+      // console.log(err.error); // TODO delete this line
       this.showErrMsg(err);
     });
   }
@@ -694,7 +694,7 @@ export class CouponCrudComponent implements OnInit {
   }
 
   public updateCoupon(coupon: Coupon): void {
-    console.log(this.getImgUpdateAction(coupon.id));
+    // console.log(this.getImgUpdateAction(coupon.id));
     this.deleteCouponMsg();
     this.isErrMsgShown = false;
     let couponIdx: number = this.couponsToShow.indexOf(coupon);
@@ -726,7 +726,7 @@ export class CouponCrudComponent implements OnInit {
     coupon.price = this.updatedPrice;
     coupon.image = this.updatedImage;
     this.companyRestService.updateCoupon(coupon).subscribe(response => {
-      console.log(response);
+      // console.log(response);
       this.companyRestService.coupons = this.companyRestService.coupons
       .filter(c => c.id !== coupon.id);
       const updatedCoupon: Coupon = Object.assign({}, coupon);
@@ -734,7 +734,7 @@ export class CouponCrudComponent implements OnInit {
       this.updateImage(coupon.id);
 
     }, err => {
-      console.log(err.error); // TODO delete this line
+      // console.log(err.error); // TODO delete this line
       this.isUpdateMode = false;
       this.showErrMsg(err);
     });
@@ -800,11 +800,11 @@ export class CouponCrudComponent implements OnInit {
       image: this.updatedImage
     };
     this.companyRestService.addCoupon(couponToSend).subscribe(response => {
-      console.log(response);
+      // console.log(response);
       this.addImageToNewCoupon();
 
     }, err => {
-      console.log(err.error); // TODO delete this line
+      // console.log(err.error); // TODO delete this line
       this.isUpdateMode = false;
       this.showErrMsg(err);
     });
@@ -887,7 +887,7 @@ export class CouponCrudComponent implements OnInit {
   public addImageToNewCoupon(): void {
     if (this.imgFile === '') {
       this.actionsAfterCouponSuceessfullyAdded();
-      console.log('no img');
+      // console.log('no img');
       return;
     }
 
@@ -895,16 +895,16 @@ export class CouponCrudComponent implements OnInit {
     imgToUpload.append('couponImg', this.imgFile, this.imgFile.name);
     this.companyRestService.getCouponIdByTitle(this.updatedTitle).subscribe(
     response => {
-      console.log(response); // TODO delete this line
+      // console.log(response); // TODO delete this line
       const couponId = response;
       if (couponId > 0) {
         this.imageRestService.addImage(imgToUpload, couponId, this.getCompanyId()).subscribe(
         response => {
-          console.log(response); // TODO delete this line
+          // console.log(response); // TODO delete this line
           this.companyRestService.imagesToDisplay[couponId] = this.chosenImg;
           this.actionsAfterCouponSuceessfullyAdded();
         }, err => {
-          console.log(err.error); // TODO delete this line
+          // console.log(err.error); // TODO delete this line
           this.showErrMsg(err);
           this.hasImgFailedToBeAddedToDB = true;
           this.actionsAfterCouponSuceessfullyAdded();
@@ -916,7 +916,7 @@ export class CouponCrudComponent implements OnInit {
         this.actionsAfterCouponSuceessfullyAdded();
       }
     }, err => {
-      console.log(err.error); // TODO delete this line
+      // console.log(err.error); // TODO delete this line
       this.showErrMsg(err);
       this.hasImgFailedToBeAddedToDB = true;
       this.actionsAfterCouponSuceessfullyAdded();
@@ -946,26 +946,26 @@ export class CouponCrudComponent implements OnInit {
         imgToUpload.append('couponImg', this.imgFile, this.imgFile.name);
         this.imageRestService.updateImage(imgToUpload, couponId, this.getCompanyId()).subscribe(
         response => {
-          console.log(response); // TODO delete this line
+          // console.log(response); // TODO delete this line
           const tempImg = this.chosenImg; // need this intermediate variable to creat a shallow copy
           this.companyRestService.imagesToDisplay[couponId] = tempImg;
           this.showSuccessfullyUpdatedMsg();
           // this.imgFile = '';
         }, err => {
           this.showFailedImgUpdatedMsg();
-          console.log(err.error); // TODO delete this line
+          // console.log(err.error); // TODO delete this line
           this.showErrMsg(err);
         });
         break;
 
       case 'delete':
         this.imageRestService.deleteImage(couponId).subscribe(response => {
-          console.log(response); // TODO delete this line
+          // console.log(response); // TODO delete this line
           this.companyRestService.imagesToDisplay[couponId] = '';
           this.showSuccessfullyUpdatedMsg();
         }, err => {
           this.showFailedImgUpdatedMsg();
-          console.log(err.error); // TODO delete this line
+          // console.log(err.error); // TODO delete this line
           this.showErrMsg(err);
         });
         break;
@@ -1036,6 +1036,11 @@ export class CouponCrudComponent implements OnInit {
       || this.chosenImg ? 'Update Image' : 'Add Image';
     }
     return 'Image / Details';
+  }
+
+  public isEmptyViewShown(): boolean {
+    return this.authService.hasAlreadyRetrievedCouponsFromServer
+    && this.isCouponsArrEmpty();
   }
 
 

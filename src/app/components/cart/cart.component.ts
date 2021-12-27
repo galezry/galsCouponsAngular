@@ -111,13 +111,11 @@ export class CartComponent implements OnInit {
     }
     this.isPurchaseActionOver = false;
 
-    console.log(coupon.amount);
     this.customerRestService.purchaseCoupon(coupon).subscribe(response => {
-      console.log(response); // TODO delete this line
       if (coupon.amount < 2) {
         this.welcomeRestService.hasAlreadyRetrievedWelcomeCouponsFromServer = false;
       }
-      console.log(coupon.amount);
+
       const purchasedCoupon: Coupon = Object.assign({}, coupon);
       this.customerRestService.customerCoupons.push(purchasedCoupon);
       this.customerRestService.allCoupons = this.customerRestService.allCoupons
@@ -133,7 +131,7 @@ export class CartComponent implements OnInit {
       this.purchasedSuccesfully.push(coupon.id);
 
     }, err => {
-      console.log(err.error); // TODO delete this line
+      // console.log(err.error);
       this.showErrMsg(err);
       this.isPurchaseActionOver = true;
     });
@@ -162,11 +160,11 @@ export class CartComponent implements OnInit {
     }
     this.customerRestService.cart = this.customerRestService.cart
     .filter(c => !this.purchasedSuccesfully.includes(c.id));
-    console.log(this.customerRestService.cart);
+    // console.log(this.customerRestService.cart);
 
     this.customerRestService.couponIdCart = this.customerRestService.couponIdCart
     .filter(couponId => !this.purchasedSuccesfully.includes(couponId));
-    console.log(this.customerRestService.couponIdCart);
+    // console.log(this.customerRestService.couponIdCart);
 
 
 

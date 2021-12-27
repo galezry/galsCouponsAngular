@@ -33,7 +33,6 @@ export class SingleCouponComponent implements OnInit {
 
   ngOnInit(): void {
     if(!this.isSingleCouponChosen()) {
-      console.log('heyy');
       this.closePage();
       return;
 
@@ -149,7 +148,7 @@ export class SingleCouponComponent implements OnInit {
   public addToCart(): void {
     const couponToInsert: Coupon = Object.assign({}, this.coupon)
     this.customerRestService.cart.push(couponToInsert);
-    console.log(this.customerRestService.cart);
+    // console.log(this.customerRestService.cart);
     this.isAddedToCartMsgShown = true;
   }
 

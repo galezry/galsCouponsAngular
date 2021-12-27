@@ -182,7 +182,7 @@ export class CustomerFormComponent implements OnInit {
 
     if (this.isCustomerSignUp()) {
       this.welcomeRestService.customerSignUp(customerToSend).subscribe(response => {
-        console.log(response);
+        // console.log(response);
         this.isErrMsgShown = false;
         this.msg =`Congretulations ${this.customer.firstName}, You have successfully signed up!`;
         this.msgClass = 'alert alert-success';
@@ -190,7 +190,7 @@ export class CustomerFormComponent implements OnInit {
         this.hasSignedUpSuccessfully = true;
         this.authService.isCustomerSignUp = false;
       }, err => {
-        console.log(err.error); // TODO delete this line
+        // console.log(err.error); // TODO delete this line
         this.showErrMsg(err);
         if (err.error.value.toLowerCase().includes('is taken')) {
           this.existedEmail = this.customer.email;
@@ -198,7 +198,7 @@ export class CustomerFormComponent implements OnInit {
       });
     } else {
       this.adminRestService.addCustomer(customerToSend).subscribe(response => {
-        console.log(response);
+        // console.log(response);
         this.isErrMsgShown = false;
         const addedCustomer: Customer = Object.assign({}, this.customer);
         this.adminRestService.customers.push(addedCustomer);
@@ -209,7 +209,7 @@ export class CustomerFormComponent implements OnInit {
         this.updateFormState(FormState.ADD_MSG);
 
       }, err => {
-        console.log(err.error); // TODO delete this line
+        // console.log(err.error); // TODO delete this line
         this.showErrMsg(err);
         // if (!this.authService.isLoggedIn) {
         //   this.authService.hasAlreadyRetrievedCustomersFromServer = false;
@@ -245,7 +245,7 @@ export class CustomerFormComponent implements OnInit {
       }
       this.existedEmail = 'x';
       this.adminRestService.updateCustomer(this.customer).subscribe(response => {
-        console.log(response);
+        // console.log(response);
         this.adminRestService.customers = this.adminRestService.customers.
           filter(c => c.id !== this.customer.id);
         const updatedCustomer: Customer = Object.assign({}, this.customer);
@@ -255,25 +255,25 @@ export class CustomerFormComponent implements OnInit {
         + ` Has Been Updated Successfully!`;
         this.msgClass = 'alert alert-success';
         this.updateFormState(FormState.UPDATE_MSG);
-        console.log(this.formAction); // TODO can delete this line
+        // console.log(this.formAction); // TODO can delete this line
 
       }, err => {
-        console.log(err.error); // TODO delete this line
+        // console.log(err.error); // TODO delete this line
         this.showErrMsg(err);
       });
     } else {
       this.customerRestService.updateCustomer(this.customer).subscribe(response => {
-        console.log(response);
+        // console.log(response);
         this.existedEmail = 'x';
         this.isErrMsgShown = false;
         this.formService.currentLoggedInCustomer = Object.assign({}, this.customer);
         this.msg = `Your Profile has been updated successfully!`;
         this.msgClass = 'alert alert-success';
         this.updateFormState(FormState.UPDATE_MSG);
-        console.log(this.formAction); // TODO can delete this line
+        // console.log(this.formAction); // TODO can delete this line
 
       }, err => {
-        console.log(err.error); // TODO delete this line
+        // console.log(err.error); // TODO delete this line
         this.showErrMsg(err);
         if (err.error.value.toLowerCase().includes('is taken')) {
           this.existedEmail = this.customer.email;
@@ -360,14 +360,14 @@ export class CustomerFormComponent implements OnInit {
     }
     // console.log(loginDetails);
     this.welcomeRestService.login(loginDetails).subscribe(response => {
-      console.log(response); // TODO delete this line
+      // console.log(response); // TODO delete this line
       this.authService.setToken(response.token);
       this.authService.setUserType(UserType.CUSTOMER);
       this.customerRestService.getCurrentCustomerDetails();
       this.authService.isLoggedIn = true;
       this.router.navigateByUrl('customer');
     }, err => {
-      console.log(err.error); // TODO delete this line
+      // console.log(err.error); // TODO delete this line
       this.showErrMsg(err);
     });
   }
@@ -382,10 +382,6 @@ export class CustomerFormComponent implements OnInit {
     //  this.formService.customerForm = FormState.NONE;
     //  this.authService.isCustomerSignUp = false;
   }
-
-
-
-
 
   public isDevMode(): boolean {
     return this.devService.isDevMode;

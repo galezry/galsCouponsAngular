@@ -153,7 +153,7 @@ export class CustomerCouponsComponent implements OnInit {
   public getCustomerImages(): void {
     if (!this.authService.hasAlreadyRetrievedCustomerImagesFromServer) {
       this.customerRestService.getCustomerImages().subscribe(response => {
-        console.log(response); // TODO delete this line
+        // console.log(response); // TODO delete this line
         this.authService.hasAlreadyRetrievedCustomerImagesFromServer = true;
         this.isErrMsgShown = false;
         this.customerRestService.customerImages = [...response];
@@ -164,7 +164,7 @@ export class CustomerCouponsComponent implements OnInit {
         // console.log(this.imagesToDisplay);
 
       }, err => {
-        console.log(err.error); // TODO delete this line
+        // console.log(err.error); // TODO delete this line
         // this.authService.signOut();
         this.showErrMsg(err);
       });
@@ -176,7 +176,7 @@ export class CustomerCouponsComponent implements OnInit {
   public getCustomerCoupons(): void {
     if (!this.authService.hasAlreadyRetrievedCustomerCouponsFromServer) {
       this.customerRestService.getCustomerCoupons().subscribe(response => {
-        console.log(response); // TODO delete this line
+        // console.log(response); // TODO delete this line
         this.authService.hasAlreadyRetrievedCustomerCouponsFromServer = true;
         this.isErrMsgShown = false;
         this.customerRestService.customerCoupons = [...response];
@@ -187,7 +187,7 @@ export class CustomerCouponsComponent implements OnInit {
         this.customerRestService.fillComapniesNames(false);
         this.getAllCoupons();
       }, err => {
-        console.log(err.error); // TODO delete this line
+        // console.log(err.error); // TODO delete this line
         // this.customerRestService.emptyCart();
         this.authService.signOut();
         this.isErrMsgShown = true;
@@ -204,7 +204,7 @@ export class CustomerCouponsComponent implements OnInit {
       return;
     }
     this.customerRestService.getAllCoupons().subscribe(response => {
-      console.log(response); // TODO delete this line
+      // console.log(response); // TODO delete this line
       this.authService.hasAlreadyRetrievedAllCouponsFromServer = true;
       // this.isErrMsgShown = false;
       this.customerRestService.allCoupons = [...response];
@@ -217,7 +217,7 @@ export class CustomerCouponsComponent implements OnInit {
       this.customerRestService.retrieveCartFromLS();
 
     }, err => {
-      console.log(err.error); // TODO delete this line
+      // console.log(err.error); // TODO delete this line
       // this.customerRestService.emptyCart();
       this.authService.signOut();
       this.isErrMsgShown = true;
@@ -462,6 +462,11 @@ export class CustomerCouponsComponent implements OnInit {
     this.formService.hasSingleCouponImgClickedFromUpdate = false;
   //  this.formService.singleCouponCompanyName = this.getCompanyName(coupon.companyId);
 
+  }
+
+  public isEmptyViewShown(): boolean {
+    return this.authService.hasAlreadyRetrievedCustomerCouponsFromServer
+    && this.isCouponsArrEmpty();
   }
 
   public isDevMode(): boolean {

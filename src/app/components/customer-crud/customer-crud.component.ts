@@ -125,7 +125,7 @@ export class CustomerCrudComponent implements OnInit {
 
     if (!this.authService.hasAlreadyRetrievedCustomersFromServer) {
       this.adminRestService.getAllCustomers().subscribe(response => {
-        console.log(response); // TODO delete this line
+        // console.log(response); // TODO delete this line
         this.authService.hasAlreadyRetrievedCustomersFromServer = true;
         this.isErrMsgShown = false;
         this.adminRestService.customers = [...response];
@@ -149,7 +149,7 @@ export class CustomerCrudComponent implements OnInit {
         // this.adminRestService.isAlreadyRetrievedFromServer = true;
         // console.log(JSON.stringify(response));
       }, err => {
-        console.log(err.error); // TODO delete this line
+        // console.log(err.error); // TODO delete this line
         this.authService.signOut();
         this.isErrMsgShown = true;
         this.errMsg = this.authService.hasBeenSignedOutErrMsg;
@@ -282,14 +282,14 @@ export class CustomerCrudComponent implements OnInit {
       .filter(c => c.id !== customerToDelete.id);
       this.customersToShow = this.customersToShow.filter(c => c.id !== customerToDelete.id);
 
-      console.log(response);
-      console.log(this.customersToShow);
-      console.log(this.adminRestService.customers);
+      // console.log(response);
+      // console.log(this.customersToShow);
+      // console.log(this.adminRestService.customers);
 
       }, err => {
         this.showErrMsg(err);
 
-        console.log(err.error); // TODO delete this line
+        // console.log(err.error); // TODO delete this line
       });
 
 
@@ -481,7 +481,7 @@ export class CustomerCrudComponent implements OnInit {
       this.existedEmail = 'x';
       this.customerIdToUpdate = -1;
       this.isUpdateMode = false;
-      console.log(this.customersToShow); //TODO delete this line
+      // console.log(this.customersToShow); //TODO delete this line
       return true;
     }
     return false;
@@ -522,7 +522,7 @@ export class CustomerCrudComponent implements OnInit {
     customer.lastName = this.updatedLastName;
 
     this.adminRestService.updateCustomer(customer).subscribe(response => {
-      console.log(response);
+      // console.log(response);
       this.customerMsg.firstName = `Customer ${customer.firstName} ${customer.lastName} ` +
       `Has Been Updated Successfully!`;
       this.customerMsgClass = 'table-success';
@@ -531,7 +531,7 @@ export class CustomerCrudComponent implements OnInit {
       this.adminRestService.customers.push(customer);
 
       }, err => {
-        console.log(err.error); // TODO delete this line
+        // console.log(err.error); // TODO delete this line
         this.isUpdateMode = false;
         this.showErrMsg(err);
       });
@@ -603,7 +603,7 @@ export class CustomerCrudComponent implements OnInit {
       password: this.updatedPassword
     };
     this.adminRestService.addCustomer(customerToSend).subscribe(response => {
-      console.log(response);
+      // console.log(response);
       this.authService.hasAlreadyRetrievedCustomersFromServer = false;
       this.formService.isSuccessMsgShown = true;
       this.formService.emailOfAddedElement = this.updatedEmail;
@@ -611,7 +611,7 @@ export class CustomerCrudComponent implements OnInit {
       this.getAllCustomers();
 
     }, err => {
-      console.log(err.error); // TODO delete this line
+      // console.log(err.error); // TODO delete this line
       this.isUpdateMode = false;
       this.showErrMsg(err);
     });
@@ -677,6 +677,11 @@ export class CustomerCrudComponent implements OnInit {
 
   public isLoggedIn(): boolean {
     return this.authService.isLoggedIn;
+  }
+
+  public isEmptyViewShown(): boolean {
+    return this.authService.hasAlreadyRetrievedCustomersFromServer
+    && this.isCustomersArrEmpty();
   }
 
   public isDevMode(): boolean {
