@@ -28,9 +28,9 @@ export class CompanyRestService {
 
   constructor(private httpClient: HttpClient, private authService: AuthService,
     private formService: FormService) {
-    console.log('hi. this in the companyRestService CTOR');
+    // console.log('This is in the companyRestService CTOR');
     if (this.authService.isLoggedIn && this.authService.getUserType() === UserType.COMPANY) {
-      console.log('its a company');
+      // console.log('its a company');
       this.getCurrentCompanyDetails();
     }
 
@@ -96,9 +96,9 @@ export class CompanyRestService {
       this.formService.currentLoggedInCompany = Object.assign({}, response);
       this.authService.setUserType(UserType.COMPANY);
     //  this.authService.setCompanyName();
-      console.log(response); // TODO delete this line
+      // console.log(response); // TODO delete this line
     }, err => {
-      console.log(err.error); // TODO delete this line
+      // console.log(err.error); // TODO delete this line
       this.authService.signOut();
 
     });

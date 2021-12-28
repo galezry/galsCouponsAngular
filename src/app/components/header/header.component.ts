@@ -50,27 +50,52 @@ export class HeaderComponent implements OnInit {
     return this.formService.screenWidth < 600;
   }
 
+  public isSmLaptop(): boolean {
+    return this.formService.screenWidth < 1100;
+  }
+
+  public isTablet(): boolean {
+    return this.formService.screenWidth < 800;
+  }
+
   public isMobile(): boolean {
     return this.formService.getScreenType() === 'mobile';
   }
+
+
 
   public getName(): string {
     switch (this.getUserType()) {
       case  UserType.ADMINISTRATOR:
         return "Admin";
       case UserType.COMPANY:
-        if (this.isMobile() && this.formService.currentLoggedInCompany.name.length > 10) {
+        if ((this.isMobile() && this.isLongName()) || this.isExtLongName()) {
           return '';
         }
         return this.formService.currentLoggedInCompany.name;
       case UserType.CUSTOMER:
-        if (this.isMobile() && this.formService.currentLoggedInCustomer.firstName.length > 10) {
+        if ((this.isMobile() && this.isLongName()) || this.isExtLongName()) {
           return '';
         }
         return this.formService.currentLoggedInCustomer.firstName;
       default:
         return "";
     }
+  }
+
+  public isLongName(): boolean {
+    return this.formService.currentLoggedInCompany.name.length > 16
+    || this.formService.currentLoggedInCustomer.firstName.length > 8;
+  }
+
+  public isVeryLongName(): boolean {
+    return this.formService.currentLoggedInCompany.name.length > 18
+    || this.formService.currentLoggedInCustomer.firstName.length > 12;
+  }
+
+  public isExtLongName(): boolean {
+    return this.formService.currentLoggedInCompany.name.length > 25
+    || this.formService.currentLoggedInCustomer.firstName.length > 16;
   }
 
   public getIcon(): string {

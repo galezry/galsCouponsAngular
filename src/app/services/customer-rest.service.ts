@@ -48,7 +48,7 @@ export class CustomerRestService {
       if (this.authService.isLoggedIn && this.authService.isUserTypeCustomer()) {
         this.getCurrentCustomerDetails();
        // this.getOtherImages();
-        console.log('this is customerRestService CTOR');
+        // console.log('this is customerRestService CTOR');
         // this.retrieveCart();
       }
     }
@@ -65,32 +65,32 @@ export class CustomerRestService {
     let elementInLocalStorage: any = localStorage.getItem(this.getCustomerEmail());
     if (elementInLocalStorage === null) {
       // creat new cart
-      console.log('there is no cart');
+      // console.log('there is no cart');
       this.emptyCart();
       return;
     }
     console.log('not null');
     if (elementInLocalStorage === '') {
       // remove and creat or just creat
-      console.log('empty');
+      // console.log('empty');
       this.emptyCart();
       return;
     }
     try {
       existedCart = JSON.parse(localStorage[this.getCustomerEmail()]);
-      console.log(existedCart);
+      // console.log(existedCart);
     } catch (error) {
-      console.log('error');
+      // console.log('error');
       // remove and creat or just creat
       this.emptyCart();
       return;
     }
     if (!Array.isArray(existedCart)) {
-      console.log('not an array');
+      // console.log('not an array');
       this.emptyCart();
       return;
     }
-    console.log('yes, an array');
+    // console.log('yes, an array');
 
     let existedIntCart: number[] = [];
     // doesCartExist = true;
@@ -107,11 +107,11 @@ export class CustomerRestService {
      }
 
     // console.log('doesCartExist: ', doesCartExist);
-    console.log(existedIntCart);
+    // console.log(existedIntCart);
     this.emptyCart();
 
     this.couponIdCart = [...existedIntCart];
-    console.log(this.couponIdCart);
+    // console.log(this.couponIdCart);
     let notExistedCouponIds: number[] = [];
     for (let couponId of this.couponIdCart) {
       let couponToAdd: Coupon[] = this.allCoupons.filter(c => c.id === couponId);
@@ -122,14 +122,14 @@ export class CustomerRestService {
       }
     }
     if (notExistedCouponIds.length > 0) {
-      console.log('there are not existed coupons id in the LS');
+      // console.log('there are not existed coupons id in the LS');
       for(let couponId of notExistedCouponIds) {
         this.couponIdCart = this.couponIdCart.filter(id => id !== couponId)
       }
-      console.log(notExistedCouponIds);
+      // console.log(notExistedCouponIds);
       notExistedCouponIds.splice(0);
-      console.log(this.couponIdCart);
-      console.log(notExistedCouponIds);
+      // console.log(this.couponIdCart);
+      // console.log(notExistedCouponIds);
       this.updateCartInLS();
     }
 
@@ -147,9 +147,9 @@ export class CustomerRestService {
    public addToCart(coupon: Coupon): void {
     const couponToInsert: Coupon = Object.assign({}, coupon);
     this.cart.push(couponToInsert);
-    console.log(this.cart);
+    // console.log(this.cart);
     this.couponIdCart.push(coupon.id);
-    console.log(this.couponIdCart);
+    // console.log(this.couponIdCart);
     this.updateCartInLS();
   }
 
@@ -162,12 +162,12 @@ export class CustomerRestService {
     if (idx > -1) {
       this.cart.splice(idx, 1);
     }
-    console.log(this.cart);
+    // console.log(this.cart);
     const idxInIdCart: number = this.couponIdCart.indexOf(couponId);
     if (idxInIdCart > -1) {
       this.couponIdCart.splice(idxInIdCart, 1);
     }
-    console.log(this.couponIdCart);
+    // console.log(this.couponIdCart);
     this.updateCartInLS();
   }
 
@@ -243,20 +243,20 @@ export class CustomerRestService {
     this.getCustomerDetails().subscribe(response => {
       this.formService.currentLoggedInCustomer = Object.assign({}, response);
       this.authService.setUserType(UserType.CUSTOMER);
-      console.log(response); // TODO delete this line
+      // console.log(response); // TODO delete this line
     }, err => {
-      console.log(err.error); // TODO delete this line
+      // console.log(err.error); // TODO delete this line
       this.authService.signOut();
     });
   }
 
   public addCompanyNameToNamesObj(companyId: number): void {
     this.getOneCompany(companyId).subscribe(response => {
-      console.log(response); // TODO delete this line
+      // console.log(response); // TODO delete this line
       // const company: Company = Object.assign({}, response);
       this.companiesNames[response.id] = response.name;
     }, err => {
-      console.log(err.error); // TODO delete this line
+      // console.log(err.error); // TODO delete this line
     });
   }
 
@@ -274,7 +274,7 @@ export class CustomerRestService {
   public getOtherImages(): void {
     if (!this.authService.hasAlreadyRetrievedAllImagesFromServer) {
       this.getAllOtherImages().subscribe(response => {
-        console.log(response); // TODO delete this line
+        // console.log(response); // TODO delete this line
         this.authService.hasAlreadyRetrievedAllImagesFromServer = true;
         this.allOtherImages = [...response];
         for (let i of this.allOtherImages) {
@@ -284,7 +284,7 @@ export class CustomerRestService {
         // console.log(this.imagesToDisplay);
 
       }, err => {
-        console.log(err.error); // TODO delete this line
+        // console.log(err.error); // TODO delete this line
         // this.authService.signOut();
 
       });

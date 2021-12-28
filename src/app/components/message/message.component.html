@@ -1,6 +1,8 @@
 
 <div *ngIf='isSignedOutMsgShown()' class="alert alert-warning" role="alert">
-  <span class='msg'>{{successfullySignedOutMessage}}</span>
+  <span class='msg'>
+    <i class="fas fa-check-circle"></i> &nbsp; {{successfullySignedOutMessage}}
+  </span>
 <span class="close-msg" (click)="hideSignOutMsg()"> &otimes;</span>
 </div>
 

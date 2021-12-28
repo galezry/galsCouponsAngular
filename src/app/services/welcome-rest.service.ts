@@ -81,30 +81,30 @@ export class WelcomeRestService {
         return;
     }
     this.checkIfLoggedIn(type).subscribe(response => {
-      console.log(response);
+      // console.log(response);
     }, err => {
-      console.log(err.error); // TODO delete this line
+      // console.log(err.error); // TODO delete this line
       this.authService.signOut();
     });
   }
 
   public userSignOut(): void {
     this.logout().subscribe(response => {
-      console.log(response);
+      // console.log(response);
       this.isSignedOutMsgShown = true;
       this.currentTime = new Date().getTime();
 
     }, err => {
-      console.log(err.error);
+      // console.log(err.error);
     });
   }
 
   public addCompanyNameToArr(companyId: number): void {
     this.getOneCompany(companyId).subscribe(response => {
-      console.log(response); // TODO delete this line
+      // console.log(response); // TODO delete this line
       this.companyNames[response.id] = response.name;
     }, err => {
-      console.log(err.error); // TODO delete this line
+      // console.log(err.error); // TODO delete this line
     });
   }
 
