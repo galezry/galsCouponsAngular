@@ -18,7 +18,7 @@
 
 .second-headline {
   color: green;
-  font-family: 'Brush Script MT', 'Brush Script Std', 'Lobster Two', cursive;
+  font-family: 'Brush Script MT', 'Brush Script Std', 'Lobster Two', 'Open Sans', cursive;
   font-size: 2em;
   text-align: center;
   margin-top: 2%;
@@ -53,7 +53,7 @@
 
 .top-coupons-headline {
   color: green;
-  font-family: 'Snell Roundhand', 'Dancing Script', 'Oooh Baby', cursive;
+  font-family: 'Snell Roundhand', 'Dancing Script', 'Oooh Baby', 'Fira Sans', cursive;
   font-size: 1.7em;
   margin: 5% 0 0 10%;
 }
