@@ -323,7 +323,7 @@ export class HeaderComponent implements OnInit {
       case UserType.COMPANY:
         return 'Profile';
       case UserType.CUSTOMER:
-        return 'Buy Coupon';
+        return 'Buy Coupons';
 
       default:
         return '';

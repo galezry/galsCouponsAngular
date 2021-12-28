@@ -65,7 +65,7 @@
       </div>
       <button routerLink='login' routerLinkActive='active-link'
         *ngIf="!isLoginViewed()" class="btn btn-primary">
-         Sign in <i class="fas fa-sign-in-alt"></i></button>
+         Sign in &nbsp;&nbsp;<i class="fas fa-sign-in-alt"></i></button>
     </div>
   </div>
 
@@ -80,12 +80,14 @@
       <a *ngIf="getUserType() === 3"
       class="dropdown-item text-success" (click)="thirdOption()">{{ getThirdOption() }}</a>
       <div class="dropdown-divider"></div>
+      <a class="dropdown-item text-secondary" routerLink="home">
+        <i class="fas fa-home"></i> Home</a>
       <a class="dropdown-item text-secondary" routerLink="about">
         <i class="fas fa-address-card"></i> About</a>
       <a class="dropdown-item text-secondary" routerLink="contact">
         <i class="fas fa-envelope-square"></i> Contact</a>
       <div class="dropdown-divider"></div>
-      <a class="dropdown-item alert-danger text-danger" (click)=logout()>
+      <a class="dropdown-item text-danger" (click)=logout()>
         <i class="fas fa-sign-out-alt"></i> Sign out</a>
     </div>
   </div>
