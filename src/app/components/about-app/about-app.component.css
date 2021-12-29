@@ -33,6 +33,7 @@
   color: green;
   font-weight: 500;
   padding-top: 4%;
+  margin-bottom: 2%;
 }
 
 .ul-headline {
@@ -77,6 +78,10 @@ ul, li {
 
   .column-container {
     font-size: 1.1em;
+  }
+
+  .p-headline {
+    margin-bottom: 1%;
   }
 
 }
