@@ -184,7 +184,7 @@ export class CustomerFormComponent implements OnInit {
       this.welcomeRestService.customerSignUp(customerToSend).subscribe(response => {
         // console.log(response);
         this.isErrMsgShown = false;
-        this.msg =`Congretulations ${this.customer.firstName}, You have successfully signed up!`;
+        this.msg =`Congratulations ${this.customer.firstName}, You have successfully signed up!`;
         this.msgClass = 'alert alert-success';
         this.updateFormState(FormState.ADD_MSG);
         this.hasSignedUpSuccessfully = true;

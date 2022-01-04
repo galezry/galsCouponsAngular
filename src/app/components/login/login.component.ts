@@ -22,7 +22,6 @@ export class LoginComponent implements OnInit {
   public isErrMsgShown: boolean = false;
   public errMsg: string = '';
 
-
   public loginDetails = new Login();
 
   //public emailPattern = '/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g';
@@ -40,6 +39,8 @@ export class LoginComponent implements OnInit {
   // public passwordPattern = '^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d!@#$%^&*]{6,}$';
   // public explainPassword = "Password Must Be At Least 6 Characters Long With At Least One" +
   //  " Letter and one number";
+
+  public isSigningIn: boolean = false;
 
 
   constructor(private title: Title, private devService: DevService, private router: Router,
@@ -80,15 +81,18 @@ export class LoginComponent implements OnInit {
        'Please re-enter your sign in information or create an account';
        return;
     }
+    this.isSigningIn = true;
     this.welcomeRestService.login(this.loginDetails).subscribe(response => {
       this.saveToken(response);
       this.authService.isWelcomeMsgShown = true;
       this.authService.currentTime = new Date().getTime();
       this.navigateToView();
       this.authService.isLoggedIn = true;
+      this.isSigningIn = false;
     }, err => {
       // console.log(err.error);
       this.showErrMsg(err);
+      this.isSigningIn = false;
       // alert(err.error.value);
       // alert(err.message);
     });

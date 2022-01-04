@@ -221,7 +221,7 @@ export class CompanyFormComponent implements OnInit {
       this.welcomeRestService.companySignUp(companyToSend).subscribe(response => {
         // console.log(response);
         this.isErrMsgShown = false;
-        this.msg =`Congretulations, Company ${this.company.name} has successfully signed up!`;
+        this.msg =`Congratulations, Company ${this.company.name} has successfully signed up!`;
         this.msgClass = 'alert alert-success';
         this.updateFormState(FormState.ADD_MSG);
         this.hasSignedUpSuccessfully = true;

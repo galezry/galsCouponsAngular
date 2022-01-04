@@ -10,6 +10,7 @@
 <div *ngIf="!isLoggedIn()">
 
 <h1 class="alert alert-primary" role="alert">Sign In</h1>
+<h3 *ngIf="isSigningIn" class="alert alert-success signing-in" role="alert">Signing In - Please Wait...</h3>
 
 <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> -->
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
@@ -69,7 +70,7 @@
 
   <div class="btn-group">
     <button type="button" class="btn btn-light dropdown-toggle sign-up" data-toggle="dropdown"
-    aria-haspopup="true" aria-expanded="false">not a member? sign up for free
+    aria-haspopup="true" aria-expanded="false">not a member? sign up in seconds
     </button>
     <div class="dropdown-menu">
       <a class="dropdown-item text-success" routerLink='../customer-sign-up'
