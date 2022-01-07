@@ -15,6 +15,9 @@ export class AdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.title.setTitle("Admin");
+    if (this.getSelection() !== 'company' && this.getSelection() !== 'customer') {
+      this.authService.setAdminSelection('company');
+    }
   }
 
   public getSelection(): string {
