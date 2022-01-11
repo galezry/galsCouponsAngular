@@ -68,7 +68,7 @@
 
   <br>
 
-  <div class="btn-group">
+  <div class="btn-group" [ngClass]="{'dropup': isMobile()}">
     <button type="button" class="btn btn-light dropdown-toggle sign-up" data-toggle="dropdown"
     aria-haspopup="true" aria-expanded="false">not a member? sign up in seconds
     </button>
@@ -89,11 +89,15 @@
 
 </div>
 
-<h3>Development mode</h3>
-<button (click)=asAdmin()>As Admin</button>
-<button (click)=asCompany()>As Company</button>
-<button (click)=asCustomer()>As Customer</button>
+<h4 class='easy'>Easy Access - Temporary</h4>
+<button class="btn btn-info" (click)=asAdmin()>As Admin</button> &nbsp;
+<button class="btn btn-info" (click)=asCompany()>As Company</button> &nbsp;
+<button class="btn btn-info" (click)=asCustomer()>As Customer</button>
+
+
 <br><br>
+
+
 <div *ngIf=isDevMode() id="dev">
   <hr>
 <h3>Development mode</h3>

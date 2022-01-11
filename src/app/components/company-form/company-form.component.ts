@@ -424,6 +424,10 @@ export class CompanyFormComponent implements OnInit {
     // this.authService.isCompanySignUp = false;
   }
 
+  public isMobile(): boolean {
+    return this.formService.getScreenType() === 'mobile';
+  }
+
   public isDevMode(): boolean {
     return this.devService.isDevMode;
   }

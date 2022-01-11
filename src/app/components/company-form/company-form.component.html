@@ -183,7 +183,7 @@
       <div class='goto-sign-in'
     routerLink='../login' routerLinkActive='active-link'>Already a member? &nbsp;Sign in</div>
 
-    <div class="btn-group">
+    <div class="btn-group" [ngClass]="{'dropup': isMobile()}">
       <button type="button" class="btn btn-light dropdown-toggle customer-sign-up"
       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">👤 Customer?
       </button>

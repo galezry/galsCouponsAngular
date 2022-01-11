@@ -175,6 +175,9 @@ export class LoginComponent implements OnInit {
     this.authService.isCompanySignUp = true;
   }
 
+  public isMobile(): boolean {
+    return this.formService.getScreenType() === 'mobile';
+  }
 
 
 // for dev mode:
@@ -189,10 +192,6 @@ export class LoginComponent implements OnInit {
   public asCustomer(): void {
     this.loginDetails = new Login('dave@gmail.com', '1234ab@', UserType[UserType.CUSTOMER] as unknown as UserType);
   }
-
-
-
-
 
 
 
